@@ -7,18 +7,18 @@ import android.widget.TextView;
 
 public class RecommendationPage extends AppCompatActivity {
 
-    private boolean fatBurn;
-    private boolean muscleBuild;
-    private int intensityLvl;
-
-    private TextView mIntensityLvl = findViewById(R.id.intensityLvlValue);
-    private TextView mFatBurn = findViewById(R.id.fatBurnValue);
-    private TextView mMuscleBuild = findViewById(R.id.muscleBuildValue);
+    private TextView mIntensityLvl, mFatBurn, mMuscleBuild;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recommendation_page);
+
+        mIntensityLvl = findViewById(R.id.intensityLvlValue);
+        mFatBurn = findViewById(R.id.fatBurnValue);
+        mMuscleBuild = findViewById(R.id.muscleBuildValue);
+
+        joggingActivity();
     }
 
     private String IntensityLevelsIntToString(int intensityLvl){
@@ -26,10 +26,10 @@ public class RecommendationPage extends AppCompatActivity {
 
         switch (intensityLvl){
             case (1):
-                stringIntensity = "easy";
+                stringIntensity = "Easy";
                 break;
             case (2):
-                stringIntensity = "moderate";
+                stringIntensity = "Moderate";
                 break;
             case (3):
                 stringIntensity = "Extreme";
@@ -65,13 +65,15 @@ public class RecommendationPage extends AppCompatActivity {
         return stringMuscleBuild;
     }
 
-    private void joggingActivity(){
-        fatBurn = true;
-        muscleBuild = false;
-        intensityLvl = 2;
+    public void joggingActivity(){
+        ActivitiesData data = new ActivitiesData();
 
-        mIntensityLvl.setText(IntensityLevelsIntToString(intensityLvl));
-        mFatBurn.setText(FatBurnBoolToString(fatBurn));
-        mMuscleBuild.setText(MuscleBuildBoolToString(muscleBuild));
+        data.setFatBurn(true);
+        data.setMuscleBuild(true);
+        data.setIntensityLvl(1);
+
+        mIntensityLvl.setText(IntensityLevelsIntToString(data.getIntensityLvl()));
+        mFatBurn.setText(FatBurnBoolToString(data.getFatBurn()));
+        mMuscleBuild.setText(MuscleBuildBoolToString(data.getMuscleBuild()));
     }
 }
