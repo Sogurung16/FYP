@@ -65,6 +65,9 @@ public class RecommendationPage extends AppCompatActivity {
         return stringMuscleBuild;
     }
 
+
+    //TODO: 1) refactor jogging activity. Will have activities database in the future. Assign data values depending on the database.
+    //set and get the attributes of the activity
     public void joggingActivity(){
         ActivitiesData data = new ActivitiesData();
 
