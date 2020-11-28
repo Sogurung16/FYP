@@ -2,18 +2,20 @@ package com.example.fyp_01;
 
 import android.widget.TextView;
 
-public class ActivitiesData extends RecommendationPage{
+public class ActivitiesData extends Activity{
 
     private boolean fatBurn;
     private boolean muscleBuild;
     private int intensityLvl;
+    private String activityName;
+
+    public String getActivityName() { return activityName; }
+    public void setActivityName(String activityName) { this.activityName = activityName; }
 
     public Boolean getFatBurn(){
         return fatBurn;
     }
-    public void setFatBurn(boolean fatBurn){
-        this.fatBurn = fatBurn;
-    }
+    public void setFatBurn(boolean fatBurn){ this.fatBurn = fatBurn; }
 
     public int getIntensityLvl() {
         return intensityLvl;

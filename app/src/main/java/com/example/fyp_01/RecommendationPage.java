@@ -7,7 +7,7 @@ import android.widget.TextView;
 
 public class RecommendationPage extends AppCompatActivity {
 
-    private TextView mIntensityLvl, mFatBurn, mMuscleBuild;
+    private TextView mIntensityLvl, mFatBurn, mMuscleBuild, mActivityName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -17,8 +17,18 @@ public class RecommendationPage extends AppCompatActivity {
         mIntensityLvl = findViewById(R.id.intensityLvlValue);
         mFatBurn = findViewById(R.id.fatBurnValue);
         mMuscleBuild = findViewById(R.id.muscleBuildValue);
+        mActivityName = findViewById(R.id.activity_tiltle);
 
-        joggingActivity();
+        ActivitiesData data = new ActivitiesData();
+        data.setActivityName("Jogging");
+        data.setFatBurn(true);
+        data.setMuscleBuild(false);
+        data.setIntensityLvl(1);
+
+        mActivityName.setText(data.getActivityName());
+        mIntensityLvl.setText(IntensityLevelsIntToString(data.getIntensityLvl()));
+        mFatBurn.setText(FatBurnBoolToString(data.getFatBurn()));
+        mMuscleBuild.setText(MuscleBuildBoolToString(data.getMuscleBuild()));
     }
 
     private String IntensityLevelsIntToString(int intensityLvl){
@@ -67,16 +77,4 @@ public class RecommendationPage extends AppCompatActivity {
 
 
     //TODO: 1) refactor jogging activity. Will have activities database in the future. Assign data values depending on the database.
-    //set and get the attributes of the activity
-    public void joggingActivity(){
-        ActivitiesData data = new ActivitiesData();
-
-        data.setFatBurn(true);
-        data.setMuscleBuild(true);
-        data.setIntensityLvl(1);
-
-        mIntensityLvl.setText(IntensityLevelsIntToString(data.getIntensityLvl()));
-        mFatBurn.setText(FatBurnBoolToString(data.getFatBurn()));
-        mMuscleBuild.setText(MuscleBuildBoolToString(data.getMuscleBuild()));
-    }
 }

@@ -44,17 +44,17 @@
                 android:layout_margin="8dp">
 
                 <TextView
-                    android:id="@+id/jogging_title"
+                    android:id="@+id/activity_tiltle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Jogging"
+                    android:text=""
                     android:textSize="22sp"
                     android:textStyle="bold"
                     android:layout_marginBottom="10dp"/>
 
                 <TextView
                     android:id="@+id/intensityLvl"
-                    android:layout_below="@+id/jogging_title"
+                    android:layout_below="@+id/activity_tiltle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Intensity - "
@@ -65,7 +65,7 @@
                     android:id="@+id/intensityLvlValue"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@id/jogging_title"
+                    android:layout_below="@id/activity_tiltle"
                     android:text=""
                     android:layout_toRightOf="@+id/intensityLvl"
                     android:textSize="12sp"
