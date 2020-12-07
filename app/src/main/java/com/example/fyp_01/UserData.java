@@ -1,32 +1,32 @@
 package com.example.fyp_01;
 
-public class UserData {
+public class UserData{
 
-    private int goal;
+    private int userGoal;
     private int userWeight;
     private String userName;
 
-    public String getUserName() {
-        return userName;
-    }
-
-    public void setUserName(String userName) {
+    public void setUserNameData(String userName) {
         this.userName = userName;
     }
 
-    public void setUserWeight(int userWeight) {
+    public void setUserWeightData(int userWeight) {
         this.userWeight = userWeight;
     }
 
-    public void setGoal(int goal) {
-        this.goal = goal;
+    public void setUserGoalData(int userGoal) {
+        this.userGoal = userGoal;
     }
 
-    public int getUserWeight() {
+    public String getUserNameData() {
+        return userName;
+    }
+
+    public int getUserWeightData() {
         return userWeight;
     }
 
-    public int getGoal() {
-        return goal;
+    public int getUserGoalData() {
+        return userGoal;
     }
 }
