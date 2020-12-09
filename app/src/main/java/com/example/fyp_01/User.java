@@ -4,7 +4,6 @@ public class User{
 
     private UserData userData;
 
-    //Later on there will be an add user page. This class will add user to database
     public User (UserData userData){
         this.userData = userData;
     }

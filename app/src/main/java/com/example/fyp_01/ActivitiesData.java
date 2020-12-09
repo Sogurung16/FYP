@@ -1,8 +1,6 @@
 package com.example.fyp_01;
 
-import android.widget.TextView;
-
-public class ActivitiesData extends Activity{
+public class ActivitiesData extends Activities {
 
     private boolean fatBurn;
     private boolean muscleBuild;

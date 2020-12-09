@@ -19,10 +19,17 @@
         android:layout_alignParentTop="true"
         android:background="@color/colorPrimary" />
 
+    <Button
+        android:id="@+id/userPageNav"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/title_fitHabits"
+        android:text="User"></Button>
+
     <GridLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/title_fitHabits"
+        android:layout_below="@+id/userPageNav"
         android:rowCount="9"
         android:columnCount="1">
 

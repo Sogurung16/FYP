@@ -5,7 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.TextView;
 
-public class RecommendationPage extends AppCompatActivity {
+public class ActivitiesPage extends AppCompatActivity {
 
     private TextView mIntensityLvl, mFatBurn, mMuscleBuild, mActivityName;
 

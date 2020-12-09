@@ -1,6 +1,6 @@
 package com.example.fyp_01;
 
-public class Activity extends RecommendationPage{
+public class Activities extends ActivitiesPage {
     //Later on there will be an add activity page. This class will enable user to add activities
     /*public void activity(string activityname, boolean fatburn, boolean musclebuild, int internsitylvl){
         activitiesdata data = new activitiesdata();
