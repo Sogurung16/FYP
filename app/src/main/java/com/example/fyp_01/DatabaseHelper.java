@@ -7,7 +7,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 import androidx.annotation.Nullable;
 
-public class DatabaseHelper extends SQLiteOpenHelper {
+public class  DatabaseHelper extends SQLiteOpenHelper {
 
     public static final String DATABASE_NAME = "Database.db";
     public static final int VERSION_NAME = 3;
@@ -32,7 +32,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         onCreate(db);
     }
 
-    public boolean addUserData(User user){
+    public boolean addUserData(UserController user){
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues contentValues = new ContentValues();
@@ -48,6 +48,4 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             return true;
         }
     }
-
-
 }

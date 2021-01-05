@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".UserDataPage">
+    tools:context=".UserView">
 
     <TextView
         android:id="@+id/userName"
@@ -43,6 +43,38 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.069"></TextView>
 
+    <TextView
+        android:id="@+id/daysAvailable"
+        android:layout_below="@+id/userGoal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:text="Days Available: "
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.05"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.069"></TextView>
+
+    <TextView
+        android:id="@+id/intensity"
+        android:layout_below="@+id/daysAvailable"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:text="Intensity"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.05"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.069"></TextView>
+
     <EditText
         android:id="@+id/userNameInput"
         android:layout_toRightOf="@id/userName"
@@ -60,14 +92,14 @@
         android:ems="10"
         android:inputType="number" />
 
-    <EditText
+    <Spinner
         android:id="@+id/userGoalInput"
         android:layout_below="@id/userWeight"
         android:layout_toRightOf="@id/userGoal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:inputType="number" />
+        android:spinnerMode="dropdown"/>
 
     <Button
         android:id="@+id/addUser"
@@ -77,7 +109,7 @@
         android:layout_marginTop="30dp"
         android:layout_centerHorizontal="true"
         android:text="add user"
-        android:layout_below="@+id/userGoal"></Button>
+        android:layout_below="@+id/intensity"></Button>
 
 
 </RelativeLayout>

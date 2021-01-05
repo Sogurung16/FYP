@@ -1,10 +1,15 @@
 package com.example.fyp_01;
 
+import android.widget.AdapterView;
+
+import java.util.ArrayList;
+import java.util.List;
+
 public class UserData{
 
-    private int userGoal;
     private int userWeight;
-    private String userName;
+    private String userName, userGoal;
+    private List<String> userGoalSpinnerArray  = new ArrayList<String>();
 
     public void setUserNameData(String userName) {
         this.userName = userName;
@@ -14,8 +19,10 @@ public class UserData{
         this.userWeight = userWeight;
     }
 
-    public void setUserGoalData(int userGoal) {
-        this.userGoal = userGoal;
+    public void setUserGoalData(String userGoal) { this.userGoal = userGoal; }
+
+    public void setUserGoalSpinnerArrayData(List<String> userGoalSpinnerArray) {
+        this.userGoalSpinnerArray = userGoalSpinnerArray;
     }
 
     public String getUserNameData() {
@@ -26,7 +33,11 @@ public class UserData{
         return userWeight;
     }
 
-    public int getUserGoalData() {
+    public String getUserGoalData() {
         return userGoal;
+    }
+
+    public List<String> getUserGoalSpinnerArrayData() {
+        return userGoalSpinnerArray;
     }
 }

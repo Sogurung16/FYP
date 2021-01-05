@@ -28,5 +28,4 @@ public class ActivitiesData extends Activities {
     public void setMuscleBuild(boolean muscleBuild) {
         this.muscleBuild = muscleBuild;
     }
-
 }

@@ -1,10 +1,12 @@
 package com.example.fyp_01;
 
-public class User{
+import java.util.List;
+
+public class UserController {
 
     private UserData userData;
 
-    public User (UserData userData){
+    public UserController(UserData userData){
         this.userData = userData;
     }
 
@@ -16,8 +18,10 @@ public class User{
         userData.setUserWeightData(userWeight);
     }
 
-    public void setUserGoal(int userGoal) {
-        userData.setUserGoalData(userGoal);
+    public void setUserGoal(String userGoal) { userData.setUserGoalData(userGoal); }
+
+    public void setUserGoalSpinnerArray(List<String> userGoalSpinnerArray) {
+        userData.setUserGoalSpinnerArrayData(userGoalSpinnerArray);
     }
 
     public String getUserName() {
@@ -28,8 +32,12 @@ public class User{
         return userData.getUserWeightData();
     }
 
-    public int getUserGoal() {
+    public String getUserGoal() {
         return userData.getUserGoalData();
+    }
+
+    public List<String> getUserGoalSpinnerArray() {
+        return userData.getUserGoalSpinnerArrayData();
     }
 
    /* public void addUser(User user){

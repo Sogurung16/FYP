@@ -15,7 +15,7 @@ public class MainActivity extends AppCompatActivity {
         /*Intent activitiesPage = new Intent(this, ActivitiesPage.class);
         startActivity(activitiesPage);*/
 
-        Intent userDataPage = new Intent(this, UserDataPage.class);
+        Intent userDataPage = new Intent(this, UserView.class);
         startActivity(userDataPage);
     }
 }
