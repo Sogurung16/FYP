@@ -10,12 +10,14 @@ import androidx.annotation.Nullable;
 public class  DatabaseHelper extends SQLiteOpenHelper {
 
     public static final String DATABASE_NAME = "Database.db";
-    public static final int VERSION_NAME = 3;
+    public static final int VERSION_NAME = 4;
     public static final String TABLE_USER = "UserTable";
     public static final String COL_1 = "ID";
     public static final String COL_2 = "NAME";
     public static final String COL_3 = "WEIGHT";
     public static final String COL_4 = "GOAL";
+    public static final String COL_5 = "DAYS_AVAILABLE";
+    public static final String COL_6 = "INTENSITY";
 
     public DatabaseHelper(@Nullable Context context) {
         super(context, DATABASE_NAME, null, VERSION_NAME);
@@ -23,7 +25,7 @@ public class  DatabaseHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL("CREATE TABLE " + TABLE_USER + " (" + COL_1 + " INTEGER PRIMARY KEY AUTOINCREMENT, " + COL_2 + " TEXT, "  + COL_3 + " INTEGER, " + COL_4 + " INTEGER" +")");
+        db.execSQL("CREATE TABLE " + TABLE_USER + " (" + COL_1 + " INTEGER PRIMARY KEY AUTOINCREMENT, " + COL_2 + " TEXT, "  + COL_3 + " INTEGER, " + COL_4 + " TEXT, " + COL_5 + " INTEGER, " + COL_6 + " TEXT" +")");
     }
 
     @Override
@@ -39,6 +41,9 @@ public class  DatabaseHelper extends SQLiteOpenHelper {
         contentValues.put(COL_2, user.getUserName());
         contentValues.put(COL_3, user.getUserWeight());
         contentValues.put(COL_4, user.getUserGoal());
+        contentValues.put(COL_5, user.getDaysAvailable());
+        contentValues.put(COL_6, user.getIntensity());
+
 
         long result = db.insert(TABLE_USER, null, contentValues);
         if(result == -1){

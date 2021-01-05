@@ -65,7 +65,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
-        android:text="Intensity"
+        android:text="Intensity: "
         android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -96,6 +96,24 @@
         android:id="@+id/userGoalInput"
         android:layout_below="@id/userWeight"
         android:layout_toRightOf="@id/userGoal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:spinnerMode="dropdown"/>
+
+    <Spinner
+        android:id="@+id/daysAvailableInput"
+        android:layout_below="@id/userGoal"
+        android:layout_toRightOf="@id/daysAvailable"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:spinnerMode="dropdown"/>
+
+    <Spinner
+        android:id="@+id/intensityInput"
+        android:layout_below="@id/daysAvailable"
+        android:layout_toRightOf="@id/intensity"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:ems="10"
