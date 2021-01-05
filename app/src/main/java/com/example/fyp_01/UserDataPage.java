@@ -53,7 +53,7 @@ public class UserDataPage extends AppCompatActivity {
 
     private UserData retrieveUserData(){
         UserData userData = new UserData();
-        userData.setUserNameData(mUserNameInput.toString());
+        userData.setUserNameData(mUserNameInput.getText().toString());
         userData.setUserWeightData(Integer.parseInt(mUserWieghtInput.getText().toString()));
         userData.setUserGoalData(Integer.parseInt(mUserGoalInput.getText().toString())); //TODO: change from number to autocomplete text
 
