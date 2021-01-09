@@ -7,8 +7,9 @@ import java.util.List;
 
 public class UserData{
 
-    private int userWeight, daysAvailable;
-    private String userName, userGoal, intensity;
+    private int  daysAvailable;
+    private String userName, userGoal, intensity, workoutGroup;
+    private List<String> workoutGroupSpinnerArray  = new ArrayList<String>();
     private List<String> userGoalSpinnerArray  = new ArrayList<String>();
     private List<Integer> daysAvailableSpinnerArray = new ArrayList<Integer>();
     private List<String> intensitySpinnerArray = new ArrayList<String>();
@@ -16,12 +17,15 @@ public class UserData{
     public void setUserNameData(String userName) {
         this.userName = userName;
     }
-    public void setUserWeightData(int userWeight) {
-        this.userWeight = userWeight;
-    }
     public void setUserGoalData(String userGoal) { this.userGoal = userGoal; }
+    public void setWorkoutGroupData(String workoutGroup) {
+        this.workoutGroup = workoutGroup;
+    }
     public void setUserGoalSpinnerArrayData(List<String> userGoalSpinnerArray) {
         this.userGoalSpinnerArray = userGoalSpinnerArray;
+    }
+    public void setWorkoutGroupSpinnerArrayData(List<String> workoutGroupSpinnerArray) {
+        this.workoutGroupSpinnerArray = workoutGroupSpinnerArray;
     }
     public void setDaysAvailableData(int daysAvailable){ this.daysAvailable = daysAvailable;}
     public void setDaysAvailableSpinnerArrayData(List<Integer> daysAvailableSpinnerArray) {
@@ -37,14 +41,17 @@ public class UserData{
     public String getUserNameData() {
         return userName;
     }
-    public int getUserWeightData() {
-        return userWeight;
-    }
     public String getUserGoalData() {
         return userGoal;
     }
+    public String getWorkoutGroupData() {
+        return workoutGroup;
+    }
     public List<String> getUserGoalSpinnerArrayData() {
         return userGoalSpinnerArray;
+    }
+    public List<String> getWorkoutGroupSpinnerArrayData() {
+        return workoutGroupSpinnerArray;
     }
     public int getDaysAvailableData() {
         return daysAvailable;

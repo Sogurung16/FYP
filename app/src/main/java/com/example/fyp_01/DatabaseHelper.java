@@ -10,14 +10,23 @@ import androidx.annotation.Nullable;
 public class  DatabaseHelper extends SQLiteOpenHelper {
 
     public static final String DATABASE_NAME = "Database.db";
-    public static final int VERSION_NAME = 4;
-    public static final String TABLE_USER = "UserTable";
-    public static final String COL_1 = "ID";
-    public static final String COL_2 = "NAME";
-    public static final String COL_3 = "WEIGHT";
-    public static final String COL_4 = "GOAL";
-    public static final String COL_5 = "DAYS_AVAILABLE";
-    public static final String COL_6 = "INTENSITY";
+    public static final int VERSION_NAME = 6;
+    public static final String TABLE_USER = "users_table";
+    public static final String TABLE_ACTIVITIES = "activities_table";
+    public static final String KEY_USER_ID = "users_id";
+    public static final String KEY_USER_NAME = "users_name";
+    public static final String KEY_USER_WORKOUT_GROUP = "users_workout_group";
+    public static final String KEY_USER_GOAL = "users_goal";
+    public static final String KEY_USER_DAYS_AVAILABLE = "users_days_available";
+    public static final String KEY_USER_INTENSITY = "users_intensity";
+    public static final String KEY_ACTIVITIES_ID = "activities_id";
+    public static final String KEY_ACTIVITIES_NAME = "activities_name";
+    public static final String KEY_ACTIVITIES_FAT_BURN = "activities_fat_burn";
+    public static final String KEY_ACTIVITIES_MUSCLE_BUILD = "activities_muscle_build";
+    public static final String KEY_ACTIVITIES_INTENSITY_LEVEL = "activities_intensity";
+    public static final String KEY_ACTIVITIES_DAYS_PER_WEEK = "activities_days_per_week";
+    public static final String KEY_ACTIVITIES_WORKOUT_LEVEL = "activities_workout_level";
+    public static final String KEY_ACTIVITIES_EQUIPMENT_GROUP = "activities_equipment_group";
 
     public DatabaseHelper(@Nullable Context context) {
         super(context, DATABASE_NAME, null, VERSION_NAME);
@@ -25,7 +34,8 @@ public class  DatabaseHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL("CREATE TABLE " + TABLE_USER + " (" + COL_1 + " INTEGER PRIMARY KEY AUTOINCREMENT, " + COL_2 + " TEXT, "  + COL_3 + " INTEGER, " + COL_4 + " TEXT, " + COL_5 + " INTEGER, " + COL_6 + " TEXT" +")");
+        db.execSQL("CREATE TABLE " + TABLE_USER + " (" + KEY_USER_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " + KEY_USER_NAME + " TEXT, " +
+                KEY_USER_WORKOUT_GROUP + " TEXT, " + KEY_USER_GOAL + " TEXT, " + KEY_USER_DAYS_AVAILABLE + " INTEGER, " + KEY_USER_INTENSITY + " TEXT" +")");
     }
 
     @Override
@@ -38,11 +48,11 @@ public class  DatabaseHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues contentValues = new ContentValues();
-        contentValues.put(COL_2, user.getUserName());
-        contentValues.put(COL_3, user.getUserWeight());
-        contentValues.put(COL_4, user.getUserGoal());
-        contentValues.put(COL_5, user.getDaysAvailable());
-        contentValues.put(COL_6, user.getIntensity());
+        contentValues.put(KEY_USER_NAME, user.getUserName());
+        contentValues.put(KEY_USER_WORKOUT_GROUP, user.getWorkoutGroup());
+        contentValues.put(KEY_USER_GOAL, user.getUserGoal());
+        contentValues.put(KEY_USER_DAYS_AVAILABLE, user.getDaysAvailable());
+        contentValues.put(KEY_USER_INTENSITY, user.getIntensity());
 
 
         long result = db.insert(TABLE_USER, null, contentValues);

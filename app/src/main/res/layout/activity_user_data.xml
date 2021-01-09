@@ -16,20 +16,18 @@
         android:textStyle="bold"></TextView>
 
     <TextView
-        android:id="@+id/userWeight"
+        android:id="@+id/workoutGroup"
+        android:layout_below="@id/userName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/userName"
         android:layout_margin="10dp"
-        android:text="Weight: "
+        android:text="Workout Level: "
         android:textSize="20sp"
-        android:textStyle="bold"
-        tools:layout_editor_absoluteX="25dp"
-        tools:layout_editor_absoluteY="108dp"></TextView>
+        android:textStyle="bold"></TextView>
 
     <TextView
         android:id="@+id/userGoal"
-        android:layout_below="@+id/userWeight"
+        android:layout_below="@+id/workoutGroup"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
@@ -83,18 +81,18 @@
         android:ems="10"
         android:inputType="textPersonName" />
 
-    <EditText
-        android:id="@+id/userWeightInput"
+    <Spinner
+        android:id="@+id/workoutGroupInput"
         android:layout_below="@id/userName"
-        android:layout_toRightOf="@id/userWeight"
+        android:layout_toRightOf="@id/workoutGroup"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:inputType="number" />
+        android:spinnerMode="dropdown"/>
 
     <Spinner
         android:id="@+id/userGoalInput"
-        android:layout_below="@id/userWeight"
+        android:layout_below="@id/workoutGroup"
         android:layout_toRightOf="@id/userGoal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

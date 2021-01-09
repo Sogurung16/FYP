@@ -20,10 +20,10 @@ public class UserView extends AppCompatActivity {
     DatabaseHelper databaseHelper;
 
     private Button mAddUserButton;
-    private TextView mUserName, mUserWeight, mUserGoal, mDaysAvailable, mIntensity;
+    private TextView mUserName, mUserGoal, mDaysAvailable, mIntensity, mWorkoutGroup;
 
-    private EditText mUserNameInput, mUserWeightInput;
-    private Spinner mUserGoalInput, mDaysAvailableInput, mIntensityInput;
+    private EditText mUserNameInput;
+    private Spinner mUserGoalInput, mDaysAvailableInput, mIntensityInput, mWorkoutGroupInput;
 
     UserController user = new UserController(new UserData());
 
@@ -39,20 +39,21 @@ public class UserView extends AppCompatActivity {
     private void initialization(){
         mAddUserButton = findViewById(R.id.addUser);
         mUserName = findViewById(R.id.userName);
-        mUserWeight = findViewById(R.id.userWeight);
         mUserGoal = findViewById(R.id.userGoal);
         mDaysAvailable = findViewById(R.id.daysAvailable);
         mIntensity = findViewById(R.id.intensity);
+        mWorkoutGroup = findViewById(R.id.workoutGroup);
 
         mUserNameInput = findViewById(R.id.userNameInput);
-        mUserWeightInput = findViewById(R.id.userWeightInput);
         mUserGoalInput = findViewById(R.id.userGoalInput);
         mDaysAvailableInput = findViewById(R.id.daysAvailableInput);
         mIntensityInput = findViewById(R.id.intensityInput);
+        mWorkoutGroupInput = findViewById(R.id.workoutGroupInput);
 
         user.setUserGoalSpinnerArray(userGoalSpinnerOptions());
         user.setDaysAvailableSpinnerArray(DaysAvailableSpinnerOptions());
         user.setIntensitySpinnerArray(intensitySpinnerOptions());
+        user.setWorkoutGroupSpinnerArray(workoutGroupSpinnerOptions());
 
         ArrayAdapter<String> goalAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, user.getUserGoalSpinnerArray());
         mUserGoalInput.setAdapter(goalAdapter);
@@ -60,6 +61,8 @@ public class UserView extends AppCompatActivity {
         mDaysAvailableInput.setAdapter(daysAvailableAdapter);
         ArrayAdapter<String> intensityAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, user.getIntensitySpinnerArray());
         mIntensityInput.setAdapter(intensityAdapter);
+        ArrayAdapter<String> workoutGroupAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, user.getWorkoutGroupSpinnerArray());
+        mWorkoutGroupInput.setAdapter(workoutGroupAdapter);
     }
 
     private void listeners(){
@@ -69,9 +72,7 @@ public class UserView extends AppCompatActivity {
                 Object item = parent.getItemAtPosition(position);
                 if (item != null){
                     user.setUserGoal(item.toString());
-                    Toast.makeText(UserView.this, item.toString(), Toast.LENGTH_SHORT).show();
                 }
-                Toast.makeText(UserView.this, "Selected",Toast.LENGTH_SHORT).show();
             }
 
             @Override
@@ -86,9 +87,7 @@ public class UserView extends AppCompatActivity {
                 Object item = parent.getItemAtPosition(position);
                 if (item != null){
                     user.setDaysAvailable((int)item);
-                    Toast.makeText(UserView.this, item.toString(), Toast.LENGTH_SHORT).show();
                 }
-                Toast.makeText(UserView.this, "Selected",Toast.LENGTH_SHORT).show();
             }
 
             @Override
@@ -103,9 +102,22 @@ public class UserView extends AppCompatActivity {
                 Object item = parent.getItemAtPosition(position);
                 if (item != null){
                     user.setIntensity(item.toString());
-                    Toast.makeText(UserView.this, item.toString(), Toast.LENGTH_SHORT).show();
                 }
-                Toast.makeText(UserView.this, "Selected",Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                //TODO: Display Error Message.
+            }
+        });
+
+        mWorkoutGroupInput.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                Object item = parent.getItemAtPosition(position);
+                if (item != null){
+                    user.setWorkoutGroup(item.toString());
+                }
             }
 
             @Override
@@ -145,6 +157,15 @@ public class UserView extends AppCompatActivity {
         return spinnerArray;
     }
 
+    private List<String> workoutGroupSpinnerOptions(){
+        List<String> spinnerArray = new ArrayList<String>();
+        spinnerArray.add("Beginner");
+        spinnerArray.add("Intermediate");
+        spinnerArray.add("Advanced");
+
+        return spinnerArray;
+    }
+
     public void addUserButton(View view){
         retrieveUserData();
         addUser();
@@ -164,7 +185,6 @@ public class UserView extends AppCompatActivity {
 
     private UserController retrieveUserData(){
         user.setUserName(mUserNameInput.getText().toString());
-        user.setUserWeight(Integer.parseInt(mUserWeightInput.getText().toString()));
         user.setUserGoal(user.getUserGoal());
         user.setDaysAvailable(user.getDaysAvailable());
         user.setIntensity(user.getIntensity());

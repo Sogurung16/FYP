@@ -5,9 +5,46 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.TextView;
 
-public class ActivitiesPage extends AppCompatActivity {
+public class ActivitiesView extends AppCompatActivity {
 
-    private TextView mIntensityLvl, mFatBurn, mMuscleBuild, mActivityName;
+    DatabaseHelper databaseHelper;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    /*private TextView mIntensityLvl, mFatBurn, mMuscleBuild, mActivityName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,7 +110,7 @@ public class ActivitiesPage extends AppCompatActivity {
             stringMuscleBuild = "No";
         }
         return stringMuscleBuild;
-    }
+    }*/
 
 
     //TODO: 1) refactor jogging activity. Will have activities database in the future. Assign data values depending on the database.

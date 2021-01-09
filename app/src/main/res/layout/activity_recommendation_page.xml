@@ -17,7 +17,8 @@
         android:textSize="30sp"
         android:textAlignment="center"
         android:layout_alignParentTop="true"
-        android:background="@color/colorPrimary" />
+        android:background="@color/colorPrimary"
+        android:gravity="center_horizontal" />
 
     <Button
         android:id="@+id/userPageNav"
@@ -34,7 +35,7 @@
         android:columnCount="1">
 
         <androidx.cardview.widget.CardView
-            android:id="@+id/jogging"
+            android:id="@+id/activity"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_row="0"

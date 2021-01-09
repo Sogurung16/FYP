@@ -13,12 +13,13 @@ public class UserController {
     public void setUserName(String userName) {
         userData.setUserNameData(userName);
     }
-    public void setUserWeight(int userWeight) {
-        userData.setUserWeightData(userWeight);
-    }
     public void setUserGoal(String userGoal) { userData.setUserGoalData(userGoal); }
+    public void setWorkoutGroup(String workoutGroup) { userData.setWorkoutGroupData(workoutGroup); }
     public void setUserGoalSpinnerArray(List<String> userGoalSpinnerArray) {
         userData.setUserGoalSpinnerArrayData(userGoalSpinnerArray);
+    }
+    public void setWorkoutGroupSpinnerArray(List<String> workoutGroupSpinnerArray) {
+        userData.setWorkoutGroupSpinnerArrayData(workoutGroupSpinnerArray);
     }
     public void setDaysAvailable(int daysAvailable){ userData.setDaysAvailableData(daysAvailable);}
     public void setDaysAvailableSpinnerArray(List<Integer> daysAvailableSpinnerArray) {
@@ -34,14 +35,17 @@ public class UserController {
     public String getUserName() {
         return userData.getUserNameData();
     }
-    public int getUserWeight() {
-        return userData.getUserWeightData();
-    }
     public String getUserGoal() {
         return userData.getUserGoalData();
     }
+    public String getWorkoutGroup() {
+        return userData.getWorkoutGroupData();
+    }
     public List<String> getUserGoalSpinnerArray() {
         return userData.getUserGoalSpinnerArrayData();
+    }
+    public List<String> getWorkoutGroupSpinnerArray() {
+        return userData.getWorkoutGroupSpinnerArrayData();
     }
     public int getDaysAvailable() {
         return userData.getDaysAvailableData();
