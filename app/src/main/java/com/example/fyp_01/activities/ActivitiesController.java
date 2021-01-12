@@ -1,4 +1,4 @@
-package com.example.fyp_01;
+package com.example.fyp_01.activities;
 
 import java.util.List;
 
@@ -34,6 +34,12 @@ public class ActivitiesController{
     public List<String> getEquipmentGroupSpinnerArray() {
         return activitiesData.getEquipmentGroupSpinnerArrayData();
     }
+    public List<String> getActivityTypeSpinnerArray() {
+        return activitiesData.getActivityTypeSpinnerArrayData();
+    }
+    public List<String> getIntensityLvlSpinnerArray() {
+        return activitiesData.getIntensityLvlSpinnerArrayData();
+    }
     public List<Integer> getDaysPerWeekSpinnerArray() {
         return activitiesData.getDaysPerWeekSpinnerArrayData();
     }
@@ -43,6 +49,12 @@ public class ActivitiesController{
     }
     public void setEquipmentGroupSpinnerArray(List<String> equipmentGroupSpinnerArray) {
         activitiesData.setEquipmentGroupSpinnerArrayData(equipmentGroupSpinnerArray);
+    }
+    public void setIntensityLvlSpinnerArray(List<String> intensityLvlSpinnerArray) {
+        activitiesData.setIntensityLvlSpinnerArrayData(intensityLvlSpinnerArray);
+    }
+    public void setActivityTypeSpinnerArray(List<String> activityTypeSpinnerArray) {
+        activitiesData.setActivityTypeSpinnerArrayData(activityTypeSpinnerArray);
     }
     public void setWorkoutLvlSpinnerArray(List<String> workoutLvlSpinnerArray) {
         activitiesData.setWorkoutLvlSpinnerArrayData(workoutLvlSpinnerArray);

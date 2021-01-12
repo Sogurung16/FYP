@@ -1,4 +1,4 @@
-package com.example.fyp_01;
+package com.example.fyp_01.user;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -11,6 +11,9 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.example.fyp_01.database.DatabaseHelper;
+import com.example.fyp_01.R;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -129,8 +132,9 @@ public class UserView extends AppCompatActivity {
 
     private List<String> userGoalSpinnerOptions(){
         List<String> spinnerArray = new ArrayList<String>();
-        spinnerArray.add("Burn Fat");
-        spinnerArray.add("Build Muscle");
+        spinnerArray.add("Aerobic");
+        spinnerArray.add("Muscle Strengthening");
+        spinnerArray.add("Stretching");
 
         return spinnerArray;
     }
@@ -185,6 +189,7 @@ public class UserView extends AppCompatActivity {
 
     private UserController retrieveUserData(){
         user.setUserName(mUserNameInput.getText().toString());
+        user.setWorkoutGroup(user.getWorkoutGroup());
         user.setUserGoal(user.getUserGoal());
         user.setDaysAvailable(user.getDaysAvailable());
         user.setIntensity(user.getIntensity());

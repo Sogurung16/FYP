@@ -1,4 +1,4 @@
-package com.example.fyp_01;
+package com.example.fyp_01.activities;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,6 +10,7 @@ public class ActivitiesData{
     private List<String> workoutLvlSpinnerArray = new ArrayList<String>();
     private List<String> equipmentGroupSpinnerArray = new ArrayList<String>();
     private List<String> activityTypeSpinnerArray = new ArrayList<String>();
+    private List<String> intensityLvlSpinnerArray = new ArrayList<String>();
     private List<Integer> daysPerWeekSpinnerArray = new ArrayList<Integer>();
 
     public String getActivityTypeData() {
@@ -36,8 +37,11 @@ public class ActivitiesData{
     public List<String> getEquipmentGroupSpinnerArrayData() {
         return equipmentGroupSpinnerArray;
     }
-    public List<String> activityTypeSpinnerArrayData() {
+    public List<String> getActivityTypeSpinnerArrayData() {
         return activityTypeSpinnerArray;
+    }
+    public List<String> getIntensityLvlSpinnerArrayData() {
+        return intensityLvlSpinnerArray;
     }
     public List<Integer> getDaysPerWeekSpinnerArrayData() {
         return daysPerWeekSpinnerArray;
@@ -46,7 +50,7 @@ public class ActivitiesData{
     public void setDaysPerWeekSpinnerArrayData(List<Integer> daysPerWeekSpinnerArray) {
         this.daysPerWeekSpinnerArray = daysPerWeekSpinnerArray;
     }
-    public void activityTypeSpinnerArrayData(List<String> activityTypeSpinnerArray) {
+    public void setActivityTypeSpinnerArrayData(List<String> activityTypeSpinnerArray) {
         this.activityTypeSpinnerArray = activityTypeSpinnerArray;
     }
     public void setEquipmentGroupSpinnerArrayData(List<String> equipmentGroupSpinnerArray) {
@@ -54,6 +58,9 @@ public class ActivitiesData{
     }
     public void setWorkoutLvlSpinnerArrayData(List<String> workoutLvlSpinnerArray) {
         this.workoutLvlSpinnerArray = workoutLvlSpinnerArray;
+    }
+    public void setIntensityLvlSpinnerArrayData(List<String> intensityLvlSpinnerArray) {
+        this.intensityLvlSpinnerArray = intensityLvlSpinnerArray;
     }
     public void setEquipmentGroupData(String equipmentGroup) {
         this.equipmentGroup = equipmentGroup;

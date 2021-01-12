@@ -1,13 +1,61 @@
-package com.example.fyp_01;
+package com.example.fyp_01.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.os.Bundle;
-import android.widget.TextView;
+import com.example.fyp_01.database.DatabaseHelper;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class ActivitiesView extends AppCompatActivity {
 
     DatabaseHelper databaseHelper;
+
+    private List<String> workoutLvlSpinnerOptions(){
+        List<String> spinnerArray = new ArrayList<String>();
+        spinnerArray.add("Beginner");
+        spinnerArray.add("Intermediate");
+        spinnerArray.add("Advanced");
+
+        return spinnerArray;
+    }
+    private List<String> equipmentGroupSpinnerOptions(){
+        List<String> spinnerArray = new ArrayList<String>();
+        spinnerArray.add("None");
+        spinnerArray.add("Little");
+        spinnerArray.add("Moderate");
+        spinnerArray.add("Full");
+
+        return spinnerArray;
+    }
+    private List<String> activityTypeSpinnerOptions(){
+        List<String> spinnerArray = new ArrayList<String>();
+        spinnerArray.add("Aerobic");
+        spinnerArray.add("Muscle Strengthening");
+        spinnerArray.add("Stretching");
+
+        return spinnerArray;
+    }
+    private List<String> intensityLvlSpinnerOptions(){
+        List<String> spinnerArray = new ArrayList<String>();
+        spinnerArray.add("Easy");
+        spinnerArray.add("Moderate");
+        spinnerArray.add("Hard");
+
+        return spinnerArray;
+    }
+    private List<Integer> daysPerWeekSpinnerOptions(){
+        List<Integer> spinnerArray = new ArrayList<Integer>();
+        spinnerArray.add(1);
+        spinnerArray.add(2);
+        spinnerArray.add(3);
+        spinnerArray.add(4);
+        spinnerArray.add(5);
+        spinnerArray.add(6);
+        spinnerArray.add(7);
+
+        return spinnerArray;
+    }
 
 
 
