@@ -9,7 +9,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".user.UserView"></activity>
+        <activity android:name=".recommendations.ActivitiesRecommendation"/>
+        <activity android:name=".user.UserView" />
         <activity android:name=".activities.ActivitiesView" />
         <activity android:name=".main.MainActivity">
             <intent-filter>
