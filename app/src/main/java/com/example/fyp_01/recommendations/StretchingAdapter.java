@@ -15,14 +15,6 @@ import com.example.fyp_01.R;
 import java.util.ArrayList;
 
 public class StretchingAdapter extends RecyclerView.Adapter<StretchingAdapter.ViewHolder> {
-    ArrayList<StretchingModel> stretchingModels;
-    Context context;
-
-    public StretchingAdapter(Context context, ArrayList<StretchingModel> stretchingModels){
-        this.context = context;
-        this.stretchingModels = stretchingModels;
-    }
-
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -33,15 +25,12 @@ public class StretchingAdapter extends RecyclerView.Adapter<StretchingAdapter.Vi
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        //Set Images to ImageView
-        holder.mImageView.setImageResource(stretchingModels.get(position).getStretchingActivitiesImages());
-        //Set Names to TextView
-        holder.mTextView.setText(stretchingModels.get(position).getStretchingActivitiesNames());
+
     }
 
     @Override
     public int getItemCount() {
-        return stretchingModels.size();
+        return 0;
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {

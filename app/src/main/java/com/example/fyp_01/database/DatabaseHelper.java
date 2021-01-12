@@ -2,8 +2,11 @@ package com.example.fyp_01.database;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 
 import androidx.annotation.Nullable;
 
@@ -91,5 +94,17 @@ public class  DatabaseHelper extends SQLiteOpenHelper {
         else{
             return true;
         }
+    }
+
+    //retrieve image from database where id = given;
+    public Bitmap getimage(Integer id){
+        SQLiteDatabase db = this.getWritableDatabase();
+        Bitmap bitmap = null;
+        Cursor cursor = db.rawQuery("select * from images where id=?", new String[]{String.valueOf(id)});
+        if(cursor.moveToNext()){
+            byte[] img = cursor.getBlob(1);
+            bitmap = BitmapFactory.decodeByteArray(img, 0, img.length);
+        }
+        return bitmap;
     }
 }

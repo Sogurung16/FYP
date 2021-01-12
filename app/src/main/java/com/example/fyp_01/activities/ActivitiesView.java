@@ -50,13 +50,9 @@ public class ActivitiesView extends AppCompatActivity {
     }
     private List<Integer> daysPerWeekSpinnerOptions(){
         List<Integer> spinnerArray = new ArrayList<Integer>();
-        spinnerArray.add(1);
-        spinnerArray.add(2);
-        spinnerArray.add(3);
-        spinnerArray.add(4);
-        spinnerArray.add(5);
-        spinnerArray.add(6);
-        spinnerArray.add(7);
+        for(int i=1;i<=7;i++){
+            spinnerArray.add(i);
+        }
 
         return spinnerArray;
     }
