@@ -159,7 +159,4 @@ public class ActivitiesView extends AppCompatActivity {
         }
         return stringMuscleBuild;
     }*/
-
-
-    //TODO: 1) refactor jogging activity. Will have activities database in the future. Assign data values depending on the database.
 }
