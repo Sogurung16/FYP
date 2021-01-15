@@ -2,18 +2,30 @@ package com.example.fyp_01.database;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 
+import com.example.fyp_01.R;
 import com.example.fyp_01.activities.ActivitiesController;
+import com.example.fyp_01.recommendations.StretchingAdapter;
+import com.example.fyp_01.recommendations.StretchingModel;
 import com.example.fyp_01.user.UserController;
+
+import java.io.ByteArrayOutputStream;
+import java.util.ArrayList;
 
 public class  DatabaseHelper extends SQLiteOpenHelper {
 
+    Context context;
     public static final String DATABASE_NAME = "Database.db";
-    public static final int VERSION_NAME = 8;
+
+    public static final int VERSION_NAME = 13;
     public static final String TABLE_USER = "users_table";
     public static final String KEY_USER_ID = "users_id";
     public static final String KEY_USER_NAME = "users_name";
@@ -31,6 +43,12 @@ public class  DatabaseHelper extends SQLiteOpenHelper {
     public static final String KEY_ACTIVITIES_WORKOUT_LEVEL = "activities_workout_level";
     public static final String KEY_ACTIVITIES_EQUIPMENT_GROUP = "activities_equipment_group";
 
+    public static final String TABLE_ACTIVITIES_IMAGES = "activities_images_table";
+    public static final String KEY_ACTIVITIES_IMAGE = "activities_image";
+
+    private ByteArrayOutputStream objectByteArrayOutputStream;
+    private byte[] imgInByte;
+
     public DatabaseHelper(@Nullable Context context) {
         super(context, DATABASE_NAME, null, VERSION_NAME);
     }
@@ -43,12 +61,16 @@ public class  DatabaseHelper extends SQLiteOpenHelper {
         db.execSQL("CREATE TABLE " + TABLE_ACTIVITIES + " (" + KEY_ACTIVITIES_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " + KEY_ACTIVITIES_NAME + " TEXT, " +
                 KEY_ACTIVITIES_ACTIVITY_TYPE + " TEXT, " + KEY_ACTIVITIES_WORKOUT_LEVEL + " TEXT, " + KEY_ACTIVITIES_DAYS_PER_WEEK + " INTEGER, " +
                 KEY_ACTIVITIES_INTENSITY_LEVEL + " TEXT," + KEY_ACTIVITIES_EQUIPMENT_GROUP + " TEXT" +")");
+
+        db.execSQL("CREATE TABLE " + TABLE_ACTIVITIES_IMAGES + " (" + KEY_ACTIVITIES_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " + KEY_ACTIVITIES_NAME + " TEXT, " +
+                KEY_ACTIVITIES_IMAGE + " BLOB" +")");
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_USER);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_ACTIVITIES);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_ACTIVITIES_IMAGES);
         onCreate(db);
     }
 
@@ -91,5 +113,40 @@ public class  DatabaseHelper extends SQLiteOpenHelper {
         else{
             return true;
         }
+    }
+
+    public void addActivitiesImageData(StretchingModel model){
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        Bitmap imageToStoreBitmap = model.getStretchingActivitiesImage();
+        objectByteArrayOutputStream = new ByteArrayOutputStream();
+        imageToStoreBitmap.compress(Bitmap.CompressFormat.JPEG, 100, objectByteArrayOutputStream);
+        imgInByte = objectByteArrayOutputStream.toByteArray();
+
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(KEY_ACTIVITIES_NAME, model.getStretchingActivitiesName());
+        contentValues.put(KEY_ACTIVITIES_IMAGE, imgInByte);
+
+        db.insert(TABLE_ACTIVITIES_IMAGES, null, contentValues);
+    }
+    //retrieve image_table data from database
+    public ArrayList<StretchingModel> getActivitiesImageData() {
+        ArrayList<StretchingModel> stretchingModels = new ArrayList<>();
+        Bitmap imageToRetrieve;
+
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery("select * from activities_images_table", null);
+
+        if (cursor.getCount() != 0) {
+            while (cursor.moveToNext()) {
+                //int id = cursor.getInt(0);
+                String activityName = cursor.getString(1);
+                imgInByte = cursor.getBlob(2);
+                imageToRetrieve = BitmapFactory.decodeByteArray(imgInByte, 0, imgInByte.length);
+                StretchingModel stretchingModel = new StretchingModel(activityName, imageToRetrieve);
+                stretchingModels.add(stretchingModel);
+            }
+        }
+        return stretchingModels;
     }
 }

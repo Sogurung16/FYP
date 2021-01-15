@@ -1,18 +1,28 @@
 package com.example.fyp_01.recommendations;
 
+import android.graphics.Bitmap;
+
 public class StretchingModel {
-    Integer stretchingActivitiesImages;
-    String stretchingActivitiesNames;
 
-    public StretchingModel(Integer stretchingActivitiesImages, String stretchingActivitiesNames){
-        this.stretchingActivitiesImages = stretchingActivitiesImages;
-        this.stretchingActivitiesNames = stretchingActivitiesNames;
+    private String stretchingActivitiesName;
+    private Bitmap stretchingActivitiesImage;
+
+    public StretchingModel(String stretchingActivitiesName, Bitmap stretchingActivitiesImage) {
+        this.stretchingActivitiesName = stretchingActivitiesName;
+        this.stretchingActivitiesImage = stretchingActivitiesImage;
     }
 
-    public Integer getStretchingActivitiesImages(){
-        return stretchingActivitiesImages;
+    public void setStretchingActivitiesName(String stretchingActivitiesName) {
+        this.stretchingActivitiesName = stretchingActivitiesName;
     }
-    public String getStretchingActivitiesNames(){
-        return stretchingActivitiesNames;
+    public void setStretchingActivitiesImage(Bitmap stretchingActivitiesImage) {
+        this.stretchingActivitiesImage = stretchingActivitiesImage;
+    }
+
+    public String getStretchingActivitiesName(){
+        return stretchingActivitiesName;
+    }
+    public Bitmap getStretchingActivitiesImage(){
+        return stretchingActivitiesImage;
     }
 }

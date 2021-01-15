@@ -1,5 +1,9 @@
 package com.example.fyp_01.recommendations;
 
+import android.content.Context;
+import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -8,15 +12,20 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.fyp_01.R;
+import com.example.fyp_01.database.DatabaseHelper;
 
 import java.util.ArrayList;
 
 public class ActivitiesRecommendation extends AppCompatActivity {
-    //Initialize Variables
+    Context context;
+    DatabaseHelper databaseHelper;
     RecyclerView mStretchingRecyclerView;
 
     ArrayList<StretchingModel> stretchingModels;
     StretchingAdapter stretchingAdapter;
+    String activitiesName;
+    Bitmap imageToStoreBitmap;
+    int[] drawableIds;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,21 +34,17 @@ public class ActivitiesRecommendation extends AppCompatActivity {
 
         //Assign Variables
         mStretchingRecyclerView = findViewById(R.id.stretchingRecyclerview);
-
-        //Creating Integer Array for Images
-        Integer[] stretchingActivitiesImages = {R.drawable.yoga_101, R.drawable.yoga_core, R.drawable.legs_warmup,
-                R.drawable.legs_cooldown, R.drawable.recovery_mobility};
-
-        //Creating String Array for texts
-        String[] stretchingActivitiesNames = {"Yoga 101", "YogaCore", "Legs Warm up", "Legs Cool down",
-        "Recovery Mobility"};
+        databaseHelper = new DatabaseHelper(this);
 
         //Initialize ArrayList
         stretchingModels = new ArrayList<>();
-        for(int i=0;i<stretchingActivitiesImages.length;i++){
-            StretchingModel stretchingModel = new StretchingModel(stretchingActivitiesImages[i], stretchingActivitiesNames[i]);
-            stretchingModels.add(stretchingModel);
-        }
+
+        // Add New Activities Image data to database from drawable folder
+        /*drawableIds = new int[]{};
+        addMultipleNewActivitiesImageData(drawableIds);*/
+        //addNewActivitiesImageData(R.drawable.recovery_mobility);
+
+        stretchingModels = databaseHelper.getActivitiesImageData();
 
         //Design Horizontal Layout
         LinearLayoutManager layoutManager = new LinearLayoutManager(ActivitiesRecommendation.this, LinearLayoutManager.HORIZONTAL,false);
@@ -51,4 +56,29 @@ public class ActivitiesRecommendation extends AppCompatActivity {
         //Set StretchingAdapter to RecyclerView
         mStretchingRecyclerView.setAdapter(stretchingAdapter);
     }
+
+    private void addNewActivitiesImageData(int drawableId){
+        imageToStoreBitmap = BitmapFactory.decodeResource(getResources(), drawableId);
+        activitiesName = getResources().getResourceEntryName(drawableId);
+
+        StretchingModel stretchingModel = new StretchingModel(activitiesName, imageToStoreBitmap);
+        stretchingModels.add(stretchingModel);
+
+        databaseHelper.addActivitiesImageData(stretchingModel);
+    }
+
+    private void addMultipleNewActivitiesImageData(int[] drawableIds){
+        StretchingModel stretchingModel;
+
+        for(int i = 0; i<drawableIds.length; i++){
+            imageToStoreBitmap = BitmapFactory.decodeResource(getResources(), drawableIds[i]);
+            activitiesName = getResources().getResourceEntryName(drawableIds[i]);
+
+            stretchingModel = new StretchingModel(activitiesName, imageToStoreBitmap);
+            stretchingModels.add(stretchingModel);
+
+            databaseHelper.addActivitiesImageData(stretchingModel);
+        }
+    }
+
 }
