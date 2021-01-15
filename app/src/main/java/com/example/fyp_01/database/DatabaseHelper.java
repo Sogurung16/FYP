@@ -130,7 +130,7 @@ public class  DatabaseHelper extends SQLiteOpenHelper {
         db.insert(TABLE_ACTIVITIES_IMAGES, null, contentValues);
     }
     //retrieve image_table data from database
-    public ArrayList<StretchingModel> getActivitiesImageData(){
+    public ArrayList<StretchingModel> getActivitiesImageData() {
         ArrayList<StretchingModel> stretchingModels = new ArrayList<>();
         Bitmap imageToRetrieve;
 
@@ -148,45 +148,5 @@ public class  DatabaseHelper extends SQLiteOpenHelper {
             }
         }
         return stretchingModels;
-
-       /* SQLiteDatabase db = this.getReadableDatabase();
-        ArrayList<StretchingModel> stretchingModels = new ArrayList<>();
-        Bitmap bitmap;
-
-        Cursor cursor = db.rawQuery("select * from activities_images_table", null);
-        if (cursor.getCount() != 0) {
-            while (cursor.moveToNext()) {
-                String activityName = cursor.getString(1);
-                byte[] img = cursor.getBlob(2);
-                bitmap = BitmapFactory.decodeByteArray(img, 0, img.length);
-                stretchingModels.add(new StretchingModel(activityName, bitmap));
-            }
-        }
-        return stretchingModels;*/
     }
-
-   /* //retrieve activity image from database where id = given
-    public Bitmap getActivitiesImage(Integer id){
-        SQLiteDatabase db = this.getReadableDatabase();
-        Bitmap bitmap = null;
-        Cursor cursor = db.rawQuery("select activities_image from activities_images_table where id=?", new String[]{String.valueOf(id)});
-        if(cursor.moveToNext()){
-            byte[] img = cursor.getBlob(2);
-            bitmap = BitmapFactory.decodeByteArray(img, 0, img.length);
-        }
-        return bitmap;
-    }
-
-    //retrieve activity name from database where id = given
-    public String getActivitiesName(Integer id){
-        SQLiteDatabase db = this.getReadableDatabase();
-        String string = null;
-        Cursor cursor = db.rawQuery("select activities_name from activities_images_table where id=?", new String[]{String.valueOf(id)});
-        if(cursor.moveToNext()){
-            string = cursor.getString(1);
-        }
-        return string;
-    }*/
-
-    //TODO 1) CREATE ACTIVITIES IMAGES SET METHODS (SAVING IMAGE INTO SQL)
 }
