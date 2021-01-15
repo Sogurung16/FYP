@@ -25,7 +25,7 @@ public class  DatabaseHelper extends SQLiteOpenHelper {
     Context context;
     public static final String DATABASE_NAME = "Database.db";
 
-    public static final int VERSION_NAME = 12;
+    public static final int VERSION_NAME = 13;
     public static final String TABLE_USER = "users_table";
     public static final String KEY_USER_ID = "users_id";
     public static final String KEY_USER_NAME = "users_name";

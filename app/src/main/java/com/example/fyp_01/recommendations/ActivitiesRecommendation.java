@@ -1,12 +1,10 @@
 package com.example.fyp_01.recommendations;
 
 import android.content.Context;
+import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
-import android.provider.ContactsContract;
-import android.view.View;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.DefaultItemAnimator;
@@ -25,6 +23,9 @@ public class ActivitiesRecommendation extends AppCompatActivity {
 
     ArrayList<StretchingModel> stretchingModels;
     StretchingAdapter stretchingAdapter;
+    String activitiesName;
+    Bitmap imageToStoreBitmap;
+    int[] drawableIds;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,19 +36,15 @@ public class ActivitiesRecommendation extends AppCompatActivity {
         mStretchingRecyclerView = findViewById(R.id.stretchingRecyclerview);
         databaseHelper = new DatabaseHelper(this);
 
-        Bitmap imageToStoreBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.yoga_101);
-        String activitiesName = String.valueOf(R.drawable.yoga_101);
-//        Bitmap imageToStoreBitmap = model.getStretchingActivitiesImage();
-
         //Initialize ArrayList
         stretchingModels = new ArrayList<>();
 
-        StretchingModel stretchingModel = new StretchingModel(activitiesName, imageToStoreBitmap);
-        stretchingModel.setStretchingActivitiesImage(imageToStoreBitmap);
-        stretchingModel.setStretchingActivitiesName(activitiesName);
-        stretchingModels.add(stretchingModel);
+        // Add New Activities Image data to database from drawable folder
+        /*drawableIds = new int[]{};
+        addMultipleNewActivitiesImageData(drawableIds);*/
+        //addNewActivitiesImageData(R.drawable.recovery_mobility);
 
-        databaseHelper.addActivitiesImageData(stretchingModel);
+        stretchingModels = databaseHelper.getActivitiesImageData();
 
         //Design Horizontal Layout
         LinearLayoutManager layoutManager = new LinearLayoutManager(ActivitiesRecommendation.this, LinearLayoutManager.HORIZONTAL,false);
@@ -59,4 +56,29 @@ public class ActivitiesRecommendation extends AppCompatActivity {
         //Set StretchingAdapter to RecyclerView
         mStretchingRecyclerView.setAdapter(stretchingAdapter);
     }
+
+    private void addNewActivitiesImageData(int drawableId){
+        imageToStoreBitmap = BitmapFactory.decodeResource(getResources(), drawableId);
+        activitiesName = getResources().getResourceEntryName(drawableId);
+
+        StretchingModel stretchingModel = new StretchingModel(activitiesName, imageToStoreBitmap);
+        stretchingModels.add(stretchingModel);
+
+        databaseHelper.addActivitiesImageData(stretchingModel);
+    }
+
+    private void addMultipleNewActivitiesImageData(int[] drawableIds){
+        StretchingModel stretchingModel;
+
+        for(int i = 0; i<drawableIds.length; i++){
+            imageToStoreBitmap = BitmapFactory.decodeResource(getResources(), drawableIds[i]);
+            activitiesName = getResources().getResourceEntryName(drawableIds[i]);
+
+            stretchingModel = new StretchingModel(activitiesName, imageToStoreBitmap);
+            stretchingModels.add(stretchingModel);
+
+            databaseHelper.addActivitiesImageData(stretchingModel);
+        }
+    }
+
 }
