@@ -1,0 +1,64 @@
+Index: app/src/main/java/com/example/fyp_01/database/DatabaseHelper.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.example.fyp_01.database;\r\n\r\nimport android.content.ContentValues;\r\nimport android.content.Context;\r\nimport android.database.Cursor;\r\nimport android.database.sqlite.SQLiteDatabase;\r\nimport android.database.sqlite.SQLiteOpenHelper;\r\nimport android.graphics.Bitmap;\r\nimport android.graphics.BitmapFactory;\r\nimport android.widget.Toast;\r\n\r\nimport androidx.annotation.Nullable;\r\n\r\nimport com.example.fyp_01.R;\r\nimport com.example.fyp_01.activities.ActivitiesController;\r\nimport com.example.fyp_01.recommendations.StretchingAdapter;\r\nimport com.example.fyp_01.recommendations.StretchingModel;\r\nimport com.example.fyp_01.user.UserController;\r\n\r\nimport java.io.ByteArrayOutputStream;\r\nimport java.util.ArrayList;\r\n\r\npublic class  DatabaseHelper extends SQLiteOpenHelper {\r\n\r\n    Context context;\r\n    public static final String DATABASE_NAME = \"Database.db\";\r\n\r\n    public static final int VERSION_NAME = 13;\r\n    public static final String TABLE_USER = \"users_table\";\r\n    public static final String KEY_USER_ID = \"users_id\";\r\n    public static final String KEY_USER_NAME = \"users_name\";\r\n    public static final String KEY_USER_WORKOUT_GROUP = \"users_workout_group\";\r\n    public static final String KEY_USER_GOAL = \"users_goal\";\r\n    public static final String KEY_USER_DAYS_AVAILABLE = \"users_days_available\";\r\n    public static final String KEY_USER_INTENSITY = \"users_intensity\";\r\n\r\n    public static final String TABLE_ACTIVITIES = \"activities_table\";\r\n    public static final String KEY_ACTIVITIES_ID = \"activities_id\";\r\n    public static final String KEY_ACTIVITIES_NAME = \"activities_name\";\r\n    public static final String KEY_ACTIVITIES_ACTIVITY_TYPE = \"activities_type\";\r\n    public static final String KEY_ACTIVITIES_INTENSITY_LEVEL = \"activities_intensity\";\r\n    public static final String KEY_ACTIVITIES_DAYS_PER_WEEK = \"activities_days_per_week\";\r\n    public static final String KEY_ACTIVITIES_WORKOUT_LEVEL = \"activities_workout_level\";\r\n    public static final String KEY_ACTIVITIES_EQUIPMENT_GROUP = \"activities_equipment_group\";\r\n\r\n    public static final String TABLE_ACTIVITIES_IMAGES = \"activities_images_table\";\r\n    public static final String KEY_ACTIVITIES_IMAGE = \"activities_image\";\r\n\r\n    private ByteArrayOutputStream objectByteArrayOutputStream;\r\n    private byte[] imgInByte;\r\n\r\n    public DatabaseHelper(@Nullable Context context) {\r\n        super(context, DATABASE_NAME, null, VERSION_NAME);\r\n    }\r\n\r\n    @Override\r\n    public void onCreate(SQLiteDatabase db) {\r\n        db.execSQL(\"CREATE TABLE \" + TABLE_USER + \" (\" + KEY_USER_ID + \" INTEGER PRIMARY KEY AUTOINCREMENT, \" + KEY_USER_NAME + \" TEXT, \" +\r\n                KEY_USER_WORKOUT_GROUP + \" TEXT, \" + KEY_USER_GOAL + \" TEXT, \" + KEY_USER_DAYS_AVAILABLE + \" INTEGER, \" + KEY_USER_INTENSITY + \" TEXT\" +\")\");\r\n\r\n        db.execSQL(\"CREATE TABLE \" + TABLE_ACTIVITIES + \" (\" + KEY_ACTIVITIES_ID + \" INTEGER PRIMARY KEY AUTOINCREMENT, \" + KEY_ACTIVITIES_NAME + \" TEXT, \" +\r\n                KEY_ACTIVITIES_ACTIVITY_TYPE + \" TEXT, \" + KEY_ACTIVITIES_WORKOUT_LEVEL + \" TEXT, \" + KEY_ACTIVITIES_DAYS_PER_WEEK + \" INTEGER, \" +\r\n                KEY_ACTIVITIES_INTENSITY_LEVEL + \" TEXT,\" + KEY_ACTIVITIES_EQUIPMENT_GROUP + \" TEXT\" +\")\");\r\n\r\n        db.execSQL(\"CREATE TABLE \" + TABLE_ACTIVITIES_IMAGES + \" (\" + KEY_ACTIVITIES_ID + \" INTEGER PRIMARY KEY AUTOINCREMENT, \" + KEY_ACTIVITIES_NAME + \" TEXT, \" +\r\n                KEY_ACTIVITIES_IMAGE + \" BLOB\" +\")\");\r\n    }\r\n\r\n    @Override\r\n    public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {\r\n        db.execSQL(\"DROP TABLE IF EXISTS \" + TABLE_USER);\r\n        db.execSQL(\"DROP TABLE IF EXISTS \" + TABLE_ACTIVITIES);\r\n        db.execSQL(\"DROP TABLE IF EXISTS \" + TABLE_ACTIVITIES_IMAGES);\r\n        onCreate(db);\r\n    }\r\n\r\n    public boolean addUserData(UserController user){\r\n        SQLiteDatabase db = this.getWritableDatabase();\r\n\r\n        ContentValues contentValues = new ContentValues();\r\n        contentValues.put(KEY_USER_NAME, user.getUserName());\r\n        contentValues.put(KEY_USER_WORKOUT_GROUP, user.getWorkoutGroup());\r\n        contentValues.put(KEY_USER_GOAL, user.getUserGoal());\r\n        contentValues.put(KEY_USER_DAYS_AVAILABLE, user.getDaysAvailable());\r\n        contentValues.put(KEY_USER_INTENSITY, user.getIntensity());\r\n\r\n\r\n        long result = db.insert(TABLE_USER, null, contentValues);\r\n        if(result == -1){\r\n            return false;\r\n        }\r\n        else{\r\n            return true;\r\n        }\r\n    }\r\n\r\n    public boolean addActivityData(ActivitiesController activity){\r\n        SQLiteDatabase db = this.getWritableDatabase();\r\n\r\n        ContentValues contentValues = new ContentValues();\r\n        contentValues.put(KEY_ACTIVITIES_NAME, activity.getActivityName());\r\n        contentValues.put(KEY_ACTIVITIES_ACTIVITY_TYPE, activity.getActivityType());\r\n        contentValues.put(KEY_ACTIVITIES_WORKOUT_LEVEL, activity.getWorkoutLvl());\r\n        contentValues.put(KEY_ACTIVITIES_DAYS_PER_WEEK, activity.getDaysPerWeek());\r\n        contentValues.put(KEY_ACTIVITIES_INTENSITY_LEVEL, activity.getIntensityLvl());\r\n        contentValues.put(KEY_ACTIVITIES_EQUIPMENT_GROUP, activity.getEquipmentGroup());\r\n\r\n\r\n        long result = db.insert(TABLE_USER, null, contentValues);\r\n        if(result == -1){\r\n            return false;\r\n        }\r\n        else{\r\n            return true;\r\n        }\r\n    }\r\n\r\n    public void addActivitiesImageData(StretchingModel model){\r\n        SQLiteDatabase db = this.getWritableDatabase();\r\n\r\n        Bitmap imageToStoreBitmap = model.getStretchingActivitiesImage();\r\n        objectByteArrayOutputStream = new ByteArrayOutputStream();\r\n        imageToStoreBitmap.compress(Bitmap.CompressFormat.JPEG, 100, objectByteArrayOutputStream);\r\n        imgInByte = objectByteArrayOutputStream.toByteArray();\r\n\r\n        ContentValues contentValues = new ContentValues();\r\n        contentValues.put(KEY_ACTIVITIES_NAME, model.getStretchingActivitiesName());\r\n        contentValues.put(KEY_ACTIVITIES_IMAGE, imgInByte);\r\n\r\n        db.insert(TABLE_ACTIVITIES_IMAGES, null, contentValues);\r\n    }\r\n    //retrieve image_table data from database\r\n    public ArrayList<StretchingModel> getActivitiesImageData(){\r\n        ArrayList<StretchingModel> stretchingModels = new ArrayList<>();\r\n        Bitmap imageToRetrieve;\r\n\r\n        SQLiteDatabase db = this.getReadableDatabase();\r\n        Cursor cursor = db.rawQuery(\"select * from activities_images_table\", null);\r\n\r\n        if (cursor.getCount() != 0) {\r\n            while (cursor.moveToNext()) {\r\n                //int id = cursor.getInt(0);\r\n                String activityName = cursor.getString(1);\r\n                imgInByte = cursor.getBlob(2);\r\n                imageToRetrieve = BitmapFactory.decodeByteArray(imgInByte, 0, imgInByte.length);\r\n                StretchingModel stretchingModel = new StretchingModel(activityName, imageToRetrieve);\r\n                stretchingModels.add(stretchingModel);\r\n            }\r\n        }\r\n        return stretchingModels;\r\n\r\n       /* SQLiteDatabase db = this.getReadableDatabase();\r\n        ArrayList<StretchingModel> stretchingModels = new ArrayList<>();\r\n        Bitmap bitmap;\r\n\r\n        Cursor cursor = db.rawQuery(\"select * from activities_images_table\", null);\r\n        if (cursor.getCount() != 0) {\r\n            while (cursor.moveToNext()) {\r\n                String activityName = cursor.getString(1);\r\n                byte[] img = cursor.getBlob(2);\r\n                bitmap = BitmapFactory.decodeByteArray(img, 0, img.length);\r\n                stretchingModels.add(new StretchingModel(activityName, bitmap));\r\n            }\r\n        }\r\n        return stretchingModels;*/\r\n    }\r\n\r\n   /* //retrieve activity image from database where id = given\r\n    public Bitmap getActivitiesImage(Integer id){\r\n        SQLiteDatabase db = this.getReadableDatabase();\r\n        Bitmap bitmap = null;\r\n        Cursor cursor = db.rawQuery(\"select activities_image from activities_images_table where id=?\", new String[]{String.valueOf(id)});\r\n        if(cursor.moveToNext()){\r\n            byte[] img = cursor.getBlob(2);\r\n            bitmap = BitmapFactory.decodeByteArray(img, 0, img.length);\r\n        }\r\n        return bitmap;\r\n    }\r\n\r\n    //retrieve activity name from database where id = given\r\n    public String getActivitiesName(Integer id){\r\n        SQLiteDatabase db = this.getReadableDatabase();\r\n        String string = null;\r\n        Cursor cursor = db.rawQuery(\"select activities_name from activities_images_table where id=?\", new String[]{String.valueOf(id)});\r\n        if(cursor.moveToNext()){\r\n            string = cursor.getString(1);\r\n        }\r\n        return string;\r\n    }*/\r\n\r\n    //TODO 1) CREATE ACTIVITIES IMAGES SET METHODS (SAVING IMAGE INTO SQL)\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/java/com/example/fyp_01/database/DatabaseHelper.java	(revision 27169a3d424c8f103a42c35a3fe45cabd6bf1fb3)
++++ app/src/main/java/com/example/fyp_01/database/DatabaseHelper.java	(date 1610736479710)
+@@ -130,7 +130,7 @@
+         db.insert(TABLE_ACTIVITIES_IMAGES, null, contentValues);
+     }
+     //retrieve image_table data from database
+-    public ArrayList<StretchingModel> getActivitiesImageData(){
++    public ArrayList<StretchingModel> getActivitiesImageData() {
+         ArrayList<StretchingModel> stretchingModels = new ArrayList<>();
+         Bitmap imageToRetrieve;
+ 
+@@ -148,45 +148,5 @@
+             }
+         }
+         return stretchingModels;
+-
+-       /* SQLiteDatabase db = this.getReadableDatabase();
+-        ArrayList<StretchingModel> stretchingModels = new ArrayList<>();
+-        Bitmap bitmap;
+-
+-        Cursor cursor = db.rawQuery("select * from activities_images_table", null);
+-        if (cursor.getCount() != 0) {
+-            while (cursor.moveToNext()) {
+-                String activityName = cursor.getString(1);
+-                byte[] img = cursor.getBlob(2);
+-                bitmap = BitmapFactory.decodeByteArray(img, 0, img.length);
+-                stretchingModels.add(new StretchingModel(activityName, bitmap));
+-            }
+-        }
+-        return stretchingModels;*/
+     }
+-
+-   /* //retrieve activity image from database where id = given
+-    public Bitmap getActivitiesImage(Integer id){
+-        SQLiteDatabase db = this.getReadableDatabase();
+-        Bitmap bitmap = null;
+-        Cursor cursor = db.rawQuery("select activities_image from activities_images_table where id=?", new String[]{String.valueOf(id)});
+-        if(cursor.moveToNext()){
+-            byte[] img = cursor.getBlob(2);
+-            bitmap = BitmapFactory.decodeByteArray(img, 0, img.length);
+-        }
+-        return bitmap;
+-    }
+-
+-    //retrieve activity name from database where id = given
+-    public String getActivitiesName(Integer id){
+-        SQLiteDatabase db = this.getReadableDatabase();
+-        String string = null;
+-        Cursor cursor = db.rawQuery("select activities_name from activities_images_table where id=?", new String[]{String.valueOf(id)});
+-        if(cursor.moveToNext()){
+-            string = cursor.getString(1);
+-        }
+-        return string;
+-    }*/
+-
+-    //TODO 1) CREATE ACTIVITIES IMAGES SET METHODS (SAVING IMAGE INTO SQL)
+ }
