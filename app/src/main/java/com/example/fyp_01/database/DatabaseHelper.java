@@ -7,14 +7,11 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 
-import com.example.fyp_01.R;
 import com.example.fyp_01.activities.ActivitiesController;
-import com.example.fyp_01.recommendations.StretchingAdapter;
-import com.example.fyp_01.recommendations.StretchingModel;
+import com.example.fyp_01.recommendations.Model;
 import com.example.fyp_01.user.UserController;
 
 import java.io.ByteArrayOutputStream;
@@ -25,7 +22,7 @@ public class  DatabaseHelper extends SQLiteOpenHelper {
     Context context;
     public static final String DATABASE_NAME = "Database.db";
 
-    public static final int VERSION_NAME = 13;
+    public static final int VERSION_NAME = 24;
     public static final String TABLE_USER = "users_table";
     public static final String KEY_USER_ID = "users_id";
     public static final String KEY_USER_NAME = "users_name";
@@ -63,7 +60,7 @@ public class  DatabaseHelper extends SQLiteOpenHelper {
                 KEY_ACTIVITIES_INTENSITY_LEVEL + " TEXT," + KEY_ACTIVITIES_EQUIPMENT_GROUP + " TEXT" +")");
 
         db.execSQL("CREATE TABLE " + TABLE_ACTIVITIES_IMAGES + " (" + KEY_ACTIVITIES_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " + KEY_ACTIVITIES_NAME + " TEXT, " +
-                KEY_ACTIVITIES_IMAGE + " BLOB" +")");
+                KEY_ACTIVITIES_ACTIVITY_TYPE + " TEXT, " +KEY_ACTIVITIES_IMAGE + " BLOB" +")");
     }
 
     @Override
@@ -115,38 +112,41 @@ public class  DatabaseHelper extends SQLiteOpenHelper {
         }
     }
 
-    public void addActivitiesImageData(StretchingModel model){
+    public void addActivitiesImageData(Model model){
         SQLiteDatabase db = this.getWritableDatabase();
 
-        Bitmap imageToStoreBitmap = model.getStretchingActivitiesImage();
+        Bitmap imageToStoreBitmap = model.getActivitiesImage();
         objectByteArrayOutputStream = new ByteArrayOutputStream();
         imageToStoreBitmap.compress(Bitmap.CompressFormat.JPEG, 100, objectByteArrayOutputStream);
         imgInByte = objectByteArrayOutputStream.toByteArray();
 
         ContentValues contentValues = new ContentValues();
-        contentValues.put(KEY_ACTIVITIES_NAME, model.getStretchingActivitiesName());
+        contentValues.put(KEY_ACTIVITIES_NAME, model.getActivitiesName());
         contentValues.put(KEY_ACTIVITIES_IMAGE, imgInByte);
+        contentValues.put(KEY_ACTIVITIES_ACTIVITY_TYPE, model.getActivitiesType());
 
         db.insert(TABLE_ACTIVITIES_IMAGES, null, contentValues);
     }
     //retrieve image_table data from database
-    public ArrayList<StretchingModel> getActivitiesImageData() {
-        ArrayList<StretchingModel> stretchingModels = new ArrayList<>();
+    public ArrayList<Model> getActivitiesImageData(String activityType) {
+        ArrayList<Model> Models = new ArrayList<>();
         Bitmap imageToRetrieve;
+        String activityName;
 
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor cursor = db.rawQuery("select * from activities_images_table", null);
+        Cursor cursor = db.rawQuery("select * from activities_images_table where activities_type like '%"+ activityType+"%'", null);
 
         if (cursor.getCount() != 0) {
             while (cursor.moveToNext()) {
                 //int id = cursor.getInt(0);
-                String activityName = cursor.getString(1);
-                imgInByte = cursor.getBlob(2);
+                activityName = cursor.getString(1);
+                activityType = cursor.getString(2);
+                imgInByte = cursor.getBlob(3);
                 imageToRetrieve = BitmapFactory.decodeByteArray(imgInByte, 0, imgInByte.length);
-                StretchingModel stretchingModel = new StretchingModel(activityName, imageToRetrieve);
-                stretchingModels.add(stretchingModel);
+                Model Model = new Model(activityName, imageToRetrieve, activityType);
+                Models.add(Model);
             }
         }
-        return stretchingModels;
+        return Models;
     }
 }

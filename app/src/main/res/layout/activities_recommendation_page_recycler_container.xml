@@ -42,4 +42,24 @@
         android:orientation="horizontal">
     </androidx.recyclerview.widget.RecyclerView>
 
+    <TextView
+        android:id="@+id/endurance"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:text="Endurance"
+        android:textSize="20sp"
+        android:textColor="#000"
+        android:textStyle="bold">
+    </TextView>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/enduranceRecyclerview"
+        android:layout_below="@+id/endurance"
+        android:layout_width="match_parent"
+        android:layout_height="130sp"
+        android:layout_marginTop="10dp"
+        android:orientation="horizontal">
+    </androidx.recyclerview.widget.RecyclerView>
+
 </LinearLayout>

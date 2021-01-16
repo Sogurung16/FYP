@@ -1,8 +1,6 @@
 package com.example.fyp_01.recommendations;
 
 import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,16 +11,14 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.fyp_01.R;
-import com.example.fyp_01.database.DatabaseHelper;
 
-import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 
-public class StretchingAdapter extends RecyclerView.Adapter<StretchingAdapter.ViewHolder> {
+public class EnduranceAdapter extends RecyclerView.Adapter<EnduranceAdapter.ViewHolder> {
     ArrayList<Model> models;
     Context context;
 
-    public StretchingAdapter(Context context, ArrayList<Model> models) {
+    public EnduranceAdapter(Context context, ArrayList<Model> models) {
         this.context = context;
         this.models = models;
     }
@@ -31,7 +27,7 @@ public class StretchingAdapter extends RecyclerView.Adapter<StretchingAdapter.Vi
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         //Create View
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.activities_stretching_item, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.activities_endurance_item, parent, false);
         return new ViewHolder(view);
     }
 

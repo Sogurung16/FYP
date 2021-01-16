@@ -17,15 +17,16 @@ import com.example.fyp_01.database.DatabaseHelper;
 import java.util.ArrayList;
 
 public class ActivitiesRecommendation extends AppCompatActivity {
-    Context context;
     DatabaseHelper databaseHelper;
     RecyclerView mStretchingRecyclerView;
+    RecyclerView mEnduranceRecyclerView;
 
-    ArrayList<StretchingModel> stretchingModels;
+    ArrayList<Model> models;
     StretchingAdapter stretchingAdapter;
-    String activitiesName;
+    EnduranceAdapter enduranceAdapter;
+    String activitiesName, activityType;
     Bitmap imageToStoreBitmap;
-    int[] drawableIds;
+    int[] stretchingDrawableIds, enduranceDrawableIds;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,50 +35,62 @@ public class ActivitiesRecommendation extends AppCompatActivity {
 
         //Assign Variables
         mStretchingRecyclerView = findViewById(R.id.stretchingRecyclerview);
+        mEnduranceRecyclerView = findViewById(R.id.enduranceRecyclerview);
         databaseHelper = new DatabaseHelper(this);
 
         //Initialize ArrayList
-        stretchingModels = new ArrayList<>();
+        models = new ArrayList<>();
 
         // Add New Activities Image data to database from drawable folder
-        /*drawableIds = new int[]{};
-        addMultipleNewActivitiesImageData(drawableIds);*/
+        activityType = "Stretching";
+        /*stretchingDrawableIds = new int[]{R.drawable.yoga_101, R.drawable.yoga_core, R.drawable.legs_warmup, R.drawable.legs_cooldown, R.drawable.recovery_mobility};
+        addMultipleNewActivitiesImageData(stretchingDrawableIds);
+        activityType = "Endurance";
+        enduranceDrawableIds = new int[]{R.drawable.speed_circuit, R.drawable.runner_up, R.drawable.basic_burn,R.drawable.explosive_ignition,R.drawable.hit_challenge};
+        addMultipleNewActivitiesImageData(enduranceDrawableIds);*/
         //addNewActivitiesImageData(R.drawable.recovery_mobility);
 
-        stretchingModels = databaseHelper.getActivitiesImageData();
-
         //Design Horizontal Layout
-        LinearLayoutManager layoutManager = new LinearLayoutManager(ActivitiesRecommendation.this, LinearLayoutManager.HORIZONTAL,false);
-        mStretchingRecyclerView.setLayoutManager(layoutManager);
+        LinearLayoutManager stretchingLayoutManager = new LinearLayoutManager(ActivitiesRecommendation.this, LinearLayoutManager.HORIZONTAL,false);
+        LinearLayoutManager enduranceLayoutManager = new LinearLayoutManager(ActivitiesRecommendation.this, LinearLayoutManager.HORIZONTAL,false);
+        mStretchingRecyclerView.setLayoutManager(stretchingLayoutManager);
         mStretchingRecyclerView.setItemAnimator(new DefaultItemAnimator());
+        mEnduranceRecyclerView.setLayoutManager(enduranceLayoutManager);
+        mEnduranceRecyclerView.setItemAnimator(new DefaultItemAnimator());
 
-        //Initialize StretchingAdapter
-        stretchingAdapter = new StretchingAdapter(ActivitiesRecommendation.this, stretchingModels);
+        //Initialize Adapters
+        activityType = "Stretching";
+        models = databaseHelper.getActivitiesImageData(activityType);
+        stretchingAdapter = new StretchingAdapter(ActivitiesRecommendation.this, models);
+        activityType = "Endurance";
+        models = databaseHelper.getActivitiesImageData(activityType);
+        enduranceAdapter = new EnduranceAdapter(ActivitiesRecommendation.this, models);
         //Set StretchingAdapter to RecyclerView
         mStretchingRecyclerView.setAdapter(stretchingAdapter);
+        mEnduranceRecyclerView.setAdapter(enduranceAdapter);
     }
 
     private void addNewActivitiesImageData(int drawableId){
         imageToStoreBitmap = BitmapFactory.decodeResource(getResources(), drawableId);
         activitiesName = getResources().getResourceEntryName(drawableId);
 
-        StretchingModel stretchingModel = new StretchingModel(activitiesName, imageToStoreBitmap);
-        stretchingModels.add(stretchingModel);
+        Model model = new Model(activitiesName, imageToStoreBitmap, activityType);
+        models.add(model);
 
-        databaseHelper.addActivitiesImageData(stretchingModel);
+        databaseHelper.addActivitiesImageData(model);
     }
 
     private void addMultipleNewActivitiesImageData(int[] drawableIds){
-        StretchingModel stretchingModel;
+        Model model;
 
         for(int i = 0; i<drawableIds.length; i++){
             imageToStoreBitmap = BitmapFactory.decodeResource(getResources(), drawableIds[i]);
             activitiesName = getResources().getResourceEntryName(drawableIds[i]);
 
-            stretchingModel = new StretchingModel(activitiesName, imageToStoreBitmap);
-            stretchingModels.add(stretchingModel);
+            model = new Model(activitiesName, imageToStoreBitmap, activityType);
+            models.add(model);
 
-            databaseHelper.addActivitiesImageData(stretchingModel);
+            databaseHelper.addActivitiesImageData(model);
         }
     }
 
