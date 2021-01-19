@@ -8,7 +8,7 @@ import android.os.Bundle;
 import com.example.fyp_01.R;
 import com.example.fyp_01.activities.ActivitiesView;
 import com.example.fyp_01.recommendations.ActivitiesRecommendation;
-import com.example.fyp_01.user.UserView;
+//import com.example.fyp_01.user.UserView;
 
 public class MainActivity extends AppCompatActivity {
 

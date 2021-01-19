@@ -23,10 +23,10 @@ public class UserView extends AppCompatActivity {
     DatabaseHelper databaseHelper;
 
     private Button mAddUserButton;
-    private TextView mUserName, mUserGoal, mDaysAvailable, mIntensity, mWorkoutGroup;
+    private TextView mUserName, mUserGoal, mEquipmentGroup, mIntensity, mWorkoutGroup;
 
     private EditText mUserNameInput;
-    private Spinner mUserGoalInput, mDaysAvailableInput, mIntensityInput, mWorkoutGroupInput;
+    private Spinner mUserGoalInput, mIntensityInput, mWorkoutGroupInput, mEquipmentGroupInput;
 
     UserController user = new UserController(new UserData());
 
@@ -43,29 +43,29 @@ public class UserView extends AppCompatActivity {
         mAddUserButton = findViewById(R.id.addUser);
         mUserName = findViewById(R.id.userName);
         mUserGoal = findViewById(R.id.userGoal);
-        mDaysAvailable = findViewById(R.id.daysAvailable);
         mIntensity = findViewById(R.id.intensity);
         mWorkoutGroup = findViewById(R.id.workoutGroup);
+        mEquipmentGroup = findViewById(R.id.equipmentGroup);
 
         mUserNameInput = findViewById(R.id.userNameInput);
         mUserGoalInput = findViewById(R.id.userGoalInput);
-        mDaysAvailableInput = findViewById(R.id.daysAvailableInput);
         mIntensityInput = findViewById(R.id.intensityInput);
         mWorkoutGroupInput = findViewById(R.id.workoutGroupInput);
+        mEquipmentGroupInput = findViewById(R.id.equipmentGroupInput);
 
         user.setUserGoalSpinnerArray(userGoalSpinnerOptions());
-        user.setDaysAvailableSpinnerArray(DaysAvailableSpinnerOptions());
         user.setIntensitySpinnerArray(intensitySpinnerOptions());
         user.setWorkoutGroupSpinnerArray(workoutGroupSpinnerOptions());
+        user.setEquipmentGroupSpinnerArray(equipmentGroupSpinnerOptions());
 
         ArrayAdapter<String> goalAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, user.getUserGoalSpinnerArray());
         mUserGoalInput.setAdapter(goalAdapter);
-        ArrayAdapter<Integer> daysAvailableAdapter = new ArrayAdapter<Integer>(this, android.R.layout.simple_spinner_dropdown_item, user.getDaysAvailableSpinnerArray());
-        mDaysAvailableInput.setAdapter(daysAvailableAdapter);
         ArrayAdapter<String> intensityAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, user.getIntensitySpinnerArray());
         mIntensityInput.setAdapter(intensityAdapter);
         ArrayAdapter<String> workoutGroupAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, user.getWorkoutGroupSpinnerArray());
         mWorkoutGroupInput.setAdapter(workoutGroupAdapter);
+        ArrayAdapter<String> equipmentGroupAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, user.getEquipmentGroupSpinnerArray());
+        mWorkoutGroupInput.setAdapter(equipmentGroupAdapter);
     }
 
     private void listeners(){
@@ -75,21 +75,6 @@ public class UserView extends AppCompatActivity {
                 Object item = parent.getItemAtPosition(position);
                 if (item != null){
                     user.setUserGoal(item.toString());
-                }
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-                //TODO: Display Error Message.
-            }
-        });
-
-        mDaysAvailableInput.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                Object item = parent.getItemAtPosition(position);
-                if (item != null){
-                    user.setDaysAvailable((int)item);
                 }
             }
 
@@ -128,25 +113,32 @@ public class UserView extends AppCompatActivity {
                 //TODO: Display Error Message.
             }
         });
+
+        mEquipmentGroupInput.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                Object item = parent.getItemAtPosition(position);
+                if (item != null){
+                    user.setEquipmentGroup(item.toString());
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                //TODO: Display Error Message.
+            }
+        });
     }
 
     private List<String> userGoalSpinnerOptions(){
         List<String> spinnerArray = new ArrayList<String>();
-        spinnerArray.add("Aerobic");
+        spinnerArray.add("Endurance");
         spinnerArray.add("Muscle Strengthening");
         spinnerArray.add("Stretching");
 
         return spinnerArray;
     }
 
-    private List<Integer> DaysAvailableSpinnerOptions(){
-        List<Integer> spinnerArray = new ArrayList<Integer>();
-        for(int i=1;i<=7;i++){
-            spinnerArray.add(i);
-        }
-
-        return spinnerArray;
-    }
 
     private List<String> intensitySpinnerOptions(){
         List<String> spinnerArray = new ArrayList<String>();
@@ -162,6 +154,15 @@ public class UserView extends AppCompatActivity {
         spinnerArray.add("Beginner");
         spinnerArray.add("Intermediate");
         spinnerArray.add("Advanced");
+
+        return spinnerArray;
+    }
+
+    private List<String> equipmentGroupSpinnerOptions(){
+        List<String> spinnerArray = new ArrayList<String>();
+        spinnerArray.add("None");
+        spinnerArray.add("Basic");
+        spinnerArray.add("Full");
 
         return spinnerArray;
     }
@@ -187,7 +188,7 @@ public class UserView extends AppCompatActivity {
         user.setUserName(mUserNameInput.getText().toString());
         user.setWorkoutGroup(user.getWorkoutGroup());
         user.setUserGoal(user.getUserGoal());
-        user.setDaysAvailable(user.getDaysAvailable());
+        user.setEquipmentGroup(user.getEquipmentGroup());
         user.setIntensity(user.getIntensity());
 
         return  user;

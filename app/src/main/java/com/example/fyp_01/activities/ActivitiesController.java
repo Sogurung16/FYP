@@ -10,9 +10,6 @@ public class ActivitiesController{
         this.activitiesData = activitiesData;
     }
 
-    public int getDaysPerWeek() {
-        return activitiesData.getDaysPerWeekData();
-    }
     public int getIntensityLvl() {
         return activitiesData.getIntensityLvlData();
     }
@@ -40,13 +37,7 @@ public class ActivitiesController{
     public List<String> getIntensityLvlSpinnerArray() {
         return activitiesData.getIntensityLvlSpinnerArrayData();
     }
-    public List<Integer> getDaysPerWeekSpinnerArray() {
-        return activitiesData.getDaysPerWeekSpinnerArrayData();
-    }
 
-    public void setDaysPerWeekSpinnerArray(List<Integer> daysPerWeekSpinnerArray) {
-        activitiesData.setDaysPerWeekSpinnerArrayData(daysPerWeekSpinnerArray);
-    }
     public void setEquipmentGroupSpinnerArray(List<String> equipmentGroupSpinnerArray) {
         activitiesData.setEquipmentGroupSpinnerArrayData(equipmentGroupSpinnerArray);
     }
@@ -73,8 +64,5 @@ public class ActivitiesController{
     }
     public void setIntensityLvl(int intensityLvl) {
         activitiesData.setIntensityLvlData(intensityLvl);
-    }
-    public void setDaysPerWeek(int daysPerWeek) {
-        activitiesData.setDaysPerWeekData(daysPerWeek);
     }
 }

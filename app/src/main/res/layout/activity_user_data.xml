@@ -16,18 +16,8 @@
         android:textStyle="bold"></TextView>
 
     <TextView
-        android:id="@+id/workoutGroup"
-        android:layout_below="@id/userName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:text="Workout Level: "
-        android:textSize="20sp"
-        android:textStyle="bold"></TextView>
-
-    <TextView
         android:id="@+id/userGoal"
-        android:layout_below="@+id/workoutGroup"
+        android:layout_below="@+id/userName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
@@ -42,24 +32,18 @@
         app:layout_constraintVertical_bias="0.069"></TextView>
 
     <TextView
-        android:id="@+id/daysAvailable"
-        android:layout_below="@+id/userGoal"
+        android:id="@+id/workoutGroup"
+        android:layout_below="@id/userGoal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
-        android:text="Days Available Per Week: "
+        android:text="Workout Level: "
         android:textSize="20sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.05"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.069"></TextView>
+        android:textStyle="bold"></TextView>
 
     <TextView
         android:id="@+id/intensity"
-        android:layout_below="@+id/daysAvailable"
+        android:layout_below="@+id/workoutGroup"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
@@ -73,47 +57,70 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.069"></TextView>
 
+    <TextView
+        android:id="@+id/equipmentGroup"
+        android:layout_below="@+id/intensity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:text="Equipment Group: "
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.05"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.069"></TextView>
+
+
+
     <EditText
         android:id="@+id/userNameInput"
         android:layout_toRightOf="@id/userName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_margin="10dp"
         android:ems="10"
         android:inputType="textPersonName" />
 
     <Spinner
-        android:id="@+id/workoutGroupInput"
-        android:layout_below="@id/userName"
-        android:layout_toRightOf="@id/workoutGroup"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:spinnerMode="dropdown"/>
-
-    <Spinner
         android:id="@+id/userGoalInput"
-        android:layout_below="@id/workoutGroup"
+        android:layout_below="@id/userName"
         android:layout_toRightOf="@id/userGoal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_margin="10dp"
         android:ems="10"
         android:spinnerMode="dropdown"/>
 
     <Spinner
-        android:id="@+id/daysAvailableInput"
+        android:id="@+id/workoutGroupInput"
         android:layout_below="@id/userGoal"
-        android:layout_toRightOf="@id/daysAvailable"
+        android:layout_toRightOf="@id/workoutGroup"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_margin="10dp"
         android:ems="10"
         android:spinnerMode="dropdown"/>
 
     <Spinner
         android:id="@+id/intensityInput"
-        android:layout_below="@id/daysAvailable"
+        android:layout_below="@id/workoutGroup"
         android:layout_toRightOf="@id/intensity"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:ems="10"
+        android:spinnerMode="dropdown"/>
+
+    <Spinner
+        android:id="@+id/equipmentGroupInput"
+        android:layout_below="@id/intensity"
+        android:layout_toRightOf="@id/equipmentGroup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
         android:ems="10"
         android:spinnerMode="dropdown"/>
 
@@ -125,7 +132,7 @@
         android:layout_marginTop="30dp"
         android:layout_centerHorizontal="true"
         android:text="add user"
-        android:layout_below="@+id/intensity"></Button>
+        android:layout_below="@+id/equipmentGroup"></Button>
 
 
 </RelativeLayout>

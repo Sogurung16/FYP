@@ -10,8 +10,7 @@ public class ActivitiesData{
     private List<String> workoutLvlSpinnerArray = new ArrayList<String>();
     private List<String> equipmentGroupSpinnerArray = new ArrayList<String>();
     private List<String> activityTypeSpinnerArray = new ArrayList<String>();
-    private List<String> intensityLvlSpinnerArray = new ArrayList<String>();
-    private List<Integer> daysPerWeekSpinnerArray = new ArrayList<Integer>();
+    private List<String> intensityLvlSpinnerArray = new ArrayList<String>();;
 
     public String getActivityTypeData() {
         return activityType;
@@ -43,13 +42,7 @@ public class ActivitiesData{
     public List<String> getIntensityLvlSpinnerArrayData() {
         return intensityLvlSpinnerArray;
     }
-    public List<Integer> getDaysPerWeekSpinnerArrayData() {
-        return daysPerWeekSpinnerArray;
-    }
 
-    public void setDaysPerWeekSpinnerArrayData(List<Integer> daysPerWeekSpinnerArray) {
-        this.daysPerWeekSpinnerArray = daysPerWeekSpinnerArray;
-    }
     public void setActivityTypeSpinnerArrayData(List<String> activityTypeSpinnerArray) {
         this.activityTypeSpinnerArray = activityTypeSpinnerArray;
     }

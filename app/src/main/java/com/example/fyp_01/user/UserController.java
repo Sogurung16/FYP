@@ -15,21 +15,24 @@ public class UserController {
     }
     public void setUserGoal(String userGoal) { userData.setUserGoalData(userGoal); }
     public void setWorkoutGroup(String workoutGroup) { userData.setWorkoutGroupData(workoutGroup); }
+    public void setIntensity(String intensity) {
+        userData.setIntensityData(intensity);
+    }
+    public void setEquipmentGroup(String equipmentGroup) {
+        userData.setEquipmentGroupData(equipmentGroup);
+    }
+
     public void setUserGoalSpinnerArray(List<String> userGoalSpinnerArray) {
         userData.setUserGoalSpinnerArrayData(userGoalSpinnerArray);
     }
     public void setWorkoutGroupSpinnerArray(List<String> workoutGroupSpinnerArray) {
         userData.setWorkoutGroupSpinnerArrayData(workoutGroupSpinnerArray);
     }
-    public void setDaysAvailable(int daysAvailable){ userData.setDaysAvailableData(daysAvailable);}
-    public void setDaysAvailableSpinnerArray(List<Integer> daysAvailableSpinnerArray) {
-        userData.setDaysAvailableSpinnerArrayData(daysAvailableSpinnerArray);
-    }
-    public void setIntensity(String intensity) {
-        userData.setIntensityData(intensity);
-    }
     public void setIntensitySpinnerArray(List<String> intensitySpinnerArray) {
         userData.setIntensitySpinnerArrayData(intensitySpinnerArray);
+    }
+    public void setEquipmentGroupSpinnerArray(List<String> equipmentGroupSpinnerArray) {
+        userData.setEquipmentGroupSpinnerArrayData(equipmentGroupSpinnerArray);
     }
 
     public String getUserName() {
@@ -41,22 +44,23 @@ public class UserController {
     public String getWorkoutGroup() {
         return userData.getWorkoutGroupData();
     }
+    public String getIntensity() {
+        return userData.getIntensityData();
+    }
+    public String getEquipmentGroup() {
+        return userData.getEquipmentGroupData();
+    }
+
     public List<String> getUserGoalSpinnerArray() {
         return userData.getUserGoalSpinnerArrayData();
     }
     public List<String> getWorkoutGroupSpinnerArray() {
         return userData.getWorkoutGroupSpinnerArrayData();
     }
-    public int getDaysAvailable() {
-        return userData.getDaysAvailableData();
-    }
-    public List<Integer> getDaysAvailableSpinnerArray() {
-        return userData.getDaysAvailableSpinnerArrayData();
-    }
-    public String getIntensity() {
-        return userData.getIntensityData();
-    }
     public List<String> getIntensitySpinnerArray() {
         return userData.getIntensitySpinnerArrayData();
+    }
+    public List<String> getEquipmentGroupSpinnerArray() {
+        return userData.getEquipmentGroupSpinnerArrayData();
     }
 }
