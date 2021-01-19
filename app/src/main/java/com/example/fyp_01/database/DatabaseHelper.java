@@ -21,13 +21,14 @@ public class  DatabaseHelper extends SQLiteOpenHelper {
 
     public static final String DATABASE_NAME = "MyDatabase.db";
 
-    public static final int VERSION_NAME = 1;
+    public static final int VERSION_NAME = 4;
     public static final String TABLE_USER = "users_table";
     public static final String KEY_USER_ID = "users_id";
     public static final String KEY_USER_NAME = "users_name";
     public static final String KEY_USER_WORKOUT_GROUP = "users_workout_group";
     public static final String KEY_USER_GOAL = "users_goal";
     public static final String KEY_USER_INTENSITY = "users_intensity";
+    public static final String KEY_USER_EQUIPMENT_GROUP = "users_equipment_group";
 
     public static final String TABLE_ACTIVITIES = "activities_table";
     public static final String KEY_ACTIVITIES_ID = "activities_id";
@@ -48,7 +49,7 @@ public class  DatabaseHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL("CREATE TABLE " + TABLE_USER + " (" + KEY_USER_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " + KEY_USER_NAME + " TEXT, " +
-                KEY_USER_WORKOUT_GROUP + " TEXT, " + KEY_USER_GOAL + " TEXT, " + KEY_USER_INTENSITY + " TEXT" +")");
+                KEY_USER_WORKOUT_GROUP + " TEXT, " + KEY_USER_GOAL + " TEXT, " + KEY_USER_INTENSITY + " TEXT, " + KEY_USER_EQUIPMENT_GROUP + " TEXT" +")");
 
         db.execSQL("CREATE TABLE " + TABLE_ACTIVITIES + " (" + KEY_ACTIVITIES_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " + KEY_ACTIVITIES_NAME + " TEXT, " +
                 KEY_ACTIVITIES_ACTIVITY_TYPE + " TEXT, " + KEY_ACTIVITIES_WORKOUT_LEVEL + " TEXT, " +
@@ -70,6 +71,7 @@ public class  DatabaseHelper extends SQLiteOpenHelper {
         contentValues.put(KEY_USER_WORKOUT_GROUP, user.getWorkoutGroup());
         contentValues.put(KEY_USER_GOAL, user.getUserGoal());
         contentValues.put(KEY_USER_INTENSITY, user.getIntensity());
+        contentValues.put(KEY_USER_EQUIPMENT_GROUP, user.getEquipmentGroup());
 
 
         long result = db.insert(TABLE_USER, null, contentValues);

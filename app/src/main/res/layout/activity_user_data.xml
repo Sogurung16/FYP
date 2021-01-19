@@ -7,21 +7,45 @@
     tools:context=".user.UserView">
 
     <TextView
+        android:id="@+id/signUp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:text="Sign Up"
+        android:textSize="30sp"
+        android:textColor="#0000FF"
+        android:layout_centerHorizontal="true"></TextView>
+
+
+    <TextView
         android:id="@+id/userName"
+        android:layout_below="@+id/signUp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
         android:text="Name: "
+        android:textColor="#000000"
         android:textSize="20sp"
         android:textStyle="bold"></TextView>
 
     <TextView
-        android:id="@+id/userGoal"
+        android:id="@+id/activityPreference"
         android:layout_below="@+id/userName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="20sp"
+        android:layout_centerHorizontal="true"
+        android:text="Activity Preferences"
+        android:textSize="20sp"></TextView>
+
+    <TextView
+        android:id="@+id/userGoal"
+        android:layout_below="@+id/activityPreference"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
         android:text="Goal: "
+        android:textColor="#000000"
         android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -37,6 +61,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
+        android:textColor="#000000"
         android:text="Workout Level: "
         android:textSize="20sp"
         android:textStyle="bold"></TextView>
@@ -47,6 +72,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
+        android:textColor="#000000"
         android:text="Intensity: "
         android:textSize="20sp"
         android:textStyle="bold"
@@ -64,6 +90,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
         android:text="Equipment Group: "
+        android:textColor="#000000"
         android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -77,6 +104,7 @@
 
     <EditText
         android:id="@+id/userNameInput"
+        android:layout_below="@+id/signUp"
         android:layout_toRightOf="@id/userName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -86,7 +114,7 @@
 
     <Spinner
         android:id="@+id/userGoalInput"
-        android:layout_below="@id/userName"
+        android:layout_below="@id/activityPreference"
         android:layout_toRightOf="@id/userGoal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

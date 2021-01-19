@@ -62,4 +62,24 @@
         android:orientation="horizontal">
     </androidx.recyclerview.widget.RecyclerView>
 
+    <TextView
+        android:id="@+id/strength"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:text="Strength"
+        android:textSize="20sp"
+        android:textColor="#000"
+        android:textStyle="bold">
+    </TextView>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/strengthRecyclerview"
+        android:layout_below="@+id/strength"
+        android:layout_width="match_parent"
+        android:layout_height="130sp"
+        android:layout_marginTop="10dp"
+        android:orientation="horizontal">
+    </androidx.recyclerview.widget.RecyclerView>
+
 </LinearLayout>

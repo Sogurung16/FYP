@@ -2,6 +2,7 @@ package com.example.fyp_01.user;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -14,6 +15,7 @@ import android.widget.Toast;
 
 import com.example.fyp_01.database.DatabaseHelper;
 import com.example.fyp_01.R;
+import com.example.fyp_01.recommendations.ActivitiesRecommendation;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -65,7 +67,7 @@ public class UserView extends AppCompatActivity {
         ArrayAdapter<String> workoutGroupAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, user.getWorkoutGroupSpinnerArray());
         mWorkoutGroupInput.setAdapter(workoutGroupAdapter);
         ArrayAdapter<String> equipmentGroupAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, user.getEquipmentGroupSpinnerArray());
-        mWorkoutGroupInput.setAdapter(equipmentGroupAdapter);
+        mEquipmentGroupInput.setAdapter(equipmentGroupAdapter);
     }
 
     private void listeners(){
@@ -133,7 +135,7 @@ public class UserView extends AppCompatActivity {
     private List<String> userGoalSpinnerOptions(){
         List<String> spinnerArray = new ArrayList<String>();
         spinnerArray.add("Endurance");
-        spinnerArray.add("Muscle Strengthening");
+        spinnerArray.add("Strengthening");
         spinnerArray.add("Stretching");
 
         return spinnerArray;
@@ -178,6 +180,8 @@ public class UserView extends AppCompatActivity {
 
         if(isInserted == true){
             Toast.makeText(UserView.this, "Data Added", Toast.LENGTH_LONG).show();
+            Intent recommendationPage = new Intent(this, ActivitiesRecommendation.class);
+            startActivity(recommendationPage);
         }
         else{
             Toast.makeText(UserView.this, "Data NOT Added", Toast.LENGTH_LONG).show();
