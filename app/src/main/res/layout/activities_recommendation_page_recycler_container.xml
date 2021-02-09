@@ -1,85 +1,108 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:padding="10dp"
+    android:layout_height="wrap_content"
+
     tools:context=".recommendations.ActivitiesRecommendation">
-
-    <TextView
-        android:id="@+id/title_fitHabits"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:background="@color/colorPrimary"
-        android:gravity="center_horizontal"
-        android:text="FitHabits"
-        android:textAlignment="center"
-        android:textColor="#fff"
-        android:textSize="30sp"
-        android:textStyle="bold" />
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="10dp">
+        <TextView
+            android:id="@+id/title_fitHabits"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:background="@color/colorPrimary"
+            android:gravity="center_horizontal"
+            android:text="FitHabits"
+            android:textAlignment="center"
+            android:textColor="#fff"
+            android:textSize="30sp"
+            android:textStyle="bold" />
 
-    <TextView
-        android:id="@+id/stretching"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
-        android:text="Stretching"
-        android:textSize="20sp"
-        android:textColor="#000"
-        android:textStyle="bold">
-    </TextView>
+        <TextView
+            android:id="@+id/recommendation"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="40dp"
+            android:text="Recommendation"
+            android:textSize="20sp"
+            android:textColor="#000"
+            android:textStyle="bold">
+        </TextView>
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/stretchingRecyclerview"
-        android:layout_below="@+id/stretching"
-        android:layout_width="match_parent"
-        android:layout_height="130sp"
-        android:layout_marginTop="10dp"
-        android:orientation="horizontal">
-    </androidx.recyclerview.widget.RecyclerView>
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recommendationRecyclerview"
+            android:layout_below="@+id/recommendation"
+            android:layout_width="match_parent"
+            android:layout_height="130sp"
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal">
+        </androidx.recyclerview.widget.RecyclerView>
 
-    <TextView
-        android:id="@+id/endurance"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
-        android:text="Endurance"
-        android:textSize="20sp"
-        android:textColor="#000"
-        android:textStyle="bold">
-    </TextView>
+        <TextView
+            android:id="@+id/stretching"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="40dp"
+            android:text="Stretching"
+            android:textSize="20sp"
+            android:textColor="#000"
+            android:textStyle="bold">
+        </TextView>
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/enduranceRecyclerview"
-        android:layout_below="@+id/endurance"
-        android:layout_width="match_parent"
-        android:layout_height="130sp"
-        android:layout_marginTop="10dp"
-        android:orientation="horizontal">
-    </androidx.recyclerview.widget.RecyclerView>
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/stretchingRecyclerview"
+            android:layout_below="@+id/stretching"
+            android:layout_width="match_parent"
+            android:layout_height="130sp"
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal">
+        </androidx.recyclerview.widget.RecyclerView>
 
-    <TextView
-        android:id="@+id/strength"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
-        android:text="Strength"
-        android:textSize="20sp"
-        android:textColor="#000"
-        android:textStyle="bold">
-    </TextView>
+        <TextView
+            android:id="@+id/endurance"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="40dp"
+            android:text="Endurance"
+            android:textSize="20sp"
+            android:textColor="#000"
+            android:textStyle="bold">
+        </TextView>
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/strengthRecyclerview"
-        android:layout_below="@+id/strength"
-        android:layout_width="match_parent"
-        android:layout_height="130sp"
-        android:layout_marginTop="10dp"
-        android:orientation="horizontal">
-    </androidx.recyclerview.widget.RecyclerView>
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/enduranceRecyclerview"
+            android:layout_below="@+id/endurance"
+            android:layout_width="match_parent"
+            android:layout_height="130sp"
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal">
+        </androidx.recyclerview.widget.RecyclerView>
 
-</LinearLayout>
+        <TextView
+            android:id="@+id/strength"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="40dp"
+            android:text="Strength"
+            android:textSize="20sp"
+            android:textColor="#000"
+            android:textStyle="bold">
+        </TextView>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/strengthRecyclerview"
+            android:layout_below="@+id/strength"
+            android:layout_width="match_parent"
+            android:layout_height="130sp"
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal">
+        </androidx.recyclerview.widget.RecyclerView>
+    </LinearLayout>
+</ScrollView>

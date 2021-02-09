@@ -18,6 +18,15 @@ android {
         }
 
         python{
+            pip{
+                install"numpy"
+                install"pandas"
+                install"pysqlite3"
+                install"sklearn"
+            }
+        }
+
+        python{
             buildPython "C:/Users/Sogur/AppData/Local/Programs/Python/Python38/python.exe"
         }
     }

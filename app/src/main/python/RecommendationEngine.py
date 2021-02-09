@@ -1,32 +1,15 @@
 import pandas as pd
 import numpy as np
-import os
-import csv
 from sklearn.metrics.pairwise import cosine_similarity
 from sklearn.feature_extraction.text import CountVectorizer
 import sqlite3
-from ast import literal_eval
 
-database = r"D:\UniversityHDD\FYP\Database.db"
+database = r"/data/data/com.example.fyp_01/databases/MyDatabase.db"
+#database = r"D:/UniversityHDD/FYP/Database.db" # test database
 
 def create_connection(db_file):
     connection = sqlite3.connect(db_file)
     return connection
-
-def exportCSVFormat(connection):
-
-    cursor = connection.cursor()
-    cursor.execute("SELECT * FROM activities_table")
-    with open("activities_data.csv", "w") as csvfile:
-        csvwriter = csv.writer(csvfile, delimiter=",")
-        csvwriter.writerow([i[0] for i in cursor.description])
-        csvwriter.writerows(cursor)
-
-    dirpath = os.getcwd() + "/activities_data.csv"
-    print("Data exported Successfully into {}".format(dirpath))
-
-    dfcsv = pd.read_csv("activities_data.csv")
-    print(dfcsv)
 
 def preProcessActivitiesData(connection):
     dfActivities = pd.read_sql_query("SELECT * FROM activities_table", connection)
@@ -72,22 +55,24 @@ def get_recommendation(name, cosine_sim):
     #Sort the movies based on the similarity scores
     sim_scores = sorted(sim_scores, key=lambda x: x[1], reverse=True)
 
-    #Get the scores of the top 10 most similar activities
+    #Get the scores of the top 5 most similar activities
     sim_scores = sim_scores[1:6]
 
     #Get the activity indices
     activity_indices = [i[0] for i in sim_scores]
 
-    #Return the top 10 most similar activities
-    return dfActivities['name'].iloc[activity_indices]
+    #Return the top 5 most similar activities
+    recommendationList = dfActivities['name'].iloc[activity_indices]
+
+    return ' '.join(recommendationList)
 
 
 def main():
     user = dfUser.iloc[0]['name']
-    if(not user):
-        print("No recommendations")
-    else:
-        print(get_recommendation(user, cosine_sim))
+    """if(not user):
+        return null
+    else:"""
+    return(get_recommendation(user, cosine_sim))
 
 connection = create_connection(database)
 dfActivities = preProcessActivitiesData(connection)
@@ -105,5 +90,3 @@ cosine_sim = cosine_similarity(count_matrix, count_matrix)
 dfActivities = dfActivities.reset_index()
 
 indices = pd.Series(dfActivities.index, index=dfActivities['name'])
-
-main()

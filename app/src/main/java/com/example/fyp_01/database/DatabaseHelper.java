@@ -10,7 +10,6 @@ import android.graphics.BitmapFactory;
 
 import androidx.annotation.Nullable;
 
-import com.example.fyp_01.activities.ActivitiesController;
 import com.example.fyp_01.recommendations.Model;
 import com.example.fyp_01.user.UserController;
 
@@ -21,7 +20,7 @@ public class  DatabaseHelper extends SQLiteOpenHelper {
 
     public static final String DATABASE_NAME = "MyDatabase.db";
 
-    public static final int VERSION_NAME = 4;
+    public static final int VERSION_NAME = 9;
     public static final String TABLE_USER = "users_table";
     public static final String KEY_USER_ID = "users_id";
     public static final String KEY_USER_NAME = "users_name";

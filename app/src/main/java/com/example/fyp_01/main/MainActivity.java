@@ -20,14 +20,5 @@ public class MainActivity extends AppCompatActivity {
 
         Intent userDataPage = new Intent(this, UserView.class);
         startActivity(userDataPage);
-
-        if(!Python.isStarted()){
-            Python.start(new AndroidPlatform(this));
-        }
-
-        Python py = Python.getInstance();
-        PyObject pyObj = py.getModule("RecommendationEngine");
-        pyObj.callAttr("main");
-
     }
 }
