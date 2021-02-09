@@ -1,2 +1,3 @@
+include ':recommendation_engine'
 include ':app'
 rootProject.name='FYP_01'

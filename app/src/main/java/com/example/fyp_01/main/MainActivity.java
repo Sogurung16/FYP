@@ -5,9 +5,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 
+import com.chaquo.python.PyObject;
+import com.chaquo.python.Python;
+import com.chaquo.python.android.AndroidPlatform;
 import com.example.fyp_01.R;
-import com.example.fyp_01.activities.ActivitiesView;
-import com.example.fyp_01.recommendations.ActivitiesRecommendation;
 import com.example.fyp_01.user.UserView;
 
 public class MainActivity extends AppCompatActivity {
@@ -19,5 +20,14 @@ public class MainActivity extends AppCompatActivity {
 
         Intent userDataPage = new Intent(this, UserView.class);
         startActivity(userDataPage);
+
+        if(!Python.isStarted()){
+            Python.start(new AndroidPlatform(this));
+        }
+
+        Python py = Python.getInstance();
+        PyObject pyObj = py.getModule("RecommendationEngine");
+        pyObj.callAttr("main");
+
     }
 }
