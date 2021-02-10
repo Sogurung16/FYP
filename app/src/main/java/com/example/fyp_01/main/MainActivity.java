@@ -5,11 +5,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 
-import com.chaquo.python.PyObject;
-import com.chaquo.python.Python;
-import com.chaquo.python.android.AndroidPlatform;
 import com.example.fyp_01.R;
-import com.example.fyp_01.user.UserView;
+import com.example.fyp_01.user.UserController;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -18,7 +15,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Intent userDataPage = new Intent(this, UserView.class);
+        Intent userDataPage = new Intent(this, UserController.class);
         startActivity(userDataPage);
     }
 }

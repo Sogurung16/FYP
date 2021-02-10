@@ -11,7 +11,7 @@ import android.graphics.BitmapFactory;
 import androidx.annotation.Nullable;
 
 import com.example.fyp_01.recommendations.Model;
-import com.example.fyp_01.user.UserController;
+import com.example.fyp_01.user.UserModel;
 
 import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
@@ -62,15 +62,15 @@ public class  DatabaseHelper extends SQLiteOpenHelper {
         onCreate(db);
     }
 
-    public boolean addUserData(UserController user){
+    public boolean addUserData(UserModel user){
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues contentValues = new ContentValues();
-        contentValues.put(KEY_USER_NAME, user.getUserName());
-        contentValues.put(KEY_USER_WORKOUT_GROUP, user.getWorkoutGroup());
-        contentValues.put(KEY_USER_GOAL, user.getUserGoal());
-        contentValues.put(KEY_USER_INTENSITY, user.getIntensity());
-        contentValues.put(KEY_USER_EQUIPMENT_GROUP, user.getEquipmentGroup());
+        contentValues.put(KEY_USER_NAME, user.getUserNameData());
+        contentValues.put(KEY_USER_WORKOUT_GROUP, user.getWorkoutGroupData());
+        contentValues.put(KEY_USER_GOAL, user.getUserGoalData());
+        contentValues.put(KEY_USER_INTENSITY, user.getIntensityData());
+        contentValues.put(KEY_USER_EQUIPMENT_GROUP, user.getEquipmentGroupData());
 
 
         long result = db.insert(TABLE_USER, null, contentValues);

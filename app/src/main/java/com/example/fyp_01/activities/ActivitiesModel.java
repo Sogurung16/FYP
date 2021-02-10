@@ -3,7 +3,7 @@ package com.example.fyp_01.activities;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ActivitiesData{
+public class ActivitiesModel {
 
     private int intensityLvl, daysPerWeek;
     private String activityName, workoutLvl, equipmentGroup, activityType;

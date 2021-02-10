@@ -17,9 +17,8 @@ import com.example.fyp_01.R;
 import com.example.fyp_01.database.DatabaseHelper;
 
 import java.util.ArrayList;
-import java.util.List;
 
-public class ActivitiesRecommendation extends AppCompatActivity {
+public class Controller extends AppCompatActivity {
     private DatabaseHelper databaseHelper;
     private RecyclerView mStretchingRecyclerView, mEnduranceRecyclerView, mStrengthRecyclerView, mRecommendationRecyclerView;
 
@@ -57,10 +56,10 @@ public class ActivitiesRecommendation extends AppCompatActivity {
         //activityData(); // add activity data, not to run once already run
 
         //Design Horizontal Layout
-        LinearLayoutManager recommendationLayoutManager = new LinearLayoutManager(ActivitiesRecommendation.this, LinearLayoutManager.HORIZONTAL,false);
-        LinearLayoutManager stretchingLayoutManager = new LinearLayoutManager(ActivitiesRecommendation.this, LinearLayoutManager.HORIZONTAL,false);
-        LinearLayoutManager enduranceLayoutManager = new LinearLayoutManager(ActivitiesRecommendation.this, LinearLayoutManager.HORIZONTAL,false);
-        LinearLayoutManager strengthLayoutManager = new LinearLayoutManager(ActivitiesRecommendation.this, LinearLayoutManager.HORIZONTAL,false);
+        LinearLayoutManager recommendationLayoutManager = new LinearLayoutManager(Controller.this, LinearLayoutManager.HORIZONTAL,false);
+        LinearLayoutManager stretchingLayoutManager = new LinearLayoutManager(Controller.this, LinearLayoutManager.HORIZONTAL,false);
+        LinearLayoutManager enduranceLayoutManager = new LinearLayoutManager(Controller.this, LinearLayoutManager.HORIZONTAL,false);
+        LinearLayoutManager strengthLayoutManager = new LinearLayoutManager(Controller.this, LinearLayoutManager.HORIZONTAL,false);
         mRecommendationRecyclerView.setLayoutManager(recommendationLayoutManager);
         mRecommendationRecyclerView.setItemAnimator(new DefaultItemAnimator());
         mStretchingRecyclerView.setLayoutManager(stretchingLayoutManager);
@@ -100,13 +99,13 @@ public class ActivitiesRecommendation extends AppCompatActivity {
             }
         }
         //Set Adapter to RecyclerView
-        recommendationAdapter = new RecommendationAdapter(ActivitiesRecommendation.this, recommendationAdapterModels);
+        recommendationAdapter = new RecommendationAdapter(Controller.this, recommendationAdapterModels);
         mRecommendationRecyclerView.setAdapter(recommendationAdapter);
-        stretchingAdapter = new StretchingAdapter(ActivitiesRecommendation.this, stretchingAdapterModels);
+        stretchingAdapter = new StretchingAdapter(Controller.this, stretchingAdapterModels);
         mStretchingRecyclerView.setAdapter(stretchingAdapter);
-        enduranceAdapter = new EnduranceAdapter(ActivitiesRecommendation.this, enduranceAdapterModels);
+        enduranceAdapter = new EnduranceAdapter(Controller.this, enduranceAdapterModels);
         mEnduranceRecyclerView.setAdapter(enduranceAdapter);
-        strengthAdapter = new StrengthAdapter(ActivitiesRecommendation.this, strengthAdapterModels);
+        strengthAdapter = new StrengthAdapter(Controller.this, strengthAdapterModels);
         mStrengthRecyclerView.setAdapter(strengthAdapter);
     }
 
