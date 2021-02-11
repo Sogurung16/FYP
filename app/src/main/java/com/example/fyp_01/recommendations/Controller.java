@@ -24,7 +24,6 @@ public class Controller extends AppCompatActivity {
 
     private ArrayList<Model> models, stretchingAdapterModels, enduranceAdapterModels, strengthAdapterModels,recommendationAdapterModels;
     private Model model;
-    private Bitmap imageToStoreBitmap;
     private String activityType;
 
     @Override
@@ -148,6 +147,7 @@ public class Controller extends AppCompatActivity {
     }
 
     private void addNewActivitiesData(String[] names, String type, String[] intensityLevels, String[] workoutLevels, String[] equipmentGroups,int[] drawableIds){
+        Bitmap imageToStoreBitmap;
         for(int i = 0; i<drawableIds.length; i++) {
             imageToStoreBitmap = BitmapFactory.decodeResource(getResources(), drawableIds[i]);
             model = new Model(names[i], type, intensityLevels[i], workoutLevels[i], equipmentGroups[i], imageToStoreBitmap);

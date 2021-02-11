@@ -18,25 +18,25 @@ import java.util.ArrayList;
 
 public class  DatabaseHelper extends SQLiteOpenHelper {
 
-    public static final String DATABASE_NAME = "MyDatabase.db";
+    private static final String DATABASE_NAME = "MyDatabase.db";
 
-    public static final int VERSION_NAME = 9;
-    public static final String TABLE_USER = "users_table";
-    public static final String KEY_USER_ID = "users_id";
-    public static final String KEY_USER_NAME = "users_name";
-    public static final String KEY_USER_WORKOUT_GROUP = "users_workout_group";
-    public static final String KEY_USER_GOAL = "users_goal";
-    public static final String KEY_USER_INTENSITY = "users_intensity";
-    public static final String KEY_USER_EQUIPMENT_GROUP = "users_equipment_group";
+    private static final int VERSION_NAME = 9;
+    private static final String TABLE_USER = "users_table";
+    private static final String KEY_USER_ID = "users_id";
+    private static final String KEY_USER_NAME = "users_name";
+    private static final String KEY_USER_WORKOUT_GROUP = "users_workout_group";
+    private static final String KEY_USER_GOAL = "users_goal";
+    private static final String KEY_USER_INTENSITY = "users_intensity";
+    private static final String KEY_USER_EQUIPMENT_GROUP = "users_equipment_group";
 
-    public static final String TABLE_ACTIVITIES = "activities_table";
-    public static final String KEY_ACTIVITIES_ID = "activities_id";
-    public static final String KEY_ACTIVITIES_NAME = "activities_name";
-    public static final String KEY_ACTIVITIES_ACTIVITY_TYPE = "activities_type";
-    public static final String KEY_ACTIVITIES_INTENSITY_LEVEL = "activities_intensity";
-    public static final String KEY_ACTIVITIES_WORKOUT_LEVEL = "activities_workout_level";
-    public static final String KEY_ACTIVITIES_EQUIPMENT_GROUP = "activities_equipment_group";
-    public static final String KEY_ACTIVITIES_IMAGE = "activities_image";
+    private static final String TABLE_ACTIVITIES = "activities_table";
+    private static final String KEY_ACTIVITIES_ID = "activities_id";
+    private static final String KEY_ACTIVITIES_NAME = "activities_name";
+    private static final String KEY_ACTIVITIES_ACTIVITY_TYPE = "activities_type";
+    private static final String KEY_ACTIVITIES_INTENSITY_LEVEL = "activities_intensity";
+    private static final String KEY_ACTIVITIES_WORKOUT_LEVEL = "activities_workout_level";
+    private static final String KEY_ACTIVITIES_EQUIPMENT_GROUP = "activities_equipment_group";
+    private static final String KEY_ACTIVITIES_IMAGE = "activities_image";
 
     private ByteArrayOutputStream objectByteArrayOutputStream;
     private byte[] imgInByte;
@@ -110,7 +110,7 @@ public class  DatabaseHelper extends SQLiteOpenHelper {
 
     //retrieve image_table data from database
     public ArrayList<Model> getActivitiesData() {
-        ArrayList<Model> Models = new ArrayList<>();
+        ArrayList<Model> models = new ArrayList<>();
         Bitmap imageToRetrieve;
         String activityName, activityType, activityWorkoutLvl, activityIntensityLvl, activityEquipmentGroup;
 
@@ -128,9 +128,9 @@ public class  DatabaseHelper extends SQLiteOpenHelper {
                 imgInByte = cursor.getBlob(6);
                 imageToRetrieve = BitmapFactory.decodeByteArray(imgInByte, 0, imgInByte.length);
                 Model Model = new Model(activityName, activityType, activityWorkoutLvl, activityIntensityLvl, activityEquipmentGroup, imageToRetrieve);
-                Models.add(Model);
+                models.add(Model);
             }
         }
-        return Models;
+        return models;
     }
 }
