@@ -41,7 +41,6 @@ public class Controller extends AppCompatActivity {
         //Initialize ArrayList
         models = new ArrayList<>();
         String recommendation;
-        String[] recommendations;
         stretchingAdapterModels = new ArrayList<>();
         enduranceAdapterModels = new ArrayList<>();
         strengthAdapterModels = new ArrayList<>();
@@ -71,7 +70,6 @@ public class Controller extends AppCompatActivity {
         models = databaseHelper.getActivitiesData();
 
         recommendation = getRecommendation();
-        recommendations = recommendation.split("\n");
 
         for(int i=0; i<models.size();i++){
             model = new Model(models.get(i));

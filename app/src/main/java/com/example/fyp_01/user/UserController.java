@@ -176,6 +176,7 @@ public class UserController extends AppCompatActivity {
 
     private void addUser(){
         databaseHelper = new DatabaseHelper(this);
+        databaseHelper.deleteUserData();
         boolean isInserted = databaseHelper.addUserData(user);
 
         if(isInserted == true){

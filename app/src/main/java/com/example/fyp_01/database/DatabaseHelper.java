@@ -20,7 +20,7 @@ public class  DatabaseHelper extends SQLiteOpenHelper {
 
     private static final String DATABASE_NAME = "MyDatabase.db";
 
-    private static final int VERSION_NAME = 9;
+    private static final int VERSION_NAME = 10;
     private static final String TABLE_USER = "users_table";
     private static final String KEY_USER_ID = "users_id";
     private static final String KEY_USER_NAME = "users_name";
@@ -80,6 +80,11 @@ public class  DatabaseHelper extends SQLiteOpenHelper {
         else{
             return true;
         }
+    }
+
+    public void deleteUserData(){
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.execSQL("delete from " + TABLE_USER);
     }
 
     public boolean addActivityData(Model model){
