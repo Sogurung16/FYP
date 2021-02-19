@@ -2,7 +2,7 @@ package com.example.fyp_01.recommendations;
 
 import android.graphics.Bitmap;
 
-public class Model {
+public class Model{
 
     private String activitiesName, activitiesIntensityLvl, activitiesWorkoutLvl, activitiesEquipmentGroup;
     private Bitmap activitiesImage;

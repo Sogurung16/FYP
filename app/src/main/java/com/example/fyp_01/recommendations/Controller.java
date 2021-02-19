@@ -1,8 +1,10 @@
 package com.example.fyp_01.recommendations;
 
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -14,6 +16,7 @@ import com.chaquo.python.PyObject;
 import com.chaquo.python.Python;
 import com.chaquo.python.android.AndroidPlatform;
 import com.example.fyp_01.R;
+import com.example.fyp_01.activityDetail.ActivityDetailController;
 import com.example.fyp_01.database.DatabaseHelper;
 
 import java.util.ArrayList;
@@ -105,6 +108,12 @@ public class Controller extends AppCompatActivity {
         strengthAdapter = new StrengthAdapter(Controller.this, strengthAdapterModels);
         mStrengthRecyclerView.setAdapter(strengthAdapter);
     }
+
+    public void navigateToActivityDetailPage(View view){
+        Intent activityDetailIntent = new Intent(this, ActivityDetailController.class);
+        startActivity(activityDetailIntent);
+    }
+
 
     private void activityData(){
         String[] names, intensityLvls, workoutLvls, equipmentGroups;

@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/activityDetailName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="Activity X"
+        android:textColor="#000000"
+        android:textSize="38dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"></TextView>
+
+    <ImageView
+        android:id="@+id/activityDetailImage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/endurance"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/activityDetailName"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="20dp"></ImageView>
+
+    <TextView
+        android:id="@+id/activityTypeTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/activityDetailName"
+        app:layout_constraintStart_toEndOf="@+id/activityDetailImage"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="5dp"
+        android:text="Activity Type: "
+        android:textColor="#000000"></TextView>
+
+    <TextView
+        android:id="@+id/activityTypeTextViewResult"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/activityDetailName"
+        app:layout_constraintStart_toEndOf="@+id/activityTypeTextView"
+        android:layout_marginTop="20dp"
+        android:text="Endurance"
+        android:textColor="#000000"></TextView>
+
+    <TextView
+        android:id="@+id/activityWorkoutLevelTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/activityTypeTextView"
+        app:layout_constraintStart_toEndOf="@+id/activityDetailImage"
+        android:layout_marginTop="5dp"
+        android:layout_marginLeft="5dp"
+        android:text="Workout Level: "
+        android:textColor="#000000"></TextView>
+
+    <TextView
+        android:id="@+id/activityWorkoutLevelTextViewResult"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/activityTypeTextView"
+        app:layout_constraintStart_toEndOf="@+id/activityWorkoutLevelTextView"
+        android:layout_marginTop="5dp"
+        android:text="Beginner"
+        android:textColor="#000000"></TextView>
+
+    <TextView
+        android:id="@+id/activityIntensityTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/activityWorkoutLevelTextView"
+        app:layout_constraintStart_toEndOf="@+id/activityDetailImage"
+        android:layout_marginTop="5dp"
+        android:layout_marginLeft="5dp"
+        android:text="Intensity: "
+        android:textColor="#000000"></TextView>
+
+    <TextView
+        android:id="@+id/activityIntensityTextViewResult"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/activityWorkoutLevelTextView"
+        app:layout_constraintStart_toEndOf="@+id/activityIntensityTextView"
+        android:layout_marginTop="5dp"
+        android:text="Easy"
+        android:textColor="#000000"></TextView>
+
+    <TextView
+        android:id="@+id/equipmentGroupTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/activityIntensityTextView"
+        app:layout_constraintStart_toEndOf="@+id/activityDetailImage"
+        android:layout_marginTop="5dp"
+        android:layout_marginLeft="5dp"
+        android:text="Equipment Group: "
+        android:textColor="#000000"></TextView>
+
+    <TextView
+        android:id="@+id/equipmentGroupTextViewResult"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/activityIntensityTextView"
+        app:layout_constraintStart_toEndOf="@+id/equipmentGroupTextView"
+        android:layout_marginTop="5dp"
+        android:text="None"
+        android:textColor="#000000"></TextView>
+
+    <TextView
+        android:id="@+id/activityTimeTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/equipmentGroupTextView"
+        app:layout_constraintStart_toEndOf="@+id/activityDetailImage"
+        android:layout_marginTop="5dp"
+        android:layout_marginLeft="5dp"
+        android:text="Activity Time: "
+        android:textColor="#000000"></TextView>
+
+    <TextView
+        android:id="@+id/activityTimeTextViewResult"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/equipmentGroupTextView"
+        app:layout_constraintStart_toEndOf="@+id/activityTimeTextView"
+        android:layout_marginTop="5dp"
+        android:text="10:00"
+        android:textColor="#000000"></TextView>
+
+    <Button
+        android:id="@+id/playButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="20dp"
+        app:layout_constraintTop_toBottomOf="@+id/activityDetailImage"
+        app:layout_constraintStart_toStartOf="parent"
+        android:text="Play"
+        ></Button>
+
+    <TextView
+        android:id="@+id/activityTimer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:layout_marginLeft="20dp"
+        app:layout_constraintTop_toBottomOf="@+id/activityDetailImage"
+        app:layout_constraintStart_toEndOf="@+id/playButton"
+        android:text="00:00"></TextView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

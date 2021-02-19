@@ -20,7 +20,7 @@ import com.example.fyp_01.recommendations.Controller;
 import java.util.ArrayList;
 import java.util.List;
 
-public class UserController extends AppCompatActivity {
+public class UserController extends AppCompatActivity{
 
     DatabaseHelper databaseHelper;
 
@@ -82,7 +82,7 @@ public class UserController extends AppCompatActivity {
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
-                //TODO: Display Error Message.
+                //Toast.makeText(UserController.this, "Activity preferences NOT selected", Toast.LENGTH_LONG).show();
             }
         });
 
@@ -97,7 +97,7 @@ public class UserController extends AppCompatActivity {
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
-                //TODO: Display Error Message.
+                //Toast.makeText(UserController.this, "Activity preferences NOT selected", Toast.LENGTH_LONG).show();
             }
         });
 
@@ -112,7 +112,7 @@ public class UserController extends AppCompatActivity {
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
-                //TODO: Display Error Message.
+                //Toast.makeText(UserController.this, "Activity preferences NOT selected", Toast.LENGTH_LONG).show();
             }
         });
 
@@ -127,13 +127,14 @@ public class UserController extends AppCompatActivity {
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
-                //TODO: Display Error Message.
+                //Toast.makeText(UserController.this, "Activity preferences NOT selected", Toast.LENGTH_LONG).show();
             }
         });
     }
 
     private List<String> userGoalSpinnerOptions(){
         List<String> spinnerArray = new ArrayList<String>();
+        spinnerArray.add("");
         spinnerArray.add("Endurance");
         spinnerArray.add("Strengthening");
         spinnerArray.add("Stretching");
@@ -144,6 +145,7 @@ public class UserController extends AppCompatActivity {
 
     private List<String> intensitySpinnerOptions(){
         List<String> spinnerArray = new ArrayList<String>();
+        spinnerArray.add("");
         spinnerArray.add("Easy");
         spinnerArray.add("Moderate");
         spinnerArray.add("Hard");
@@ -153,6 +155,7 @@ public class UserController extends AppCompatActivity {
 
     private List<String> workoutGroupSpinnerOptions(){
         List<String> spinnerArray = new ArrayList<String>();
+        spinnerArray.add("");
         spinnerArray.add("Beginner");
         spinnerArray.add("Intermediate");
         spinnerArray.add("Advanced");
@@ -162,6 +165,7 @@ public class UserController extends AppCompatActivity {
 
     private List<String> equipmentGroupSpinnerOptions(){
         List<String> spinnerArray = new ArrayList<String>();
+        spinnerArray.add("");
         spinnerArray.add("None");
         spinnerArray.add("Basic");
         spinnerArray.add("Full");
@@ -170,8 +174,17 @@ public class UserController extends AppCompatActivity {
     }
 
     public void addUserButton(View view){
+
         retrieveUserData();
-        addUser();
+        if(user.getUserNameData().length()<=0 | user.getUserNameData()==null){
+            Toast.makeText(UserController.this, "Data NOT Added \nInvalid Name", Toast.LENGTH_LONG).show();
+        }
+        else if(user.getUserGoalData()=="" | user.getWorkoutGroupData()=="" | user.getEquipmentGroupData()=="" | user.getIntensityData()==""){
+            Toast.makeText(UserController.this, "Data NOT Added \nIncomplete Activity Preferences", Toast.LENGTH_LONG).show();
+        }
+        else {
+            addUser();
+        }
     }
 
     private void addUser(){
@@ -189,7 +202,7 @@ public class UserController extends AppCompatActivity {
         }
     }
 
-    private UserModel retrieveUserData(){
+    public UserModel retrieveUserData(){
         user.setUserNameData(mUserNameInput.getText().toString());
         user.setWorkoutGroupData(user.getWorkoutGroupData());
         user.setUserGoalData(user.getUserGoalData());

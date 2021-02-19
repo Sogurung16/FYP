@@ -5,162 +5,169 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".user.UserController">
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/signUp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:text="Sign Up"
-        android:textSize="30sp"
-        android:textColor="#0000FF"
-        android:layout_centerHorizontal="true"></TextView>
-
-
-    <TextView
-        android:id="@+id/userName"
-        android:layout_below="@+id/signUp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:text="Name: "
-        android:textColor="#000000"
-        android:textSize="20sp"
-        android:textStyle="bold"></TextView>
-
-    <TextView
-        android:id="@+id/activityPreference"
-        android:layout_below="@+id/userName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="20sp"
-        android:layout_centerHorizontal="true"
-        android:text="Activity Preferences"
-        android:textSize="20sp"></TextView>
-
-    <TextView
-        android:id="@+id/userGoal"
-        android:layout_below="@+id/activityPreference"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:text="Goal: "
-        android:textColor="#000000"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.05"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.069"></TextView>
-
-    <TextView
-        android:id="@+id/workoutGroup"
-        android:layout_below="@id/userGoal"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:textColor="#000000"
-        android:text="Workout Level: "
-        android:textSize="20sp"
-        android:textStyle="bold"></TextView>
-
-    <TextView
-        android:id="@+id/intensity"
-        android:layout_below="@+id/workoutGroup"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:textColor="#000000"
-        android:text="Intensity: "
-        android:textSize="20sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.05"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.069"></TextView>
-
-    <TextView
-        android:id="@+id/equipmentGroup"
-        android:layout_below="@+id/intensity"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:text="Equipment Group: "
-        android:textColor="#000000"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.05"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.069"></TextView>
+            <TextView
+                android:id="@+id/signUp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:text="Sign Up"
+                android:textSize="30sp"
+                android:textColor="#0000FF"
+                android:layout_centerHorizontal="true"></TextView>
 
 
+            <TextView
+                android:id="@+id/userName"
+                android:layout_below="@+id/signUp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:text="Name: "
+                android:textColor="#000000"
+                android:textSize="20sp"
+                android:textStyle="bold"></TextView>
 
-    <EditText
-        android:id="@+id/userNameInput"
-        android:layout_below="@+id/signUp"
-        android:layout_toRightOf="@id/userName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:ems="10"
-        android:inputType="textPersonName" />
+            <TextView
+                android:id="@+id/activityPreference"
+                android:layout_below="@+id/userName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="20sp"
+                android:layout_centerHorizontal="true"
+                android:text="Activity Preferences"
+                android:textSize="20sp"></TextView>
 
-    <Spinner
-        android:id="@+id/userGoalInput"
-        android:layout_below="@id/activityPreference"
-        android:layout_toRightOf="@id/userGoal"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:ems="10"
-        android:spinnerMode="dropdown"/>
+            <TextView
+                android:id="@+id/userGoal"
+                android:layout_below="@+id/activityPreference"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:text="Goal: "
+                android:textColor="#000000"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.05"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.069"></TextView>
 
-    <Spinner
-        android:id="@+id/workoutGroupInput"
-        android:layout_below="@id/userGoal"
-        android:layout_toRightOf="@id/workoutGroup"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:ems="10"
-        android:spinnerMode="dropdown"/>
+            <TextView
+                android:id="@+id/workoutGroup"
+                android:layout_below="@id/userGoal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:textColor="#000000"
+                android:text="Workout Level: "
+                android:textSize="20sp"
+                android:textStyle="bold"></TextView>
 
-    <Spinner
-        android:id="@+id/intensityInput"
-        android:layout_below="@id/workoutGroup"
-        android:layout_toRightOf="@id/intensity"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:ems="10"
-        android:spinnerMode="dropdown"/>
+            <TextView
+                android:id="@+id/intensity"
+                android:layout_below="@+id/workoutGroup"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:textColor="#000000"
+                android:text="Intensity: "
+                android:textSize="20sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.05"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.069"></TextView>
 
-    <Spinner
-        android:id="@+id/equipmentGroupInput"
-        android:layout_below="@id/intensity"
-        android:layout_toRightOf="@id/equipmentGroup"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:ems="10"
-        android:spinnerMode="dropdown"/>
-
-    <Button
-        android:id="@+id/addUser"
-        android:onClick="addUserButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
-        android:layout_centerHorizontal="true"
-        android:text="add user"
-        android:layout_below="@+id/equipmentGroup"></Button>
+            <TextView
+                android:id="@+id/equipmentGroup"
+                android:layout_below="@+id/intensity"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:text="Equipment Group: "
+                android:textColor="#000000"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.05"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.069"></TextView>
 
 
+
+            <EditText
+                android:id="@+id/userNameInput"
+                android:layout_below="@+id/signUp"
+                android:layout_toRightOf="@id/userName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:ems="10"
+                android:inputType="textPersonName" />
+
+            <Spinner
+                android:id="@+id/userGoalInput"
+                android:layout_below="@id/activityPreference"
+                android:layout_toRightOf="@id/userGoal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:ems="10"
+                android:spinnerMode="dropdown"/>
+
+            <Spinner
+                android:id="@+id/workoutGroupInput"
+                android:layout_below="@id/userGoal"
+                android:layout_toRightOf="@id/workoutGroup"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:ems="10"
+                android:spinnerMode="dropdown"/>
+
+            <Spinner
+                android:id="@+id/intensityInput"
+                android:layout_below="@id/workoutGroup"
+                android:layout_toRightOf="@id/intensity"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:ems="10"
+                android:spinnerMode="dropdown"/>
+
+            <Spinner
+                android:id="@+id/equipmentGroupInput"
+                android:layout_below="@id/intensity"
+                android:layout_toRightOf="@id/equipmentGroup"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:ems="10"
+                android:spinnerMode="dropdown"/>
+
+            <Button
+                android:id="@+id/addUser"
+                android:onClick="addUserButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:layout_centerHorizontal="true"
+                android:text="add user"
+                android:layout_below="@+id/equipmentGroup"></Button>
+
+        </RelativeLayout>
+    </ScrollView>
 </RelativeLayout>

@@ -5,7 +5,7 @@ import android.widget.AdapterView;
 import java.util.ArrayList;
 import java.util.List;
 
-public class UserModel {
+public class UserModel{
 
     private String userName, userGoal, intensity, workoutGroup, equipmentGroup;
     private List<String> workoutGroupSpinnerArray  = new ArrayList<String>();

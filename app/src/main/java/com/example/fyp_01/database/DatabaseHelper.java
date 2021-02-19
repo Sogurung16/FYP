@@ -66,6 +66,7 @@ public class  DatabaseHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues contentValues = new ContentValues();
+        contentValues.put(KEY_USER_ID, 1);
         contentValues.put(KEY_USER_NAME, user.getUserNameData());
         contentValues.put(KEY_USER_WORKOUT_GROUP, user.getWorkoutGroupData());
         contentValues.put(KEY_USER_GOAL, user.getUserGoalData());

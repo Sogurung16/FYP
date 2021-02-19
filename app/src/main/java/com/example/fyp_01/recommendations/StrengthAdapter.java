@@ -4,7 +4,7 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -36,7 +36,7 @@ public class StrengthAdapter extends RecyclerView.Adapter<StrengthAdapter.ViewHo
         Model model = models.get(position);
 
         holder.mTextView.setText(model.getActivitiesName());
-        holder.mImageView.setImageBitmap(model.getActivitiesImage());
+        holder.mImageButton.setImageBitmap(model.getActivitiesImage());
     }
 
     @Override
@@ -46,13 +46,13 @@ public class StrengthAdapter extends RecyclerView.Adapter<StrengthAdapter.ViewHo
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         //Initialize Variables
-        ImageView mImageView;
+        ImageButton mImageButton;
         TextView mTextView;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             //Assign Variable
-            mImageView = itemView.findViewById(R.id.imageView);
+            mImageButton = itemView.findViewById(R.id.imageButton);
             mTextView = itemView.findViewById(R.id.textView);
         }
     }
