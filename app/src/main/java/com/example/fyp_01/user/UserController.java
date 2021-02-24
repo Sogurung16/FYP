@@ -132,7 +132,7 @@ public class UserController extends AppCompatActivity{
         });
     }
 
-    private List<String> userGoalSpinnerOptions(){
+    protected static List<String> userGoalSpinnerOptions(){
         List<String> spinnerArray = new ArrayList<String>();
         spinnerArray.add("");
         spinnerArray.add("Endurance");
@@ -143,7 +143,7 @@ public class UserController extends AppCompatActivity{
     }
 
 
-    private List<String> intensitySpinnerOptions(){
+    protected List<String> intensitySpinnerOptions(){
         List<String> spinnerArray = new ArrayList<String>();
         spinnerArray.add("");
         spinnerArray.add("Easy");
@@ -153,7 +153,7 @@ public class UserController extends AppCompatActivity{
         return spinnerArray;
     }
 
-    private List<String> workoutGroupSpinnerOptions(){
+    protected List<String> workoutGroupSpinnerOptions(){
         List<String> spinnerArray = new ArrayList<String>();
         spinnerArray.add("");
         spinnerArray.add("Beginner");
@@ -163,7 +163,7 @@ public class UserController extends AppCompatActivity{
         return spinnerArray;
     }
 
-    private List<String> equipmentGroupSpinnerOptions(){
+    protected List<String> equipmentGroupSpinnerOptions(){
         List<String> spinnerArray = new ArrayList<String>();
         spinnerArray.add("");
         spinnerArray.add("None");
@@ -173,33 +173,24 @@ public class UserController extends AppCompatActivity{
         return spinnerArray;
     }
 
-    public void addUserButton(View view){
-
-        retrieveUserData();
-        if(user.getUserNameData().length()<=0 | user.getUserNameData()==null){
-            Toast.makeText(UserController.this, "Data NOT Added \nInvalid Name", Toast.LENGTH_LONG).show();
-        }
-        else if(user.getUserGoalData()=="" | user.getWorkoutGroupData()=="" | user.getEquipmentGroupData()=="" | user.getIntensityData()==""){
-            Toast.makeText(UserController.this, "Data NOT Added \nIncomplete Activity Preferences", Toast.LENGTH_LONG).show();
-        }
-        else {
-            addUser();
-        }
-    }
-
-    private void addUser(){
+    protected Boolean addUser(){
         databaseHelper = new DatabaseHelper(this);
         databaseHelper.deleteUserData();
         boolean isInserted = databaseHelper.addUserData(user);
 
         if(isInserted == true){
-            Toast.makeText(UserController.this, "Data Added", Toast.LENGTH_LONG).show();
+            Toast.makeText(UserController.this, buildToastMessage(""), Toast.LENGTH_LONG).show();
             Intent recommendationPage = new Intent(this, Controller.class);
             startActivity(recommendationPage);
         }
         else{
-            Toast.makeText(UserController.this, "Data NOT Added", Toast.LENGTH_LONG).show();
+            Toast.makeText(UserController.this, buildToastMessage(" NOT"), Toast.LENGTH_LONG).show();
         }
+        return isInserted;
+    }
+
+    protected static String buildToastMessage(String message){
+        return "Data"+message+" Added";
     }
 
     public UserModel retrieveUserData(){
@@ -211,4 +202,20 @@ public class UserController extends AppCompatActivity{
 
         return  user;
     }
+
+    public void addUserButton(View view){
+
+        retrieveUserData();
+        if(user.getUserNameData().length()<=0 | user.getUserNameData()==null){
+            Toast.makeText(UserController.this, buildToastMessage(" NOT") + "\nInvalid Name", Toast.LENGTH_LONG).show();
+        }
+        else if(user.getUserGoalData()=="" | user.getWorkoutGroupData()=="" | user.getEquipmentGroupData()=="" | user.getIntensityData()==""){
+            Toast.makeText(UserController.this, buildToastMessage(" NOT") + "\nIncomplete Activity Preferences", Toast.LENGTH_LONG).show();
+        }
+        else {
+            addUser();
+        }
+    }
+
+
 }
