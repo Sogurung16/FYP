@@ -1,15 +1,20 @@
 package com.example.fyp_01.user;
 
+import android.content.Context;
+
 import androidx.test.espresso.action.ViewActions;
 import androidx.test.espresso.intent.Intents;
 import androidx.test.espresso.matcher.ViewMatchers;
 import androidx.test.ext.junit.rules.ActivityScenarioRule;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
+import androidx.test.platform.app.InstrumentationRegistry;
 
 import com.example.fyp_01.R;
+import com.example.fyp_01.database.DatabaseHelper;
 import com.example.fyp_01.recommendations.Controller;
 
 import org.junit.After;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -34,6 +39,7 @@ import static org.hamcrest.Matchers.is;
 public class UserControllerTest {
 
     private String userName, goal, workoutGroup, intensity, equipmentGroup;
+    private DatabaseHelper database;
 
     @Rule
     public ActivityScenarioRule<UserController> activityTestRule = new ActivityScenarioRule<>(UserController.class);

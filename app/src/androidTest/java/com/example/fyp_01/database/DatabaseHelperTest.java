@@ -4,6 +4,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
+import androidx.test.core.app.ApplicationProvider;
 import androidx.test.espresso.action.ViewActions;
 import androidx.test.espresso.intent.Intents;
 import androidx.test.espresso.matcher.ViewMatchers;
@@ -33,8 +34,12 @@ import static org.hamcrest.Matchers.is;
 
 @RunWith(AndroidJUnit4.class)
 public class DatabaseHelperTest {
-   /* private Context context;*/
-    private DatabaseHelper database;
+    private UserModel user;
+    private DatabaseHelper databaseHelper;
+    private SQLiteDatabase db;
+    private Context context;
+
+    private String name = "Sonam Gurung", goal = "Endurance",workoutLvl = "Beginner", intensity = "Easy", equipmentGroup = "None";
 
     @Rule
     public ActivityScenarioRule<UserController> activityTestRule = new ActivityScenarioRule<>(UserController.class);
@@ -45,15 +50,59 @@ public class DatabaseHelperTest {
     }
 
     @Test
-    public void userDataAddedToDatabaseIsCorrectTest(){
+    public void addUserDataTest_ReturnsTrue(){
+        //Context of the app under test
+        context = ApplicationProvider.getApplicationContext();
+        //Creating a new databaseHelper
+        databaseHelper = new DatabaseHelper(context);
+
+        user = new UserModel();
+        user.setUserNameData(name);
+        user.setUserGoalData(goal);
+        user.setWorkoutGroupData(workoutLvl);
+        user.setIntensityData(intensity);
+        user.setEquipmentGroupData(equipmentGroup);
+
+        //Drop old database, upgrade new database and allow writable access
+        db = databaseHelper.getWritableDatabase();
+        databaseHelper.onUpgrade(db, 0, 1);
+        // Store if user table is added into the database in result variable
+        Boolean result = databaseHelper.addUserData(user);
+
+        Assert.assertTrue(result);
+    }
+
+    @Test // return false if any one of the user properties are empty
+    public void addUserDataTest_ReturnsFalse(){
+        //Context of the app under test
+        context = ApplicationProvider.getApplicationContext();
+        //Creating a new databaseHelper
+        databaseHelper = new DatabaseHelper(context);
+        // missing equipmentGroup data, method should return false
+        user = new UserModel();
+        user.setUserNameData(name);
+        user.setUserGoalData(goal);
+        user.setWorkoutGroupData(workoutLvl);
+        user.setIntensityData(intensity);
+
+        //Drop old database, upgrade new database and allow writable access
+        db = databaseHelper.getWritableDatabase();
+        databaseHelper.onUpgrade(db, 0, 1);
+        // Store if user table is added into the database in result variable
+        Boolean result = databaseHelper.addUserData(user);
+
+        Assert.assertFalse(result);
+    }
+
+    @Test
+    public void userDataAddedToDatabaseIsSameAsInput(){
         // Initialising variables under test
         String actualName = null, actualGoal = null, actualWorkoutLvl = null, actualIntensity = null, actualEquipmentGroup = null;
-        String name = "Sonam Gurung", goal = "Endurance",workoutLvl = "Beginner", intensity = "Easy", equipmentGroup = "None";
 
         //Context of the app under test
         Context context = InstrumentationRegistry.getInstrumentation().getTargetContext();
         //Creating a new database
-        database = new DatabaseHelper(context);
+        databaseHelper = new DatabaseHelper(context);
 
         //type Name field
         onView(withId(R.id.userNameInput))
@@ -81,7 +130,7 @@ public class DatabaseHelperTest {
                 .perform(click());
 
         //Reading all the data on the database
-        SQLiteDatabase db = database.getReadableDatabase();
+        SQLiteDatabase db = databaseHelper.getReadableDatabase();
         Cursor cursor = db.rawQuery("select * from users_table", null);
         // Reading and setting each variable under test
         if (cursor.getCount() != 0) {

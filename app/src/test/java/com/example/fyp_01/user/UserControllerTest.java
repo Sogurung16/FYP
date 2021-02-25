@@ -1,16 +1,23 @@
 package com.example.fyp_01.user;
 
+import com.example.fyp_01.database.DatabaseHelper;
+
 import org.junit.Assert;
 import org.junit.Test;
+import org.mockito.Mock;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static org.mockito.Mockito.mock;
 
 
 public class UserControllerTest {
     /*private String userName, goal, workoutGroup, intensity, equipmentGroup;*/
     UserModel user;
     UserController controller;
+    @Mock
+    private DatabaseHelper database;
 
     @Test
     public void userGoalSpinnerOptionsReturnsCorrectList(){

@@ -63,23 +63,31 @@ public class  DatabaseHelper extends SQLiteOpenHelper {
     }
 
     public boolean addUserData(UserModel user){
-        SQLiteDatabase db = this.getWritableDatabase();
+        /*if(user.getUserNameData()!= null && !user.getUserNameData().trim().isEmpty()||
+                user.getIntensityData()!= null && !user.getIntensityData().trim().isEmpty()||
+                user.getWorkoutGroupData()!= null && !user.getWorkoutGroupData().trim().isEmpty()||
+                user.getEquipmentGroupData()!= null && !user.getEquipmentGroupData().trim().isEmpty()){*/
+        if(user.toString().isEmpty()){
+            SQLiteDatabase db = this.getWritableDatabase();
 
-        ContentValues contentValues = new ContentValues();
-        contentValues.put(KEY_USER_ID, 1);
-        contentValues.put(KEY_USER_NAME, user.getUserNameData());
-        contentValues.put(KEY_USER_WORKOUT_GROUP, user.getWorkoutGroupData());
-        contentValues.put(KEY_USER_GOAL, user.getUserGoalData());
-        contentValues.put(KEY_USER_INTENSITY, user.getIntensityData());
-        contentValues.put(KEY_USER_EQUIPMENT_GROUP, user.getEquipmentGroupData());
+            ContentValues contentValues = new ContentValues();
+            contentValues.put(KEY_USER_ID, 1);
+            contentValues.put(KEY_USER_NAME, user.getUserNameData());
+            contentValues.put(KEY_USER_WORKOUT_GROUP, user.getWorkoutGroupData());
+            contentValues.put(KEY_USER_GOAL, user.getUserGoalData());
+            contentValues.put(KEY_USER_INTENSITY, user.getIntensityData());
+            contentValues.put(KEY_USER_EQUIPMENT_GROUP, user.getEquipmentGroupData());
 
 
-        long result = db.insert(TABLE_USER, null, contentValues);
-        if(result == -1){
-            return false;
+            long result = db.insert(TABLE_USER, null, contentValues);
+            if (result == -1) {
+                return false;
+            } else {
+                return true;
+            }
         }
-        else{
-            return true;
+        else {
+            return false;
         }
     }
 

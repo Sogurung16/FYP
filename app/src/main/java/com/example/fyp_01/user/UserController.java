@@ -17,6 +17,7 @@ import com.example.fyp_01.database.DatabaseHelper;
 import com.example.fyp_01.R;
 import com.example.fyp_01.recommendations.Controller;
 
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -216,6 +217,4 @@ public class UserController extends AppCompatActivity{
             addUser();
         }
     }
-
-
 }
