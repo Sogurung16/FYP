@@ -62,17 +62,18 @@ def get_recommendation(name, cosine_sim):
     activity_indices = [i[0] for i in sim_scores]
 
     #Return the top 5 most similar activities
-    recommendationList = dfActivities['name'].iloc[activity_indices]
+    recommendations = dfActivities['name'].iloc[activity_indices]
+    recommendationLines = '\n'.join(recommendations)
 
-    return ' '.join(recommendationList)
-
+    return recommendationLines
 
 def main():
     user = dfUser.iloc[0]['name']
     """if(not user):
         return null
     else:"""
-    return(get_recommendation(user, cosine_sim))
+
+    return get_recommendation(user, cosine_sim)
 
 connection = create_connection(database)
 dfActivities = preProcessActivitiesData(connection)
@@ -90,3 +91,5 @@ cosine_sim = cosine_similarity(count_matrix, count_matrix)
 dfActivities = dfActivities.reset_index()
 
 indices = pd.Series(dfActivities.index, index=dfActivities['name'])
+
+main()

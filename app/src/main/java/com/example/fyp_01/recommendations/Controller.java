@@ -20,6 +20,8 @@ import com.example.fyp_01.activityDetail.ActivityDetailController;
 import com.example.fyp_01.database.DatabaseHelper;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class Controller extends AppCompatActivity {
     private DatabaseHelper databaseHelper;
@@ -72,26 +74,30 @@ public class Controller extends AppCompatActivity {
         mStrengthRecyclerView.setItemAnimator(new DefaultItemAnimator());
 
         String recommendation = getRecommendation();
+        List<String> recommendationList = Arrays.asList(recommendation.split("\n"));
 
-        for(int i=0; i<models.size();i++){
+        for(int i=0; i<recommendationList.size();i++) {
+            recommendation = recommendationList.get(i);
+            for (int j = 0; j < models.size(); j++) {
+                model = new Model(models.get(j));
+                if (recommendation.contains(model.getActivitiesName())) {
+                    recommendationAdapterModels.add(model);
+                }
+            }
+        }
+        for (int i = 0; i < models.size(); i++) {
             model = new Model(models.get(i));
             activityType = model.getActivitiesType();
             if(activityType.contains("Stretching")){
                 stretchingAdapterModels.add(model);
-                if(recommendation.contains(model.getActivitiesName())){
-                    recommendationAdapterModels.add(model);
-                }
             } else if(activityType.contains("Endurance")){
                 enduranceAdapterModels.add(model);
-                if(recommendation.contains(model.getActivitiesName())){
-                    recommendationAdapterModels.add(model);
-                }
             }
             else if(activityType.contains("Strength")){
                 strengthAdapterModels.add(model);
-                if(recommendation.contains(model.getActivitiesName())){
-                    recommendationAdapterModels.add(model);
-                }
+            }
+            else  if(recommendation.contains(model.getActivitiesName())){
+                recommendationAdapterModels.add(model);
             }
             else{
                 Toast.makeText(this, "error", Toast.LENGTH_SHORT).show();
