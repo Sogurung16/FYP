@@ -78,12 +78,14 @@ public class DatabaseHelperTest {
         context = ApplicationProvider.getApplicationContext();
         //Creating a new databaseHelper
         databaseHelper = new DatabaseHelper(context);
+
         // missing equipmentGroup data, method should return false
         user = new UserModel();
         user.setUserNameData(name);
         user.setUserGoalData(goal);
         user.setWorkoutGroupData(workoutLvl);
         user.setIntensityData(intensity);
+
 
         //Drop old database, upgrade new database and allow writable access
         db = databaseHelper.getWritableDatabase();

@@ -1,7 +1,9 @@
 package com.example.fyp_01.user;
 
 import android.content.Context;
+import android.database.sqlite.SQLiteDatabase;
 
+import androidx.test.core.app.ApplicationProvider;
 import androidx.test.espresso.action.ViewActions;
 import androidx.test.espresso.intent.Intents;
 import androidx.test.espresso.matcher.ViewMatchers;
@@ -36,10 +38,15 @@ import static org.hamcrest.Matchers.is;
 
 
 @RunWith(AndroidJUnit4.class)
-public class UserControllerTest {
+public class UserControllerTest{
 
     private String userName, goal, workoutGroup, intensity, equipmentGroup;
-    private DatabaseHelper database;
+
+    private Controller controller;
+    private DatabaseHelper databaseHelper;
+    private SQLiteDatabase db;
+    private Context context;
+    private UserModel user;
 
     @Rule
     public ActivityScenarioRule<UserController> activityTestRule = new ActivityScenarioRule<>(UserController.class);
@@ -57,13 +64,13 @@ public class UserControllerTest {
     }
 
     @Test
-    public void checkSetStringMatchesInput(){
+    public void testSetStringMatchesInput(){
         // check input matches with the text typed
         onView(allOf(withId(R.id.userNameInput), withText(userName)));
     }
 
     @Test
-    public void validateNavToRecommendationActivity_Pass(){
+    public void testValidateNavToRecommendationActivity_Pass(){
         //type Name field
         onView(withId(R.id.userNameInput))
                 .perform(typeText(userName), ViewActions.closeSoftKeyboard());

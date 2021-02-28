@@ -43,7 +43,6 @@ public class Controller extends AppCompatActivity {
 
         //Initialize ArrayList
         models = new ArrayList<>();
-        String recommendation;
         stretchingAdapterModels = new ArrayList<>();
         enduranceAdapterModels = new ArrayList<>();
         strengthAdapterModels = new ArrayList<>();
@@ -54,8 +53,10 @@ public class Controller extends AppCompatActivity {
         EnduranceAdapter enduranceAdapter;
         StrengthAdapter strengthAdapter;
 
-        //activityData(); // add activity data, not to run once already run
-
+        models = databaseHelper.getActivitiesData();
+        if(models.size() == 0) {
+            activityData(); // add activity data
+        }
         //Design Horizontal Layout
         LinearLayoutManager recommendationLayoutManager = new LinearLayoutManager(Controller.this, LinearLayoutManager.HORIZONTAL,false);
         LinearLayoutManager stretchingLayoutManager = new LinearLayoutManager(Controller.this, LinearLayoutManager.HORIZONTAL,false);
@@ -70,9 +71,7 @@ public class Controller extends AppCompatActivity {
         mStrengthRecyclerView.setLayoutManager(strengthLayoutManager);
         mStrengthRecyclerView.setItemAnimator(new DefaultItemAnimator());
 
-        models = databaseHelper.getActivitiesData();
-
-        recommendation = getRecommendation();
+        String recommendation = getRecommendation();
 
         for(int i=0; i<models.size();i++){
             model = new Model(models.get(i));
@@ -164,7 +163,8 @@ public class Controller extends AppCompatActivity {
         }
     }
 
-    private String getRecommendation(){
+    // Python script connects to the local database. Processes user and activities table to generate recommendation list
+    public String getRecommendation(){
         if(!Python.isStarted()){
             Python.start(new AndroidPlatform(this));
         }

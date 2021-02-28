@@ -15,6 +15,7 @@ import com.example.fyp_01.user.UserModel;
 
 import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
+import java.util.List;
 
 public class  DatabaseHelper extends SQLiteOpenHelper {
 
@@ -63,11 +64,7 @@ public class  DatabaseHelper extends SQLiteOpenHelper {
     }
 
     public boolean addUserData(UserModel user){
-        /*if(user.getUserNameData()!= null && !user.getUserNameData().trim().isEmpty()||
-                user.getIntensityData()!= null && !user.getIntensityData().trim().isEmpty()||
-                user.getWorkoutGroupData()!= null && !user.getWorkoutGroupData().trim().isEmpty()||
-                user.getEquipmentGroupData()!= null && !user.getEquipmentGroupData().trim().isEmpty()){*/
-        if(user.toString().isEmpty()){
+        if(checkUserProperties(user)){
             SQLiteDatabase db = this.getWritableDatabase();
 
             ContentValues contentValues = new ContentValues();
@@ -146,5 +143,40 @@ public class  DatabaseHelper extends SQLiteOpenHelper {
             }
         }
         return models;
+    }
+
+    private Boolean checkUserProperties(UserModel user){
+        String name, intensity,workoutGroup, equipmentGroup;
+
+        Boolean result = true;
+
+        name = user.getUserNameData(); intensity = user.getIntensityData();
+        workoutGroup = user.getWorkoutGroupData(); equipmentGroup = user.getEquipmentGroupData();
+
+        String properties[] = {name, intensity, workoutGroup, equipmentGroup};
+
+        int i =0;
+
+        while(i<properties.length && result){
+            if(properties[i]!=null && !properties[i].trim().isEmpty()){
+                result = true;
+            }
+            else{
+                result = false;
+            }
+            i++;
+        }
+
+        return result;
+
+       /* if(name!= null && !name.trim().isEmpty()||
+                intensity!= null && !intensity.trim().isEmpty()||
+                workoutGroup!= null && !workoutGroup.trim().isEmpty()||
+                equipmentGroup!= null && !equipmentGroup.trim().isEmpty()){
+            return true;
+        }
+        else{
+            return false;
+        }*/
     }
 }
