@@ -52,13 +52,19 @@ dependencies {
     androidTestImplementation 'androidx.test.ext:junit:1.1.0'
     androidTestImplementation 'androidx.test:runner:1.1.0'
     androidTestImplementation 'androidx.test:rules:1.1.0'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.1'
-    testImplementation 'org.hamcrest:hamcrest:2.2'
-    testImplementation group: 'org.mockito', name: 'mockito-core', version: '2.10.0'
     androidTestImplementation ("com.android.support.test.espresso:espresso-intents:3.1.1")
     androidTestImplementation 'androidx.test:core:1.1.0'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.0'
+    androidTestImplementation ('androidx.test.espresso:espresso-contrib:3.1.0'){
+            // Necessary to avoid version conflicts
+            exclude group: 'com.android.support', module: 'appcompat'
+            exclude group: 'com.android.support', module: 'support-v4'
+            exclude group: 'com.android.support', module: 'support-annotations'
+            exclude module: 'recyclerview-v7'
+    }
+    testImplementation 'org.hamcrest:hamcrest:2.2'
+    testImplementation group: 'org.mockito', name: 'mockito-core', version: '2.10.0'
     implementation 'androidx.cardview:cardview:1.0.0'
-
     //recyclerView
     implementation 'com.android.support:recyclerview-v7:29.0.0'
     annotationProcessor 'androidx.room:room-compiler:2.2.5'

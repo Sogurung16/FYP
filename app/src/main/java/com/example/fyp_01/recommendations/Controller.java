@@ -57,7 +57,7 @@ public class Controller extends AppCompatActivity {
 
         models = databaseHelper.getActivitiesData();
         if(models.size() == 0) {
-            activityData(); // add activity data
+            fakeActivityData(); // add fake activity data
         }
         //Design Horizontal Layout
         LinearLayoutManager recommendationLayoutManager = new LinearLayoutManager(Controller.this, LinearLayoutManager.HORIZONTAL,false);
@@ -120,7 +120,7 @@ public class Controller extends AppCompatActivity {
     }
 
 
-    private void activityData(){
+    private void fakeActivityData(){
         String[] names, intensityLvls, workoutLvls, equipmentGroups;
         int stretchingLogo, enduranceLogo, strengthLogo;
         int[] drawableIds;
