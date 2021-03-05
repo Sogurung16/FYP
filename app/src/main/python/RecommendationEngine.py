@@ -46,13 +46,13 @@ def createSoup(df):
     return ''.join(df['type'])+' '+''.join(df['workoutlevel'])+' '+''.join(df['intensity'])+' '+''.join(df['equipmentgroup'])
 
 def get_recommendation(name, cosine_sim):
-    #Get the index of the activity that matches the activities_name
+    #set the user preferences index
     idx = indices[name]
 
-    #Get the pairwise similarity scores of all activities with that activity
+    #Get the pairwise similarity scores of all activities with the preferences
     sim_scores = list(enumerate(cosine_sim[idx]))
 
-    #Sort the movies based on the similarity scores
+    #Sort the activities based on the similarity scores
     sim_scores = sorted(sim_scores, key=lambda x: x[1], reverse=True)
 
     #Get the scores of the top 5 most similar activities
@@ -91,5 +91,3 @@ cosine_sim = cosine_similarity(count_matrix, count_matrix)
 dfActivities = dfActivities.reset_index()
 
 indices = pd.Series(dfActivities.index, index=dfActivities['name'])
-
-main()

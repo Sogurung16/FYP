@@ -13,10 +13,15 @@ import org.junit.Test;
 
 import static androidx.test.espresso.Espresso.*;
 import static androidx.test.espresso.action.ViewActions.click;
+import static androidx.test.espresso.action.ViewActions.scrollTo;
+import static androidx.test.espresso.action.ViewActions.swipeUp;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
+import static androidx.test.espresso.contrib.RecyclerViewActions.scrollToHolder;
+import static androidx.test.espresso.contrib.RecyclerViewActions.scrollToPosition;
 import static androidx.test.espresso.matcher.ViewMatchers.hasDescendant;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
-import static androidx.test.espresso.matcher.ViewMatchers.withText;;
+import static androidx.test.espresso.matcher.ViewMatchers.withText;
+import static org.hamcrest.Matchers.anything;;
 
 public class RecommendationAdapterTest {
     @Rule
@@ -39,30 +44,22 @@ public class RecommendationAdapterTest {
 
     @Test
     public void testCorrectRecommendationsDisplayedInView(){
-        //check the first recommended item in view is "Basic Burn" utilising
+        //check the recommended items in view is correct utilising
         //first user profile test data from (Test_02 Test No.1).
         onView(withRecyclerView(R.id.recommendationRecyclerview).atPosition(0))
                 .check(matches(hasDescendant(withText("Basic Burn"))));
-    }
-
-    @Test
-    public void testCorrectStretchingActivitiesDisplayedInView(){
-        //check the first stretching activity item in view is "Yoga 101"
-        onView(withRecyclerView(R.id.stretchingRecyclerview).atPosition(0))
+        onView(withId(R.id.recommendationRecyclerview)).perform(scrollToPosition(1));
+        onView(withRecyclerView(R.id.recommendationRecyclerview).atPosition(1))
                 .check(matches(hasDescendant(withText("Yoga 101"))));
-    }
-    @Test
-    public void testCorrectEnduranceActivitiesDisplayedInView(){
-        //check the first endurance activity item in view is "Speed Circuit"
-        onView(withRecyclerView(R.id.enduranceRecyclerview).atPosition(0))
-                .check(matches(hasDescendant(withText("Speed Circuit"))));
-    }
-    @Test
-    public void testCorrectStrengthActivitiesDisplayedInView(){
-        //check the first strength activity item in view is "Quick Crush" utilising
-        //first user test profile data from (Test_02 Test No.1).
-        onView(withRecyclerView(R.id.strengthRecyclerview).atPosition(0))
-                .check(matches(hasDescendant(withText("Quick Crush"))));
+        onView(withId(R.id.recommendationRecyclerview)).perform(scrollToPosition(2));
+        onView(withRecyclerView(R.id.recommendationRecyclerview).atPosition(2))
+                .check(matches(hasDescendant(withText("Legs Warmup"))));
+        onView(withId(R.id.recommendationRecyclerview)).perform(scrollToPosition(3));
+        onView(withRecyclerView(R.id.recommendationRecyclerview).atPosition(3))
+                .check(matches(hasDescendant(withText("Legs Cooldown"))));
+        onView(withId(R.id.recommendationRecyclerview)).perform(scrollToPosition(4));
+        onView(withRecyclerView(R.id.recommendationRecyclerview).atPosition(4))
+                .check(matches(hasDescendant(withText("Recovery Mobility"))));
     }
 
     @After

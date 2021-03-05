@@ -25,9 +25,6 @@ public class UserController extends AppCompatActivity{
 
     DatabaseHelper databaseHelper;
 
-    private Button mAddUserButton;
-    private TextView mUserName, mUserGoal, mEquipmentGroup, mIntensity, mWorkoutGroup;
-
     private EditText mUserNameInput;
     private Spinner mUserGoalInput, mIntensityInput, mWorkoutGroupInput, mEquipmentGroupInput;
 
@@ -43,12 +40,6 @@ public class UserController extends AppCompatActivity{
     }
 
     private void initialization(){
-        mAddUserButton = findViewById(R.id.addUser);
-        mUserName = findViewById(R.id.userName);
-        mUserGoal = findViewById(R.id.userGoal);
-        mIntensity = findViewById(R.id.intensity);
-        mWorkoutGroup = findViewById(R.id.workoutGroup);
-        mEquipmentGroup = findViewById(R.id.equipmentGroup);
 
         mUserNameInput = findViewById(R.id.userNameInput);
         mUserGoalInput = findViewById(R.id.userGoalInput);
@@ -60,6 +51,7 @@ public class UserController extends AppCompatActivity{
         user.setIntensitySpinnerArrayData(intensitySpinnerOptions());
         user.setWorkoutGroupSpinnerArrayData(workoutGroupSpinnerOptions());
         user.setEquipmentGroupSpinnerArrayData(equipmentGroupSpinnerOptions());
+        user.setUserPointsData(0);
 
         ArrayAdapter<String> goalAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, user.getUserGoalSpinnerArrayData());
         mUserGoalInput.setAdapter(goalAdapter);
@@ -200,12 +192,12 @@ public class UserController extends AppCompatActivity{
         user.setUserGoalData(user.getUserGoalData());
         user.setEquipmentGroupData(user.getEquipmentGroupData());
         user.setIntensityData(user.getIntensityData());
+        user.setUserPointsData(user.getUserPointsData());
 
         return  user;
     }
 
     public void addUserButton(View view){
-
         retrieveUserData();
         if(user.getUserNameData().length()<=0 | user.getUserNameData()==null){
             Toast.makeText(UserController.this, buildToastMessage(" NOT") + "\nInvalid Name", Toast.LENGTH_LONG).show();

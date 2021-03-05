@@ -42,12 +42,6 @@ public class UserControllerTest{
 
     private String userName, goal, workoutGroup, intensity, equipmentGroup;
 
-    private Controller controller;
-    private DatabaseHelper databaseHelper;
-    private SQLiteDatabase db;
-    private Context context;
-    private UserModel user;
-
     @Rule
     public ActivityScenarioRule<UserController> activityTestRule = new ActivityScenarioRule<>(UserController.class);
 

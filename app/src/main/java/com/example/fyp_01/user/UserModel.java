@@ -1,14 +1,12 @@
 package com.example.fyp_01.user;
 
-import android.widget.AdapterView;
-import android.widget.EditText;
-
 import java.util.ArrayList;
 import java.util.List;
 
 public class UserModel{
 
     private String userName, userGoal, intensity, workoutGroup, equipmentGroup;
+    private int userPoints;
     private List<String> workoutGroupSpinnerArray  = new ArrayList<String>();
     private List<String> userGoalSpinnerArray  = new ArrayList<String>();
     private List<String> equipmentGroupSpinnerArray = new ArrayList<String>();
@@ -26,6 +24,9 @@ public class UserModel{
     }
     public void setEquipmentGroupData(String equipmentGroup) {
         this.equipmentGroup = equipmentGroup;
+    }
+    public void setUserPointsData(int userPoints){
+        this.userPoints = userPoints;
     }
 
     public void setUserGoalSpinnerArrayData(List<String> userGoalSpinnerArray) {
@@ -57,6 +58,7 @@ public class UserModel{
     public String getEquipmentGroupData() {
         return equipmentGroup;
     }
+    public int getUserPointsData() {return userPoints;}
 
     public List<String> getUserGoalSpinnerArrayData() {
         return userGoalSpinnerArray;

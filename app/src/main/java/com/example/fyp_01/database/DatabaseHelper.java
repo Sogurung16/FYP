@@ -21,7 +21,7 @@ public class  DatabaseHelper extends SQLiteOpenHelper {
 
     private static final String DATABASE_NAME = "MyDatabase.db";
 
-    private static final int VERSION_NAME = 10;
+    private static final int VERSION_NAME = 12;
     private static final String TABLE_USER = "users_table";
     private static final String KEY_USER_ID = "users_id";
     private static final String KEY_USER_NAME = "users_name";
@@ -29,6 +29,7 @@ public class  DatabaseHelper extends SQLiteOpenHelper {
     private static final String KEY_USER_GOAL = "users_goal";
     private static final String KEY_USER_INTENSITY = "users_intensity";
     private static final String KEY_USER_EQUIPMENT_GROUP = "users_equipment_group";
+    private static final String KEY_USER_POINTS = "users_points";
 
     private static final String TABLE_ACTIVITIES = "activities_table";
     private static final String KEY_ACTIVITIES_ID = "activities_id";
@@ -37,6 +38,7 @@ public class  DatabaseHelper extends SQLiteOpenHelper {
     private static final String KEY_ACTIVITIES_INTENSITY_LEVEL = "activities_intensity";
     private static final String KEY_ACTIVITIES_WORKOUT_LEVEL = "activities_workout_level";
     private static final String KEY_ACTIVITIES_EQUIPMENT_GROUP = "activities_equipment_group";
+    private static final String KEY_ACTIVITIES_TIME = "activities_time";
     private static final String KEY_ACTIVITIES_IMAGE = "activities_image";
 
     private ByteArrayOutputStream objectByteArrayOutputStream;
@@ -49,11 +51,12 @@ public class  DatabaseHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL("CREATE TABLE " + TABLE_USER + " (" + KEY_USER_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " + KEY_USER_NAME + " TEXT, " +
-                KEY_USER_WORKOUT_GROUP + " TEXT, " + KEY_USER_GOAL + " TEXT, " + KEY_USER_INTENSITY + " TEXT, " + KEY_USER_EQUIPMENT_GROUP + " TEXT" +")");
+                KEY_USER_WORKOUT_GROUP + " TEXT, " + KEY_USER_GOAL + " TEXT, " + KEY_USER_INTENSITY + " TEXT, " + KEY_USER_EQUIPMENT_GROUP +
+                " TEXT," + KEY_USER_POINTS + " TEXT" +")");
 
         db.execSQL("CREATE TABLE " + TABLE_ACTIVITIES + " (" + KEY_ACTIVITIES_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " + KEY_ACTIVITIES_NAME + " TEXT, " +
                 KEY_ACTIVITIES_ACTIVITY_TYPE + " TEXT, " + KEY_ACTIVITIES_WORKOUT_LEVEL + " TEXT, " +
-                KEY_ACTIVITIES_INTENSITY_LEVEL + " TEXT," + KEY_ACTIVITIES_EQUIPMENT_GROUP + " TEXT, " + KEY_ACTIVITIES_IMAGE + " BLOB" + ")");
+                KEY_ACTIVITIES_INTENSITY_LEVEL + " TEXT," + KEY_ACTIVITIES_EQUIPMENT_GROUP + " TEXT, " + KEY_ACTIVITIES_TIME + " TEXT, " + KEY_ACTIVITIES_IMAGE + " BLOB" + ")");
     }
 
     @Override
@@ -74,6 +77,7 @@ public class  DatabaseHelper extends SQLiteOpenHelper {
             contentValues.put(KEY_USER_GOAL, user.getUserGoalData());
             contentValues.put(KEY_USER_INTENSITY, user.getIntensityData());
             contentValues.put(KEY_USER_EQUIPMENT_GROUP, user.getEquipmentGroupData());
+            contentValues.put(KEY_USER_POINTS, user.getUserPointsData());
 
 
             long result = db.insert(TABLE_USER, null, contentValues);
@@ -94,36 +98,43 @@ public class  DatabaseHelper extends SQLiteOpenHelper {
     }
 
     public boolean addActivityData(Model model){
-        SQLiteDatabase db = this.getWritableDatabase();
+        if(checkActivityProperties(model)){
+            SQLiteDatabase db = this.getWritableDatabase();
 
-        Bitmap imageToStoreBitmap = model.getActivitiesImage();
-        objectByteArrayOutputStream = new ByteArrayOutputStream();
-        imageToStoreBitmap.compress(Bitmap.CompressFormat.JPEG, 100, objectByteArrayOutputStream);
-        imgInByte = objectByteArrayOutputStream.toByteArray();
+            Bitmap imageToStoreBitmap = model.getActivitiesImage();
+            objectByteArrayOutputStream = new ByteArrayOutputStream();
+            imageToStoreBitmap.compress(Bitmap.CompressFormat.JPEG, 100, objectByteArrayOutputStream);
+            imgInByte = objectByteArrayOutputStream.toByteArray();
 
-        ContentValues contentValues = new ContentValues();
-        contentValues.put(KEY_ACTIVITIES_NAME, model.getActivitiesName());
-        contentValues.put(KEY_ACTIVITIES_ACTIVITY_TYPE, model.getActivitiesType());
-        contentValues.put(KEY_ACTIVITIES_WORKOUT_LEVEL, model.getWorkoutLvl());
-        contentValues.put(KEY_ACTIVITIES_INTENSITY_LEVEL, model.getIntensityLvl());
-        contentValues.put(KEY_ACTIVITIES_EQUIPMENT_GROUP, model.getEquipmentGroup());
-        contentValues.put(KEY_ACTIVITIES_IMAGE, imgInByte);
+            ContentValues contentValues = new ContentValues();
+            contentValues.put(KEY_ACTIVITIES_NAME, model.getActivitiesName());
+            contentValues.put(KEY_ACTIVITIES_ACTIVITY_TYPE, model.getActivitiesType());
+            contentValues.put(KEY_ACTIVITIES_WORKOUT_LEVEL, model.getWorkoutLvl());
+            contentValues.put(KEY_ACTIVITIES_INTENSITY_LEVEL, model.getIntensityLvl());
+            contentValues.put(KEY_ACTIVITIES_EQUIPMENT_GROUP, model.getEquipmentGroup());
+            contentValues.put(KEY_ACTIVITIES_TIME, model.getActivitiesTime());
+            contentValues.put(KEY_ACTIVITIES_IMAGE, imgInByte);
 
 
-        long result = db.insert(TABLE_ACTIVITIES, null, contentValues);
-        if(result == -1){
-            return false;
+            long result = db.insert(TABLE_ACTIVITIES, null, contentValues);
+            if(result == -1){
+                return false;
+            }
+            else{
+                return true;
+            }
         }
-        else{
-            return true;
+        else {
+            return false;
         }
     }
 
-    //retrieve image_table data from database
+    //retrieve activities table data from database
     public ArrayList<Model> getActivitiesData() {
         ArrayList<Model> models = new ArrayList<>();
         Bitmap imageToRetrieve;
         String activityName, activityType, activityWorkoutLvl, activityIntensityLvl, activityEquipmentGroup;
+        int activityTime;
 
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery("select * from activities_table", null);
@@ -136,9 +147,11 @@ public class  DatabaseHelper extends SQLiteOpenHelper {
                 activityWorkoutLvl = cursor.getString(3);
                 activityIntensityLvl = cursor.getString(4);
                 activityEquipmentGroup = cursor.getString(5);
-                imgInByte = cursor.getBlob(6);
+                activityTime = cursor.getInt(6);
+                imgInByte = cursor.getBlob(7);
                 imageToRetrieve = BitmapFactory.decodeByteArray(imgInByte, 0, imgInByte.length);
-                Model Model = new Model(activityName, activityType, activityWorkoutLvl, activityIntensityLvl, activityEquipmentGroup, imageToRetrieve);
+                Model Model = new Model(activityName, activityType, activityWorkoutLvl, activityIntensityLvl,
+                        activityEquipmentGroup, activityTime, imageToRetrieve);
                 models.add(Model);
             }
         }
@@ -146,14 +159,15 @@ public class  DatabaseHelper extends SQLiteOpenHelper {
     }
 
     private Boolean checkUserProperties(UserModel user){
-        String name, intensity,workoutGroup, equipmentGroup;
+        String name, goal, intensity, workoutGroup, equipmentGroup;
+        String properties[];
 
         Boolean result = true;
 
-        name = user.getUserNameData(); intensity = user.getIntensityData();
+        name = user.getUserNameData(); goal = user.getUserGoalData(); intensity = user.getIntensityData();
         workoutGroup = user.getWorkoutGroupData(); equipmentGroup = user.getEquipmentGroupData();
 
-        String properties[] = {name, intensity, workoutGroup, equipmentGroup};
+        properties = new String[]{name, goal, intensity, workoutGroup, equipmentGroup};
 
         int i =0;
 
@@ -168,15 +182,31 @@ public class  DatabaseHelper extends SQLiteOpenHelper {
         }
 
         return result;
+    }
 
-       /* if(name!= null && !name.trim().isEmpty()||
-                intensity!= null && !intensity.trim().isEmpty()||
-                workoutGroup!= null && !workoutGroup.trim().isEmpty()||
-                equipmentGroup!= null && !equipmentGroup.trim().isEmpty()){
-            return true;
+    private Boolean checkActivityProperties(Model model){
+        String activityName, activityType, activityWorkoutGroup, activityIntensity, activityEquipmentGroup;
+        Boolean result = true;
+
+        activityName = model.getActivitiesName(); activityType = model.getActivitiesType();
+        activityWorkoutGroup = model.getWorkoutLvl(); activityIntensity = model.getIntensityLvl();
+        activityEquipmentGroup = model.getEquipmentGroup();
+
+        String properties[] = {activityName, activityType, activityWorkoutGroup
+                , activityIntensity, activityEquipmentGroup};
+
+        int i =0;
+
+        while(i<properties.length && result){
+            if(properties[i]!=null && !properties[i].trim().isEmpty()){
+                result = true;
+            }
+            else{
+                result = false;
+            }
+            i++;
         }
-        else{
-            return false;
-        }*/
+
+        return result;
     }
 }

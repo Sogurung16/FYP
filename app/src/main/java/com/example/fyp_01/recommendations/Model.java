@@ -5,16 +5,18 @@ import android.graphics.Bitmap;
 public class Model{
 
     private String activitiesName, activitiesIntensityLvl, activitiesWorkoutLvl, activitiesEquipmentGroup;
+    private int activitiesTime;
     private Bitmap activitiesImage;
     private String activitiesType;
 
     public Model(String activitiesName, String activitiesType, String activitiesIntensityLvl,
-                 String activitiesWorkoutLvl, String activitiesEquipmentGroup, Bitmap activitiesImage) {
+                 String activitiesWorkoutLvl, String activitiesEquipmentGroup, int activitiesTime, Bitmap activitiesImage) {
         this.activitiesName = activitiesName;
         this.activitiesType = activitiesType;
         this.activitiesIntensityLvl = activitiesIntensityLvl;
         this.activitiesWorkoutLvl = activitiesWorkoutLvl;
         this.activitiesEquipmentGroup = activitiesEquipmentGroup;
+        this.activitiesTime = activitiesTime;
         this.activitiesImage = activitiesImage;
     }
 
@@ -24,7 +26,12 @@ public class Model{
         this.activitiesIntensityLvl = model.activitiesIntensityLvl;
         this.activitiesWorkoutLvl = model.activitiesWorkoutLvl;
         this.activitiesEquipmentGroup = model.activitiesEquipmentGroup;
+        this.activitiesTime = activitiesTime;
         this.activitiesImage = model.activitiesImage;
+    }
+
+    public Model(){
+        //create empty model
     }
 
     public void setActivitiesName(String activitiesName) {
@@ -41,6 +48,9 @@ public class Model{
     }
     public void setEquipmentGroupData(String activitiesEquipmentGroup) {
         this.activitiesEquipmentGroup = activitiesEquipmentGroup;
+    }
+    public void setActivitiesTime(int activitiesTime){
+        this.activitiesTime = activitiesTime;
     }
     public void setActivitiesImage(Bitmap ActivitiesImage) {
         this.activitiesImage = ActivitiesImage;
@@ -62,6 +72,7 @@ public class Model{
     public String getEquipmentGroup() {
         return activitiesEquipmentGroup;
     }
+    public int getActivitiesTime(){return activitiesTime;}
     public Bitmap getActivitiesImage(){
         return activitiesImage;
     }
