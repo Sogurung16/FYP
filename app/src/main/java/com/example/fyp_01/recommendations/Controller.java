@@ -1,9 +1,14 @@
 package com.example.fyp_01.recommendations;
 
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -27,6 +32,8 @@ public class Controller extends AppCompatActivity {
     AlertDialog dialog;
     AlertDialog.Builder builder;
 
+    private TextView userPoints;
+
     private RecommendationAdapter recommendationAdapter;
     private StretchingAdapter stretchingAdapter;
     private EnduranceAdapter enduranceAdapter;
@@ -39,6 +46,8 @@ public class Controller extends AppCompatActivity {
     private List<String> recommendationList;
     private Model model;
     private String activityType;
+    private int premium, points;
+    private boolean unlock;
     private String recommendation = "";
 
     @Override
@@ -52,6 +61,8 @@ public class Controller extends AppCompatActivity {
         mEnduranceRecyclerView = findViewById(R.id.enduranceRecyclerview);
         mStrengthRecyclerView = findViewById(R.id.strengthRecyclerview);
         mPremiumRecyclerView = findViewById(R.id.premiumRecyclerview);
+
+        userPoints = findViewById(R.id.UserPointsData);
 
         //Initialize Database
         databaseHelper = new DatabaseHelper(this);
@@ -84,6 +95,39 @@ public class Controller extends AppCompatActivity {
         strengthAdapterModels = addStrengthAdapterModels(models);
 
         //add premium activities adapter models
+        premiumAdapterModels = addPremiumAdapterModels(models);
+
+        points = getUserPoints();
+        userPoints.setText(String.valueOf(points));
+
+        //Set Adapters to RecyclerView
+        setRecyclerView();
+    }
+
+    @Override
+    protected void onRestart(){
+        super.onRestart();
+
+        points = getUserPoints();
+        userPoints.setText(String.valueOf(points));
+
+        //get recommendation list
+        recommendationList = getRecommendation();;
+
+        //add recommendation adapter models
+        recommendationAdapterModels = new ArrayList<>();
+        recommendationAdapterModels = addRecommendationAdapterModels(recommendationList);
+
+        //add activities adapter models categorized by type
+        stretchingAdapterModels = new ArrayList<>();
+        stretchingAdapterModels = addStretchingAdapterModels(models);
+        enduranceAdapterModels = new ArrayList<>();
+        enduranceAdapterModels = addEnduranceAdapterModels(models);
+        strengthAdapterModels = new ArrayList<>();
+        strengthAdapterModels = addStrengthAdapterModels(models);
+
+        //add premium activities adapter models
+        premiumAdapterModels = new ArrayList<>();
         premiumAdapterModels = addPremiumAdapterModels(models);
 
         //Set Adapters to RecyclerView
@@ -125,13 +169,48 @@ public class Controller extends AppCompatActivity {
             }
         });
         premiumAdapter = new PremiumAdapter(Controller.this, premiumAdapterModels);
-        mStrengthRecyclerView.setAdapter(strengthAdapter);
+        mPremiumRecyclerView.setAdapter(premiumAdapter);
         premiumAdapter.setOnItemClickListener(new PremiumAdapter.OnItemClickListener(){
             @Override
             public void onItemClick(int position) {
+                model = premiumAdapterModels.get(position);
+                if(model.getPremium()!=0) {
+                    builder = new AlertDialog.Builder(Controller.this);
+                    builder.setTitle("Do you want to use your points to unlock this activity?");
+                    builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            if (getUserPoints() >= 9) {
+                                Toast.makeText(Controller.this, "Unlocked!", Toast.LENGTH_LONG).show();
+                                unlock = true;
+                                points -= 9;
+                                setUserPoints(points);
+                            } else {
+                                Toast.makeText(Controller.this, "Not enough Points", Toast.LENGTH_LONG).show();
+                                unlock = false;
+                            }
+                        }
+                    });
+                    builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            unlock = false;
+                        }
+                    });
 
-
-                startIntent(premiumAdapterModels, position);
+                    dialog = builder.create();
+                    dialog.show();
+                    if (unlock) {
+                        model.setPremium(0);
+                        SQLiteDatabase db = DatabaseHelper.getInstance(Controller.this).getWritableDatabase();
+                        db.execSQL("UPDATE activities_table SET activities_premium=" + model.getPremium()+" WHERE activities_name ="+
+                        model.getActivitiesName());
+                        db.close();
+                    }
+                    unlock = false;
+                }else{
+                    startIntent(premiumAdapterModels, position);
+                }
             }
         });
     }
@@ -140,7 +219,8 @@ public class Controller extends AppCompatActivity {
         for (int i = 0; i < models.size(); i++) {
             model = new Model(models.get(i));
             activityType = model.getActivitiesType();
-            if(activityType.contains("Stretching")) {
+            premium = model.getPremium();
+            if(activityType.contains("Stretching")&&premium==0) {
                 stretchingAdapterModels.add(model);
             }
         }
@@ -151,7 +231,8 @@ public class Controller extends AppCompatActivity {
         for (int i = 0; i < models.size(); i++) {
             model = new Model(models.get(i));
             activityType = model.getActivitiesType();
-            if(activityType.contains("Endurance")){
+            premium = model.getPremium();
+            if(activityType.contains("Endurance")&&premium==0){
                 enduranceAdapterModels.add(model);
             }
         }
@@ -162,7 +243,8 @@ public class Controller extends AppCompatActivity {
         for (int i = 0; i < models.size(); i++) {
             model = new Model(models.get(i));
             activityType = model.getActivitiesType();
-            if(activityType.contains("Strength")){
+            premium = model.getPremium();
+            if(activityType.contains("Strength")&&premium==0){
                 strengthAdapterModels.add(model);
             }
         }
@@ -172,7 +254,7 @@ public class Controller extends AppCompatActivity {
     private ArrayList<Model> addPremiumAdapterModels(ArrayList<Model> models){
         for (int i = 0; i < models.size(); i++) {
             model = new Model(models.get(i));
-            activityType = model.getActivitiesType();
+            premium = model.getPremium();
             if(model.getPremium()==1){
                 premiumAdapterModels.add(model);
             }
@@ -185,7 +267,8 @@ public class Controller extends AppCompatActivity {
             recommendation = recommendationList.get(i);
             for (int j = 0; j < models.size(); j++) {
                 model = new Model(models.get(j));
-                if (recommendation.contains(model.getActivitiesName())) {
+                premium = model.getPremium();
+                if (recommendation.contains(model.getActivitiesName())&&premium==0) {
                     recommendationAdapterModels.add(model);
                 }
             }
@@ -199,6 +282,7 @@ public class Controller extends AppCompatActivity {
         LinearLayoutManager stretchingLayoutManager = new LinearLayoutManager(Controller.this, LinearLayoutManager.HORIZONTAL,false);
         LinearLayoutManager enduranceLayoutManager = new LinearLayoutManager(Controller.this, LinearLayoutManager.HORIZONTAL,false);
         LinearLayoutManager strengthLayoutManager = new LinearLayoutManager(Controller.this, LinearLayoutManager.HORIZONTAL,false);
+        LinearLayoutManager premiumLayoutManager = new LinearLayoutManager(Controller.this, LinearLayoutManager.HORIZONTAL,false);
         mRecommendationRecyclerView.setLayoutManager(recommendationLayoutManager);
         mRecommendationRecyclerView.setItemAnimator(new DefaultItemAnimator());
         mStretchingRecyclerView.setLayoutManager(stretchingLayoutManager);
@@ -207,6 +291,8 @@ public class Controller extends AppCompatActivity {
         mEnduranceRecyclerView.setItemAnimator(new DefaultItemAnimator());
         mStrengthRecyclerView.setLayoutManager(strengthLayoutManager);
         mStrengthRecyclerView.setItemAnimator(new DefaultItemAnimator());
+        mPremiumRecyclerView.setLayoutManager(premiumLayoutManager);
+        mPremiumRecyclerView.setItemAnimator(new DefaultItemAnimator());
     }
 
     private ArrayList<Model> fakeActivityData(){
@@ -221,7 +307,7 @@ public class Controller extends AppCompatActivity {
         strengthLogo = R.drawable.strength;
 
         //add activities
-        premium = new int[]{0, 0, 0, 0, 0};
+        premium = new int[]{0, 0, 0, 0, 1};
         activityType = "Stretching";
         names = new String[]{"Yoga 101", "Yoga Core", "Legs Warmup", "Legs Cooldown", "Recovery Mobility"};
         intensityLvls = new String[]{"Easy", "Moderate", "Easy", "Easy", "Easy"};
@@ -232,7 +318,7 @@ public class Controller extends AppCompatActivity {
         //drawableIds = new int[]{R.drawable.yoga_101, R.drawable.yoga_core, R.drawable.legs_warmup, R.drawable.legs_cooldown, R.drawable.recovery_mobility};
         addNewActivitiesData(names, activityType, intensityLvls, workoutLvls, equipmentGroups, times, drawableIds, premium);
 
-        premium = new int[]{0, 0, 0, 0, 0};
+        premium = new int[]{0, 0, 0, 0, 1};
         activityType = "Endurance";
         names = new String[]{"Speed Circuit", "Runner up", "Basic Burn", "Explosive Ignition", "Hit Challenge"};
         intensityLvls = new String[]{"Moderate", "Easy", "Easy", "Hard", "Hard"};
@@ -243,7 +329,7 @@ public class Controller extends AppCompatActivity {
         //drawableIds = new int[]{R.drawable.speed_circuit, R.drawable.runner_up, R.drawable.basic_burn,R.drawable.explosive_ignition,R.drawable.hit_challenge};
         addNewActivitiesData(names, activityType, intensityLvls, workoutLvls, equipmentGroups, times, drawableIds, premium);
 
-        premium = new int[]{0, 0, 0, 0, 0};
+        premium = new int[]{0, 0, 0, 0, 1};
         activityType = "Strength";
         names = new String[]{"Quick Crush", "Upper Body Blast", "Easy Drills", "Push Pull", "Core Strength"};
         intensityLvls = new String[]{"Hard", "Moderate", "Easy", "Moderate", "Hard"};
@@ -308,6 +394,22 @@ public class Controller extends AppCompatActivity {
         model = adapterModels.get(position);
         putExtraContent(activityDetailIntent);
         startActivity(activityDetailIntent);
+    }
+
+    private int getUserPoints(){
+        SQLiteDatabase db = DatabaseHelper.getInstance(this).getReadableDatabase();
+        Cursor cursor = db.rawQuery("select * from users_table", null);
+        cursor.moveToFirst();
+        points = cursor.getInt(6);
+        cursor.close();
+
+        return points;
+    }
+
+    private void setUserPoints(int points){
+        SQLiteDatabase db = DatabaseHelper.getInstance(this).getWritableDatabase();
+        db.execSQL("UPDATE users_table SET users_points="+points);
+        db.close();
     }
 
     public List<String> getRecommendationList() {

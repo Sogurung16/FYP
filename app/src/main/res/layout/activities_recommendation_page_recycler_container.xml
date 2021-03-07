@@ -115,6 +115,26 @@
             android:textStyle="bold">
         </TextView>
 
+        <TextView
+            android:id="@+id/UserPoints"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="0dp"
+            android:text="User Points"
+            android:textColor="#000"
+            android:textSize="10sp"
+            android:textStyle="bold"></TextView>
+
+        <TextView
+            android:id="@+id/UserPointsData"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="0dp"
+            android:text="0"
+            android:textColor="#000"
+            android:textSize="10sp"
+            android:textStyle="bold"></TextView>
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/premiumRecyclerview"
             android:layout_below="@+id/premium"
