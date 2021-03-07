@@ -1,5 +1,7 @@
 package com.example.fyp_01.user;
 
+import android.content.Context;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,6 +13,28 @@ public class UserModel{
     private List<String> userGoalSpinnerArray  = new ArrayList<String>();
     private List<String> equipmentGroupSpinnerArray = new ArrayList<String>();
     private List<String> intensitySpinnerArray = new ArrayList<String>();
+
+    public UserModel(String userName, String userGoal, String intensity, String workoutGroup, String equipmentGroup, int userPoints){
+        this.userName = userName;
+        this.userGoal = userGoal;
+        this.intensity = intensity;
+        this.workoutGroup = workoutGroup;
+        this.equipmentGroup = equipmentGroup;
+        this.userPoints = userPoints;
+    }
+
+    public UserModel (UserModel user){
+        this.userName = user.getUserNameData();
+        this.userGoal = user.getUserGoalData();
+        this.intensity = user.getIntensityData();
+        this.workoutGroup = user.getWorkoutGroupData();
+        this.equipmentGroup = user.getEquipmentGroupData();
+        this.userPoints = user.getUserPointsData();
+    }
+
+    public UserModel (){
+        //empty user
+    }
 
     public void setUserNameData(String userName) {
         this.userName = userName;

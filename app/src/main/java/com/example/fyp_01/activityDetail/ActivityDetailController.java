@@ -1,6 +1,8 @@
 package com.example.fyp_01.activityDetail;
 
 import android.content.Intent;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
@@ -10,11 +12,15 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import com.example.fyp_01.R;
+import com.example.fyp_01.database.DatabaseHelper;
 import com.example.fyp_01.recommendations.Controller;
 import com.example.fyp_01.recommendations.Model;
+import com.example.fyp_01.user.UserController;
+import com.example.fyp_01.user.UserModel;
 
 public class ActivityDetailController extends AppCompatActivity {
     private Button mPlayButton;
@@ -23,15 +29,14 @@ public class ActivityDetailController extends AppCompatActivity {
 
     private CountDownTimer countDownTimer;
     private Boolean timerRunning;
-    private String name, type, workoutLvl, intensity, equipmentGroup;
-    private Bitmap img;
-    private long time;
+    private String name, type, workoutLvl, intensity, equipmentGroup, timeView;
+    private long timeInSeconds, timeInMillis, timeInMins;
+    private Bitmap imageToRetrieve;
+    private byte[] imgInByte;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
-        Bitmap imageToRetrieve;
-        byte[] imgInByte;
 
         Intent intent = getIntent();
         name = intent.getStringExtra("name");
@@ -39,7 +44,12 @@ public class ActivityDetailController extends AppCompatActivity {
         workoutLvl = intent.getStringExtra("workoutLvl");
         intensity = intent.getStringExtra("intensity");
         equipmentGroup = intent.getStringExtra("equipmentGroup");
-        time =  intent.getIntExtra("time", 0)/1000;
+        timeInMillis =  intent.getIntExtra("time", 0);
+
+        timeInMins = timeInMillis/60000;
+        timeInSeconds = (timeInMillis%60000)/1000;
+        timeView = displayTime(timeInMins, timeInSeconds);
+
         imgInByte = intent.getByteArrayExtra("image");
         imageToRetrieve = BitmapFactory.decodeByteArray(imgInByte, 0, imgInByte.length);
 
@@ -58,60 +68,93 @@ public class ActivityDetailController extends AppCompatActivity {
         mActivityWorkoutLvl.setText(workoutLvl);
         mActivityIntensity.setText(intensity);
         mEquipmentGroup.setText(equipmentGroup);
-        mActivityTime.setText(String.valueOf(time));
+        mActivityTime.setText(String.valueOf(timeView));
         mImageView.setImageBitmap(imageToRetrieve);
 
-        /*mPlayButton.setOnClickListener(new View.OnClickListener() {
+        timerRunning = false;
+        mPlayButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startStop();
             }
-        });*/
+        });
+        updateTimer();
     }
 
-   /* private void startStop(){
+    private void startStop(){
         if(timerRunning){
             stopTimer();
+            timerRunning = false;
         } else{
             startTimer();
+            timerRunning = true;
         }
     }
 
     private void startTimer(){
-        countDownTimer = new CountDownTimer(time, 1000){
+        countDownTimer = new CountDownTimer(timeInMillis, 1000){
             @Override
             public void onTick(long millisUntilFinished) {
-                time = millisUntilFinished;
+                timeInMillis = millisUntilFinished;
                 updateTimer();
             }
 
             @Override
             public void onFinish(){
-
+                addPoints();
             }
         }.start();
         mPlayButton.setText("Stop");
-        timerRunning = true;
     }
 
     private void stopTimer() {
         countDownTimer.cancel();
-        mPlayButton.setText("Stop");
-        timerRunning = false;
+        mPlayButton.setText("Start");
     }
 
     private void updateTimer() {
-        int minutes = (int) time/60000;
-        int seconds = (int) (time%60000)/1000;
+        int minutes = (int) timeInMillis/60000;
+        int seconds = (int) timeInMillis%60000/1000;
 
-        String timeLeftText;
+        timeView = displayTime(minutes, seconds);
+        mActivityTimer.setText(timeView);
+    }
 
-        timeLeftText = "" + minutes + ":";
-        // if digits is less than 10, add 0 string for the next iteration to be 09 instead of 9.
-        if(seconds<10) timeLeftText += "0";
-        timeLeftText += seconds;
+    private String displayTime(long timeInMins, long timeInSeconds){
+        timeView = "";
+        timeView = timeInMins+":";
+        if(timeInSeconds<10) timeView += "0";
+        timeView += timeInSeconds;
 
-        mActivityTimer.setText(timeLeftText);
-    }*/
+        return timeView;
+    }
 
+    private void addPoints(){
+        int pointsAdded, points = 0;
+
+        SQLiteDatabase db = DatabaseHelper.getInstance(this).getWritableDatabase();
+        Cursor cursor = db.rawQuery("select * from users_table", null);
+        if (cursor.moveToFirst()) {
+            do{
+                points = cursor.getInt(6);
+            } while (cursor.moveToNext());
+        }
+        cursor.close();
+        switch (intensity){
+            case("Easy"):
+                pointsAdded = 1;
+                break;
+            case("Moderate"):
+                pointsAdded = 2;
+                break;
+            case("Hard"):
+                pointsAdded = 3;
+                break;
+            default:
+                pointsAdded = 0;
+        }
+        points+=pointsAdded;
+        db.execSQL("UPDATE users_table SET users_points="+points);
+        Toast.makeText(ActivityDetailController.this, "Points Added "+pointsAdded+"!", Toast.LENGTH_LONG).show();
+    }
 }

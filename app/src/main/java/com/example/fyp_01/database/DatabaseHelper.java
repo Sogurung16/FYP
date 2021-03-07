@@ -21,7 +21,7 @@ public class  DatabaseHelper extends SQLiteOpenHelper {
 
     private static final String DATABASE_NAME = "MyDatabase.db";
 
-    private static final int VERSION_NAME = 13;
+    private static final int VERSION_NAME = 14;
     private static final String TABLE_USER = "users_table";
     private static final String KEY_USER_ID = "users_id";
     private static final String KEY_USER_NAME = "users_name";
@@ -40,9 +40,21 @@ public class  DatabaseHelper extends SQLiteOpenHelper {
     private static final String KEY_ACTIVITIES_EQUIPMENT_GROUP = "activities_equipment_group";
     private static final String KEY_ACTIVITIES_TIME = "activities_time";
     private static final String KEY_ACTIVITIES_IMAGE = "activities_image";
+    private static final String KEY_ACTIVITIES_PREMIUM = "activities_premium";
 
     private ByteArrayOutputStream objectByteArrayOutputStream;
     private byte[] imgInByte;
+
+    private static DatabaseHelper mInstance = null;
+
+    public static DatabaseHelper getInstance(Context activityContext) {
+
+        // Get the application context from the activityContext to prevent leak
+        if (mInstance == null) {
+            mInstance = new DatabaseHelper (activityContext.getApplicationContext());
+        }
+        return mInstance;
+    }
 
     public DatabaseHelper(@Nullable Context context) {
         super(context, DATABASE_NAME, null, VERSION_NAME);
@@ -56,7 +68,8 @@ public class  DatabaseHelper extends SQLiteOpenHelper {
 
         db.execSQL("CREATE TABLE " + TABLE_ACTIVITIES + " (" + KEY_ACTIVITIES_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " + KEY_ACTIVITIES_NAME + " TEXT, " +
                 KEY_ACTIVITIES_ACTIVITY_TYPE + " TEXT, " + KEY_ACTIVITIES_WORKOUT_LEVEL + " TEXT, " +
-                KEY_ACTIVITIES_INTENSITY_LEVEL + " TEXT," + KEY_ACTIVITIES_EQUIPMENT_GROUP + " TEXT, " + KEY_ACTIVITIES_TIME + " TEXT, " + KEY_ACTIVITIES_IMAGE + " BLOB" + ")");
+                KEY_ACTIVITIES_INTENSITY_LEVEL + " TEXT," + KEY_ACTIVITIES_EQUIPMENT_GROUP + " TEXT, "
+                + KEY_ACTIVITIES_TIME + " TEXT, " + KEY_ACTIVITIES_IMAGE + " BLOB," + KEY_ACTIVITIES_PREMIUM + " TEXT" +")");
     }
 
     @Override
@@ -92,6 +105,30 @@ public class  DatabaseHelper extends SQLiteOpenHelper {
         }
     }
 
+    public UserModel getUserData() {
+        UserModel user = new UserModel();
+        String name, goal, intensity, workoutGroup, equipmentGroup;
+        int userPoints;
+
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery("select * from users_table", null);
+
+        if (cursor.getCount() != 0) {
+            while (cursor.moveToNext()) {
+                //int id = cursor.getInt(0);
+                name = cursor.getString(1);
+                workoutGroup = cursor.getString(2);
+                goal = cursor.getString(3);
+                intensity = cursor.getString(4);
+                equipmentGroup = cursor.getString(5);
+                userPoints = cursor.getInt(6);
+
+                user = new UserModel(name, goal, workoutGroup, intensity, equipmentGroup, userPoints);
+            }
+        }
+        return user;
+    }
+
     public void deleteUserData(){
         SQLiteDatabase db = this.getWritableDatabase();
         db.execSQL("delete from " + TABLE_USER);
@@ -114,6 +151,7 @@ public class  DatabaseHelper extends SQLiteOpenHelper {
             contentValues.put(KEY_ACTIVITIES_EQUIPMENT_GROUP, model.getEquipmentGroup());
             contentValues.put(KEY_ACTIVITIES_TIME, model.getActivitiesTime());
             contentValues.put(KEY_ACTIVITIES_IMAGE, imgInByte);
+            contentValues.put(KEY_ACTIVITIES_PREMIUM, model.getPremium());
 
 
             long result = db.insert(TABLE_ACTIVITIES, null, contentValues);
@@ -134,6 +172,7 @@ public class  DatabaseHelper extends SQLiteOpenHelper {
         ArrayList<Model> models = new ArrayList<>();
         Bitmap imageToRetrieve;
         String activityName, activityType, activityWorkoutLvl, activityIntensityLvl, activityEquipmentGroup;
+        int premium;
         int activityTime;
 
         SQLiteDatabase db = this.getReadableDatabase();
@@ -149,9 +188,10 @@ public class  DatabaseHelper extends SQLiteOpenHelper {
                 activityEquipmentGroup = cursor.getString(5);
                 activityTime = cursor.getInt(6);
                 imgInByte = cursor.getBlob(7);
+                premium = cursor.getInt(8);
                 imageToRetrieve = BitmapFactory.decodeByteArray(imgInByte, 0, imgInByte.length);
                 Model Model = new Model(activityName, activityType, activityWorkoutLvl, activityIntensityLvl,
-                        activityEquipmentGroup, activityTime, imageToRetrieve);
+                        activityEquipmentGroup, activityTime, imageToRetrieve, premium);
                 models.add(Model);
             }
         }

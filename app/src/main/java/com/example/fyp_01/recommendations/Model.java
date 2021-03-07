@@ -7,12 +7,12 @@ import android.os.Parcelable;
 public class Model implements Parcelable {
 
     private String activitiesName, activitiesIntensityLvl, activitiesWorkoutLvl, activitiesEquipmentGroup;
-    private int activitiesTime;
+    private int activitiesTime, premium;
     private Bitmap activitiesImage;
     private String activitiesType;
 
-    public Model(String activitiesName, String activitiesType, String activitiesIntensityLvl,
-                 String activitiesWorkoutLvl, String activitiesEquipmentGroup, int activitiesTime, Bitmap activitiesImage) {
+    public Model(String activitiesName, String activitiesType, String activitiesWorkoutLvl, String activitiesIntensityLvl,
+                  String activitiesEquipmentGroup, int activitiesTime, Bitmap activitiesImage, int premium) {
         this.activitiesName = activitiesName;
         this.activitiesType = activitiesType;
         this.activitiesIntensityLvl = activitiesIntensityLvl;
@@ -20,6 +20,7 @@ public class Model implements Parcelable {
         this.activitiesEquipmentGroup = activitiesEquipmentGroup;
         this.activitiesTime = activitiesTime;
         this.activitiesImage = activitiesImage;
+        this.premium = premium;
     }
 
     public Model(Model model){
@@ -30,6 +31,7 @@ public class Model implements Parcelable {
         this.activitiesEquipmentGroup = model.activitiesEquipmentGroup;
         this.activitiesTime = model.activitiesTime;
         this.activitiesImage = model.activitiesImage;
+        this.premium = model.premium;
     }
 
     public Model(){
@@ -44,6 +46,7 @@ public class Model implements Parcelable {
         activitiesTime = in.readInt();
         activitiesImage = in.readParcelable(Bitmap.class.getClassLoader());
         activitiesType = in.readString();
+        premium = in.readInt();
     }
 
     public static final Creator<Model> CREATOR = new Creator<Model>() {
@@ -79,7 +82,9 @@ public class Model implements Parcelable {
     public void setActivitiesImage(Bitmap ActivitiesImage) {
         this.activitiesImage = ActivitiesImage;
     }
-
+    public void setPremium(int premium){
+        this.premium = premium;
+    }
 
     public String getActivitiesName(){
         return activitiesName;
@@ -100,6 +105,7 @@ public class Model implements Parcelable {
     public Bitmap getActivitiesImage(){
         return activitiesImage;
     }
+    public int getPremium(){return premium;}
 
     @Override
     public int describeContents() {
@@ -115,5 +121,6 @@ public class Model implements Parcelable {
         dest.writeInt(activitiesTime);
         dest.writeParcelable(activitiesImage, flags);
         dest.writeString(activitiesType);
+        dest.writeInt(premium);
     }
 }

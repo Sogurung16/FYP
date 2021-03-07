@@ -51,7 +51,6 @@ public class UserController extends AppCompatActivity{
         user.setIntensitySpinnerArrayData(intensitySpinnerOptions());
         user.setWorkoutGroupSpinnerArrayData(workoutGroupSpinnerOptions());
         user.setEquipmentGroupSpinnerArrayData(equipmentGroupSpinnerOptions());
-        user.setUserPointsData(0);
 
         ArrayAdapter<String> goalAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, user.getUserGoalSpinnerArrayData());
         mUserGoalInput.setAdapter(goalAdapter);
@@ -169,6 +168,9 @@ public class UserController extends AppCompatActivity{
     protected Boolean addUser(){
         databaseHelper = new DatabaseHelper(this);
         databaseHelper.deleteUserData();
+        if(user.getUserPointsData()<=0) {
+            user.setUserPointsData(0);
+        }
         boolean isInserted = databaseHelper.addUserData(user);
 
         if(isInserted == true){
@@ -187,7 +189,7 @@ public class UserController extends AppCompatActivity{
     }
 
     public UserModel retrieveUserData(){
-        user.setUserNameData(mUserNameInput.getText().toString());
+        user.setUserNameData(user.getUserNameData());
         user.setWorkoutGroupData(user.getWorkoutGroupData());
         user.setUserGoalData(user.getUserGoalData());
         user.setEquipmentGroupData(user.getEquipmentGroupData());
@@ -198,6 +200,7 @@ public class UserController extends AppCompatActivity{
     }
 
     public void addUserButton(View view){
+        user.setUserNameData(mUserNameInput.getText().toString());
         retrieveUserData();
         if(user.getUserNameData().length()<=0 | user.getUserNameData()==null){
             Toast.makeText(UserController.this, buildToastMessage(" NOT") + "\nInvalid Name", Toast.LENGTH_LONG).show();
