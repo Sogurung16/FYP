@@ -12,12 +12,11 @@
         android:orientation="vertical"
         tools:context=".recommendations.Controller">
 
-        <ImageButton
+        <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/imageButton"
-            android:background="@drawable/strength"
-            android:onClick="navigateToActivityDetailPage" />
+            android:id="@+id/imageView"
+            android:background="@drawable/strength"/>
 
         <TextView
             android:id="@+id/textView"

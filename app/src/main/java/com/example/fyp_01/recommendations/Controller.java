@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
-import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.DefaultItemAnimator;
@@ -18,11 +17,17 @@ import com.example.fyp_01.R;
 import com.example.fyp_01.activityDetail.ActivityDetailController;
 import com.example.fyp_01.database.DatabaseHelper;
 
+import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 public class Controller extends AppCompatActivity {
+    private RecommendationAdapter recommendationAdapter;
+    private StretchingAdapter stretchingAdapter;
+    private EnduranceAdapter enduranceAdapter;
+    private StrengthAdapter strengthAdapter;
+
     private DatabaseHelper databaseHelper;
     private RecyclerView mStretchingRecyclerView, mEnduranceRecyclerView, mStrengthRecyclerView, mRecommendationRecyclerView;
     private ArrayList<Model> models, stretchingAdapterModels, enduranceAdapterModels, strengthAdapterModels,recommendationAdapterModels;
@@ -75,17 +80,29 @@ public class Controller extends AppCompatActivity {
         setRecyclerView();
     }
 
-    private void setRecyclerView(){
-        //Initialize adapters
-        RecommendationAdapter recommendationAdapter;
-        StretchingAdapter stretchingAdapter;
-        EnduranceAdapter enduranceAdapter;
-        StrengthAdapter strengthAdapter;
+    public void setRecyclerView(){
         //Set Adapters to their respective RecyclerView
         recommendationAdapter = new RecommendationAdapter(Controller.this, recommendationAdapterModels);
         mRecommendationRecyclerView.setAdapter(recommendationAdapter);
+        recommendationAdapter.setOnItemClickListener(new RecommendationAdapter.OnItemClickListener(){
+            @Override
+            public void onItemClick(int position) {
+                Intent activityDetailIntent = new Intent(Controller.this, ActivityDetailController.class);
+                model = recommendationAdapterModels.get(position);
+                putExtraContent(activityDetailIntent);
+                startActivity(activityDetailIntent);
+            }
+        });
         stretchingAdapter = new StretchingAdapter(Controller.this, stretchingAdapterModels);
         mStretchingRecyclerView.setAdapter(stretchingAdapter);
+        stretchingAdapter.setOnItemClickListener(new StretchingAdapter.OnItemClickListener(){
+            @Override
+            public void onItemClick(int position) {
+                Intent activityDetailIntent = new Intent(Controller.this, ActivityDetailController.class);
+                //activityDetailIntent.putExtra("selected_activity", stretchingAdapterModels.get(position));
+                startActivity(activityDetailIntent);
+            }
+        });
         enduranceAdapter = new EnduranceAdapter(Controller.this, enduranceAdapterModels);
         mEnduranceRecyclerView.setAdapter(enduranceAdapter);
         strengthAdapter = new StrengthAdapter(Controller.this, strengthAdapterModels);
@@ -138,7 +155,7 @@ public class Controller extends AppCompatActivity {
         return recommendationAdapterModels;
     }
 
-    private void designHorizontalLayout(){
+    public void designHorizontalLayout(){
         //Design Horizontal Layout
         LinearLayoutManager recommendationLayoutManager = new LinearLayoutManager(Controller.this, LinearLayoutManager.HORIZONTAL,false);
         LinearLayoutManager stretchingLayoutManager = new LinearLayoutManager(Controller.this, LinearLayoutManager.HORIZONTAL,false);
@@ -154,10 +171,11 @@ public class Controller extends AppCompatActivity {
         mStrengthRecyclerView.setItemAnimator(new DefaultItemAnimator());
     }
 
-    public void navigateToActivityDetailPage(View view){
+   /* public void navigateToActivityDetailPage(View view){
         Intent activityDetailIntent = new Intent(this, ActivityDetailController.class);
+        activityDetailIntent.putExtra("selected_activity", models.get(position));
         startActivity(activityDetailIntent);
-    }
+    }*/
 
     private ArrayList<Model> fakeActivityData(){
         String[] names, intensityLvls, workoutLvls, equipmentGroups;
@@ -175,7 +193,7 @@ public class Controller extends AppCompatActivity {
         intensityLvls = new String[]{"Easy", "Moderate", "Easy", "Easy", "Easy"};
         workoutLvls = new String[]{"Beginner", "Intermediate", "Beginner", "Beginner", "Beginner"};
         equipmentGroups = new String[]{"None", "None", "None", "None", "None"};
-        times = new int[]{5,5,5,5,5};
+        times = new int[]{5000,5000,5000,5000,5000};
         drawableIds = new int[]{stretchingLogo, stretchingLogo, stretchingLogo, stretchingLogo, stretchingLogo};
         //drawableIds = new int[]{R.drawable.yoga_101, R.drawable.yoga_core, R.drawable.legs_warmup, R.drawable.legs_cooldown, R.drawable.recovery_mobility};
         addNewActivitiesData(names, activityType, intensityLvls, workoutLvls, equipmentGroups, times, drawableIds);
@@ -185,7 +203,7 @@ public class Controller extends AppCompatActivity {
         intensityLvls = new String[]{"Moderate", "Easy", "Easy", "Hard", "Hard"};
         workoutLvls = new String[]{"Intermediate", "Intermediate", "Beginner", "Advanced", "Intermediate"};
         equipmentGroups = new String[]{"Basic", "None", "None", "Full", "Full"};
-        times = new int[]{5,5,5,5,5};
+        times = new int[]{5000,5000,5000,5000,5000};
         drawableIds = new int[]{enduranceLogo, enduranceLogo, enduranceLogo, enduranceLogo, enduranceLogo};
         //drawableIds = new int[]{R.drawable.speed_circuit, R.drawable.runner_up, R.drawable.basic_burn,R.drawable.explosive_ignition,R.drawable.hit_challenge};
         addNewActivitiesData(names, activityType, intensityLvls, workoutLvls, equipmentGroups, times, drawableIds);
@@ -195,7 +213,7 @@ public class Controller extends AppCompatActivity {
         intensityLvls = new String[]{"Hard", "Moderate", "Easy", "Moderate", "Hard"};
         workoutLvls = new String[]{"Intermediate", "Intermediate", "Beginner", "Advanced", "Advanced"};
         equipmentGroups = new String[]{"None", "Basic", "None", "Full", "None"};
-        times = new int[]{5,5,5,5,5};
+        times = new int[]{5000,5000,5000,5000,5000};
         drawableIds = new int[]{strengthLogo, strengthLogo, strengthLogo, strengthLogo, strengthLogo};
         addNewActivitiesData(names, activityType, intensityLvls, workoutLvls, equipmentGroups, times, drawableIds);
 
@@ -229,6 +247,24 @@ public class Controller extends AppCompatActivity {
 
         List<String> recommendationList = Arrays.asList(recommendation.split("\n"));
         return recommendationList;
+    }
+
+    private void putExtraContent(Intent activityDetailIntent){
+        ByteArrayOutputStream objectByteArrayOutputStream;
+        byte[] imgInByte;
+
+        Bitmap imageToStoreBitmap = model.getActivitiesImage();
+        objectByteArrayOutputStream = new ByteArrayOutputStream();
+        imageToStoreBitmap.compress(Bitmap.CompressFormat.JPEG, 100, objectByteArrayOutputStream);
+        imgInByte = objectByteArrayOutputStream.toByteArray();
+
+        activityDetailIntent.putExtra("name", model.getActivitiesName());
+        activityDetailIntent.putExtra("type", model.getActivitiesType());
+        activityDetailIntent.putExtra("workoutLvl", model.getWorkoutLvl());
+        activityDetailIntent.putExtra("intensity", model.getIntensityLvl());
+        activityDetailIntent.putExtra("equipmentGroup", model.getEquipmentGroup());
+        activityDetailIntent.putExtra("time", model.getActivitiesTime());
+        activityDetailIntent.putExtra("image", imgInByte);
     }
 
     public List<String> getRecommendationList() {

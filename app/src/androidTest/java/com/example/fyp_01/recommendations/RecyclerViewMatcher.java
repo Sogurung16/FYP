@@ -3,6 +3,10 @@ package com.example.fyp_01.recommendations;
 import android.content.res.Resources;
 import androidx.recyclerview.widget.RecyclerView;
 import android.view.View;
+
+import com.example.fyp_01.R;
+import com.example.fyp_01.activityDetail.ActivityDetailController;
+
 import org.hamcrest.Description;
 import org.hamcrest.Matcher;
 import org.hamcrest.TypeSafeMatcher;

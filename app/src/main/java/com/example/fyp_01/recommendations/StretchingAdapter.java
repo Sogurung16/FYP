@@ -4,7 +4,7 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -17,6 +17,7 @@ import java.util.ArrayList;
 public class StretchingAdapter extends RecyclerView.Adapter<StretchingAdapter.ViewHolder> {
     ArrayList<Model> models;
     Context context;
+    StretchingAdapter.OnItemClickListener mListener;
 
     public StretchingAdapter(Context context, ArrayList<Model> models) {
         this.context = context;
@@ -28,7 +29,7 @@ public class StretchingAdapter extends RecyclerView.Adapter<StretchingAdapter.Vi
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         //Create View
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.activities_stretching_item, parent, false);
-        return new ViewHolder(view);
+        return new ViewHolder(view, mListener);
     }
 
     @Override
@@ -36,7 +37,7 @@ public class StretchingAdapter extends RecyclerView.Adapter<StretchingAdapter.Vi
         Model model = models.get(position);
 
         holder.mTextView.setText(model.getActivitiesName());
-        holder.mImageButton.setImageBitmap(model.getActivitiesImage());
+        holder.mImageView.setImageBitmap(model.getActivitiesImage());
     }
 
     @Override
@@ -44,16 +45,36 @@ public class StretchingAdapter extends RecyclerView.Adapter<StretchingAdapter.Vi
         return models.size();
     }
 
+    public interface OnItemClickListener {
+        void onItemClick(int position);
+    }
+
+    public void setOnItemClickListener(StretchingAdapter.OnItemClickListener listener){
+        mListener = listener;
+    }
+
     public class ViewHolder extends RecyclerView.ViewHolder {
         //Initialize Variables
-        ImageButton mImageButton;
+        ImageView mImageView;
         TextView mTextView;
 
-        public ViewHolder(@NonNull View itemView) {
+        public ViewHolder(@NonNull View itemView, final StretchingAdapter.OnItemClickListener listener) {
             super(itemView);
             //Assign Variable
-            mImageButton = itemView.findViewById(R.id.imageButton);
+            mImageView = itemView.findViewById(R.id.imageView);
             mTextView = itemView.findViewById(R.id.textView);
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if(listener != null){
+                        int position = getAdapterPosition();
+                        if(position!=RecyclerView.NO_POSITION){
+                            listener.onItemClick(position);
+                        }
+                    }
+                }
+            });
         }
     }
 }
