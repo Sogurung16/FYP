@@ -185,6 +185,15 @@ public class Controller extends AppCompatActivity {
                                 unlock = true;
                                 points -= 9;
                                 setUserPoints(points);
+                                model.setPremium(0);
+                                SQLiteDatabase db = DatabaseHelper.getInstance(Controller.this).getWritableDatabase();
+                                db.execSQL("UPDATE activities_table SET activities_premium=" + model.getPremium()+" WHERE activities_name = " + "'"+
+                                        model.getActivitiesName() + "'");
+                                db.close();
+                                Intent currentIntent = getIntent();
+                                finish();
+                                startActivity(currentIntent);
+
                             } else {
                                 Toast.makeText(Controller.this, "Not enough Points", Toast.LENGTH_LONG).show();
                                 unlock = false;
@@ -200,13 +209,6 @@ public class Controller extends AppCompatActivity {
 
                     dialog = builder.create();
                     dialog.show();
-                    if (unlock) {
-                        model.setPremium(0);
-                        SQLiteDatabase db = DatabaseHelper.getInstance(Controller.this).getWritableDatabase();
-                        db.execSQL("UPDATE activities_table SET activities_premium=" + model.getPremium()+" WHERE activities_name ="+
-                        model.getActivitiesName());
-                        db.close();
-                    }
                     unlock = false;
                 }else{
                     startIntent(premiumAdapterModels, position);
