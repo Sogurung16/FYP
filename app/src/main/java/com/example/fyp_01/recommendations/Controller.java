@@ -47,7 +47,6 @@ public class Controller extends AppCompatActivity {
     private Model model;
     private String activityType;
     private int premium, points;
-    private boolean unlock;
     private String recommendation = "";
 
     @Override
@@ -149,7 +148,7 @@ public class Controller extends AppCompatActivity {
         stretchingAdapter.setOnItemClickListener(new StretchingAdapter.OnItemClickListener(){
             @Override
             public void onItemClick(int position) {
-                startIntent(recommendationAdapterModels, position);
+                startIntent(stretchingAdapterModels, position);
             }
         });
         enduranceAdapter = new EnduranceAdapter(Controller.this, enduranceAdapterModels);
@@ -182,7 +181,6 @@ public class Controller extends AppCompatActivity {
                         public void onClick(DialogInterface dialog, int which) {
                             if (getUserPoints() >= 9) {
                                 Toast.makeText(Controller.this, "Unlocked!", Toast.LENGTH_LONG).show();
-                                unlock = true;
                                 points -= 9;
                                 setUserPoints(points);
                                 model.setPremium(0);
@@ -196,20 +194,17 @@ public class Controller extends AppCompatActivity {
 
                             } else {
                                 Toast.makeText(Controller.this, "Not enough Points", Toast.LENGTH_LONG).show();
-                                unlock = false;
                             }
                         }
                     });
                     builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-                            unlock = false;
                         }
                     });
 
                     dialog = builder.create();
                     dialog.show();
-                    unlock = false;
                 }else{
                     startIntent(premiumAdapterModels, position);
                 }
@@ -410,7 +405,7 @@ public class Controller extends AppCompatActivity {
 
     private void setUserPoints(int points){
         SQLiteDatabase db = DatabaseHelper.getInstance(this).getWritableDatabase();
-        db.execSQL("UPDATE users_table SET users_points="+points);
+        db.execSQL("UPDATE users_table SET users_points="+points+" "+" WHERE users_id = 1");
         db.close();
     }
 

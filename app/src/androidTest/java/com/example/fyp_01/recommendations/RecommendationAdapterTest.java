@@ -36,11 +36,12 @@ public class RecommendationAdapterTest {
         Intents.init();
     }
 
-    /*@Test //iteration 3 test
+    @Test //iteration 3 test
     public void testRecommendationsClick(){
         onView(withId(R.id.recommendationRecyclerview))
                 .perform(RecyclerViewActions.actionOnItemAtPosition(0, click()));
-    }*/
+        onView(withId(R.id.playButton)).perform(click());
+    }
 
     @Test
     public void testCorrectRecommendationsDisplayedInView(){

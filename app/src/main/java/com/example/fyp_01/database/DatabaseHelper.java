@@ -21,7 +21,7 @@ public class  DatabaseHelper extends SQLiteOpenHelper {
 
     private static final String DATABASE_NAME = "MyDatabase.db";
 
-    private static final int VERSION_NAME = 17;
+    private static final int VERSION_NAME = 18;
     private static final String TABLE_USER = "users_table";
     private static final String KEY_USER_ID = "users_id";
     private static final String KEY_USER_NAME = "users_name";

@@ -135,11 +135,9 @@ public class ActivityDetailController extends AppCompatActivity {
         SQLiteDatabase db = DatabaseHelper.getInstance(this).getWritableDatabase();
         Cursor cursor = db.rawQuery("select * from users_table", null);
         if (cursor.moveToFirst()) {
-            do{
-                points = cursor.getInt(6);
-            } while (cursor.moveToNext());
+            points = cursor.getInt(6);
         }
-        cursor.close();
+
         switch (intensity){
             case("Easy"):
                 pointsAdded = 1;
@@ -154,7 +152,17 @@ public class ActivityDetailController extends AppCompatActivity {
                 pointsAdded = 0;
         }
         points+=pointsAdded;
-        db.execSQL("UPDATE users_table SET users_points="+points);
+        db.execSQL("UPDATE users_table SET users_points="+points+" "+"WHERE users_id = 1");
         Toast.makeText(ActivityDetailController.this, "Points Added "+pointsAdded+"!", Toast.LENGTH_LONG).show();
+        int count = cursor.getCount();
+        while(count>10){
+            db.execSQL("DELETE FROM users_table WHERE users_id in (SELECT users_id FROM users_table LIMIT 1 OFFSET 1)");//delete the 2nd row of users profile. 1st row = initial user preferences
+            cursor = db.rawQuery("select * from users_table", null);
+            count = cursor.getCount();
+        }
+        cursor.close();
+        db.execSQL("INSERT INTO users_table (users_name, users_goal, users_workout_group, users_intensity, users_equipment_group) " +
+                "VALUES ("+"'"+name+"'"+", "+"'"+type+"'"+", "+"'"+workoutLvl+"'"+", "+"'"+intensity+"'"+", "+"'"+equipmentGroup+"'"+")");
+        db.close();
     }
 }

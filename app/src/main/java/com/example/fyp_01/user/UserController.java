@@ -128,7 +128,7 @@ public class UserController extends AppCompatActivity{
         List<String> spinnerArray = new ArrayList<String>();
         spinnerArray.add("");
         spinnerArray.add("Endurance");
-        spinnerArray.add("Strengthening");
+        spinnerArray.add("Strength");
         spinnerArray.add("Stretching");
 
         return spinnerArray;
@@ -212,4 +212,13 @@ public class UserController extends AppCompatActivity{
             addUser();
         }
     }
+
+    /*public void updateUserProfile(String goal, String workoutLvl, String intensity, String equipmentGroup){
+        databaseHelper = new DatabaseHelper(this);
+        user.setUserGoalData(goal);
+        user.setWorkoutGroupData(workoutLvl);
+        user.setIntensityData(intensity);
+        user.setEquipmentGroupData(equipmentGroup);
+        databaseHelper.addUserData(user);
+    }*/
 }
