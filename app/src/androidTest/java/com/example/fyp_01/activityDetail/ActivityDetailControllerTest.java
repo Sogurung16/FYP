@@ -31,42 +31,19 @@ public class ActivityDetailControllerTest {
     @Before
     public void setUp(){
         // String to be typed for User name input
-        userName = "Sonam Gurung";
+       /* userName = "Sonam Gurung";
         goal = "Endurance";
         workoutGroup = "Beginner";
         intensity = "Easy";
-        equipmentGroup = "None";
-
+        equipmentGroup = "None";*/
         Intents.init();
     }
 
     @Test
     public void quickRun(){
-        /*//type Name field
-        onView(withId(R.id.userNameInput))
-                .perform(typeText(userName), ViewActions.closeSoftKeyboard());
-
-        //select spinner options
-        onView(withId(R.id.userGoalInput)).perform(click());
-        onData(allOf(is(instanceOf(String.class)),
-                is(goal))).perform(click());
-
-        onView(withId(R.id.workoutGroupInput)).perform(click());
-        onData(allOf(is(instanceOf(String.class)),
-                is(workoutGroup))).perform(click());
-
-        onView(withId(R.id.intensityInput)).perform(click());
-        onData(allOf(is(instanceOf(String.class)),
-                is(intensity))).perform(click());
-
-        onView(withId(R.id.equipmentGroupInput)).perform(click());
-        onData(allOf(is(instanceOf(String.class)),
-                is(equipmentGroup))).perform(click());
-
-        //click add button
-        onView(ViewMatchers.withId(R.id.addUser))
-                .perform(click());
-*/
-       // onView(withId(R.id.recommendationRecyclerview)).perform(RecyclerViewActions.actionOnItemAtPosition(0, click()));
+        onView(withId(R.id.recommendationRecyclerview))
+                .perform(RecyclerViewActions.actionOnItemAtPosition(0, click()));
+        onView(withId(R.id.playButton)).perform(click());
+        //await()
     }
 }

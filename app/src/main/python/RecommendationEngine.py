@@ -82,7 +82,7 @@ def get_recommendation(name, cosine_sim):
     sorted_sim_scores = sorted(sim_scores, key=lambda x: x[1], reverse=True)
 
     #Get the scores of the top n-1 most similar activities
-    n = 8
+    n = 6
     topN_sim_scores = sorted_sim_scores[1:n]
 
     #Get the activity indices
@@ -103,16 +103,26 @@ def get_recommendation(name, cosine_sim):
     print('Top N activities names:\n', recommendations)
 
 
+    total_activities = len(Y)
+    print('Total number of activities: ',total_activities)
     recommended = np.array([row[1] for row in topN_sim_scores])
     print('Recommended acitvities scores: ',recommended)
+    not_recommended = np.array([row[1] for row in sorted_sim_scores[n:16]])
+    print('Not Recommended acitvities scores: ',not_recommended)
     relevant = Y>=0.75
-    print('Relevant scores (>=75%): ',relevant)
+    print('Relevant scores (>=75%): ',relevant, sum(relevant))
     not_relevant = Y<0.75
-    print('Non Relevant scores (<75%): ',not_relevant)
+    print('Non Relevant scores (<75%): ',not_relevant, sum(not_relevant))
     recommended_and_relevant = recommended>=0.75
-    print('Recommended and Relevant: ',recommended_and_relevant)
+    print('(TP)Recommended and Relevant: ',recommended_and_relevant, sum(recommended_and_relevant))
     recommended_and_not_relevant = recommended<0.75
-    print('Recommended and Not Relevant: ',recommended_and_not_relevant)
+    print('(FP)Recommended and Not Relevant: ',recommended_and_not_relevant, sum(recommended_and_not_relevant))
+    not_recommended_and_relevant = not_recommended>=0.75
+    print('(FN)Not Recommended and Relevant: ',not_recommended_and_relevant, sum(not_recommended_and_relevant))
+    not_recommended_and_not_relevant = not_recommended<0.75
+    print('(TN)Not Recommended and Not Relevant: ',not_recommended_and_not_relevant, sum(not_recommended_and_not_relevant))
+
+
     precision = sum(recommended_and_relevant)/len(recommended)
     if(np.isnan(precision)):
         precision = 0
@@ -125,7 +135,9 @@ def get_recommendation(name, cosine_sim):
     if(np.isnan(false_positive_rate)):
         false_positive_rate = 0
     print('False Positive Rate: ', false_positive_rate*100, '%')
-
+    accuracy = (sum(recommended_and_relevant) + sum(not_recommended_and_not_relevant))/total_activities
+    print(sum(recommended_and_relevant)+sum(not_recommended_and_not_relevant))
+    print('Accuracy', accuracy*100, '%')
 
     return recommendationLines
 
@@ -154,4 +166,4 @@ dfActivities = dfActivities.reset_index()
 
 indices = pd.Series(dfActivities.index, index=dfActivities['name'])
 
-#main()
+main()

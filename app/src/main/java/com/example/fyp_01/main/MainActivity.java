@@ -3,13 +3,10 @@ package com.example.fyp_01.main;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.AlarmManager;
-import android.app.NotificationChannel;
-import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.os.Build;
 import android.os.Bundle;
 
 import com.example.fyp_01.R;
@@ -18,7 +15,6 @@ import com.example.fyp_01.recommendations.Controller;
 import com.example.fyp_01.user.UserController;
 
 import java.util.Calendar;
-import java.util.Date;
 
 public class MainActivity extends AppCompatActivity {
     SQLiteDatabase db;
