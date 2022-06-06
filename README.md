@@ -12,14 +12,9 @@ The concerns of maintainability were addressed through utilisation of a MVC desi
 | Objective | How this Objective is met |
 | --- | ---|
 |Background Research <br> - Research supervised/unsupervised learning, collaborative filtering, content-based filtering, Neural Networks and Hybrids.<br> - Based on the research, decide on the recommendation algorithm most suitable for the project.| Collaborative filtering and content-based filtering systems were researched and analysed to conclude the optimum filtering technique for the project. After research and analysis content-based filtering system was the most suitable filtering technique for the project.|
+|Requirements & Approach <br> - Based on the research stipulate requirements fit for the project.<br> - Consider the best approach of software development methodology for the proposed solution. |Requirements were formed taking in the consideration of challenges in recommendation systems, recommendation system algorithms, Habits in academic literature and existing systems. After careful analysis of waterfall and agile approaches. Elements of the agile approach was incorporated into the project development.|
+|Design <br> -  Design prototype/mock-ups, user flow diagram, entity relationship model to guide the implementation process. |Low fidelity and high-fidelity designs were utilised to design the user interface of the application. In addition, use case diagrams and descriptions were used to clarify the possible actions of the actors of the system. A layered architecture pattern presented the main components of the software system. Finally, class diagrams were used to design and represent the structural class architecture of the software system.|
  
-Requirements & Approach
-• Based on the research stipulate requirements fit for the project.
-• Consider the best approach of software development methodology for the proposed solution.
-Requirements were formed taking in the consideration of challenges in recommendation systems, recommendation system algorithms, Habits in academic literature and existing systems. After careful analysis of waterfall and agile approaches. Elements of the agile approach was incorporated into the project development.
-Design
-• Design prototype/mock-ups, user flow diagram, entity relationship model to guide the implementation process.
-Low fidelity and high-fidelity designs were utilised to design the user interface of the application. In addition, use case diagrams and descriptions were used to clarify the possible actions of the actors of the system. A layered architecture pattern presented the main components of the software system. Finally, class diagrams were used to design and represent the structural class architecture of the software system.
 Implementation
 • Implement software utilizing the design. Confirm the software meets the requirements specifications and provides a valid solution to the project aim.
 Implementation stage of this project shows that all the designs generated were utilised in the implementation process. In addition, all the requirements’ specifications mentioned in 4.2: Requirements were met.
