@@ -11,10 +11,7 @@ The concerns of maintainability were addressed through utilisation of a MVC desi
 ## Objectives & Were They Met
 | Objective | How this Objective is met |
 | --- | ---|
-|Background Research
- - Research supervised/unsupervised learning, collaborative filtering, content-based
- filtering, Neural Networks and Hybrids. 
- - Based on the research, decide on the recommendation algorithm most suitable for
+|Background Research <br> - Research supervised/unsupervised learning, collaborative filtering, content-based<br>filtering, Neural Networks and Hybrids.<br> - Based on the research, decide on the recommendation algorithm most suitable for
  the project| Collaborative filtering and content-based filtering systems were researched and analysed to conclude the optimum filtering technique for the project. After research and analysis content-based filtering system was the most suitable filtering technique for the project.|
  
 Requirements & Approach
