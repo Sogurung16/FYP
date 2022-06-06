@@ -9,8 +9,8 @@ In this dissertation, a solution has been provided to the challenging problem of
 The concerns of maintainability were addressed through utilisation of a MVC design pattern and abiding by the principles of object-oriented programming. Exhaustive test cases were generated to achieve a software system that is closer to being error-free. In addition, the software system is evaluated in relevance to its purpose. The resulting metrics performed on the recommendation engine summarise to be reliable. As well as the successful implementation of the principles of the habit loop integrated into the software system.
 
 ## Objectives & Were They Met
-| Objective                                                                          | How this Objective is met                                                    |
-| -----------------------------------------------------------------------------------|:----------------------------------------------------------------------------:|
+| Objective | How this Objective is met |
+| --- | ---|
 |Background Research
  - Research supervised/unsupervised learning, collaborative filtering, content-based
  filtering, Neural Networks and Hybrids. 
